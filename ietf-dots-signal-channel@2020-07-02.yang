@@ -35,10 +35,10 @@ module ietf-dots-signal-channel {
      WG List:  <mailto:dots&ietf.org>
 
      Editor:  Konda, Tirumaleswar Reddy.K
-              <mailto:TirumaleswarReddy_Konda@McAfee.com>
+              <mailto:TirumaleswarReddy_Konda&McAfee.com>
 
      Editor:  Mohamed Boucadair
-              <mailto:mohamed.boucadair@orange.com>
+              <mailto:mohamed.boucadair&orange.com>
 
      Author:  Prashanth Patil
               <mailto:praspati@cisco.com>
@@ -70,7 +70,8 @@ module ietf-dots-signal-channel {
     description
       "Updated revision.";
     reference
-      "RFC xxxx: xxx";
+      "RFC xxxx: A YANG Data Model for Distributed Denial-of-Service 
+                 Open Threat Signaling (DOTS) Signal Channel";
   }
 
   revision 2020-05-28 {
@@ -276,15 +277,6 @@ module ietf-dots-signal-channel {
          after mutual authentication is successfully
          completed in order to keep the DOTS signal channel
          open.";
-      leaf current-value {
-        type uint16;
-        units "seconds";
-        default "30";
-        description
-          "Current heartbeat-interval value.
-
-           '0' means that heartbeat mechanism is deactivated.";
-      }
       choice direction {
         description
           "xxx.";
@@ -305,16 +297,19 @@ module ietf-dots-signal-channel {
           }
         }
       }
+      leaf current-value {
+        type uint16;
+        units "seconds";
+        default "30";
+        description
+          "Current heartbeat-interval value.
+
+           '0' means that heartbeat mechanism is deactivated.";
+      }
     }
     container missing-hb-allowed {
       description
         "Maximum number of missing heartbeats allowed.";
-      leaf current-value {
-        type uint16;
-        default "15";
-        description
-          "Current missing-hb-allowed value.";
-      }
       choice direction {
         description
           "xxx.";
@@ -333,18 +328,17 @@ module ietf-dots-signal-channel {
           }
         }
       }
+      leaf current-value {
+        type uint16;
+        default "15";
+        description
+          "Current missing-hb-allowed value.";
+      }
     }
     container probing-rate {
       description
         "The limit for sending Non-confirmable messages with
          no response.";
-      leaf current-value {
-        type uint16;
-        units "byte/second";
-        default "5";
-        description
-          "Current probing-rate value.";
-      }
       choice direction {
         description
           "xxx.";
@@ -365,17 +359,18 @@ module ietf-dots-signal-channel {
           }
         }
       }
+      leaf current-value {
+        type uint16;
+        units "byte/second";
+        default "5";
+        description
+          "Current probing-rate value.";
+      }
     }
     container max-retransmit {
       description
         "Maximum number of retransmissions of a Confirmable
          message.";
-      leaf current-value {
-        type uint16;
-        default "3";
-        description
-          "Current max-retransmit value.";
-      }
       choice direction {
         description
           "xxx.";
@@ -394,19 +389,16 @@ module ietf-dots-signal-channel {
           }
         }
       }
+      leaf current-value {
+        type uint16;
+        default "3";
+        description
+          "Current max-retransmit value.";
+      }
     }
     container ack-timeout {
       description
         "Initial retransmission timeout value.";
-      leaf current-value-decimal {
-        type decimal64 {
-          fraction-digits 2;
-        }
-        units "seconds";
-        default "2";
-        description
-          "Current ack-timeout value.";
-      }
       choice direction {
         description
           "xxx.";
@@ -431,19 +423,20 @@ module ietf-dots-signal-channel {
           }
         }
       }
+      leaf current-value-decimal {
+        type decimal64 {
+          fraction-digits 2;
+        }
+        units "seconds";
+        default "2";
+        description
+          "Current ack-timeout value.";
+      }
     }
     container ack-random-factor {
       description
         "Random factor used to influence the timing of
          retransmissions.";
-      leaf current-value-decimal {
-        type decimal64 {
-          fraction-digits 2;
-        }
-        default "1.5";
-        description
-          "Current ack-random-factor value.";
-      }
       choice direction {
         description
           "xxx.";
@@ -465,6 +458,14 @@ module ietf-dots-signal-channel {
               "Minimum acceptable ack-random-factor value.";
           }
         }
+      }
+      leaf current-value-decimal {
+        type decimal64 {
+          fraction-digits 2;
+        }
+        default "1.5";
+        description
+          "Current ack-random-factor value.";
       }
     }
   }
