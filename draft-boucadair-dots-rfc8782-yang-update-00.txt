@@ -90,10 +90,10 @@ Table of Contents
    of [RFC8782].
 
    This YANG module is not intended to be used via NETCONF/RESTCONF for
-   DOTS server management purposes; such module is out of the scope of
-   this document.  It serves only to provide a data model and encoding,
-   but not a management data model.  To that aim, this document uses the
-   specified in [RFC8791].
+   DOTS server management purposes; such a module is out of the scope of
+   this document.  It serves only to provide abstract data structures.
+   This document uses the the "structure" extension specified in
+   [RFC8791].
 
    The meaning of the symbols in YANG tree diagrams is defined in
    [RFC8340] and [RFC8791].
@@ -114,10 +114,10 @@ Boucadair & Shallow      Expires January 4, 2021                [Page 2]
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
-   o  Add a "choice" to indicate the communication direction in which a
-      data structure applies.  If no 'direction' is indicated, a node
-      can appear in both directions (i.e., from DOTS client to DOTS
-      server and vice versa).
+   o  Add in "choice" to indicate the communication direction in which a
+      data node applies.  If no 'choice' is indicated, a node can appear
+      in both directions (i.e., from DOTS client to DOTS server and vice
+      versa).
 
    o  Remove "cuid", "cdid", and "sid" nodes from the structure because
       these nodes are included as URI-Paths, not within the message
@@ -149,7 +149,7 @@ structure ietf-dots-signal-channel:
         |     +-- lifetime?                     int32
         |     +-- trigger-mitigation?           boolean
         |     +-- (direction)?
-        |        +--:(server-to-client)
+        |        +--:(server-to-client-only)
         |           +-- mid?                    uint32
         |           +-- mitigation-start?       uint64
         |           +-- status?                 iana-signal:status
@@ -191,31 +191,31 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
         |  +-- mitigating-config
         |  |  +-- heartbeat-interval
         |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client)
+        |  |  |  |  +--:(server-to-client-only)
         |  |  |  |     +-- max-value?   uint16
         |  |  |  |     +-- min-value?   uint16
         |  |  |  +-- current-value?     uint16
         |  |  +-- missing-hb-allowed
         |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client)
+        |  |  |  |  +--:(server-to-client-only)
         |  |  |  |     +-- max-value?   uint16
         |  |  |  |     +-- min-value?   uint16
         |  |  |  +-- current-value?     uint16
         |  |  +-- probing-rate
         |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client)
+        |  |  |  |  +--:(server-to-client-only)
         |  |  |  |     +-- max-value?   uint16
         |  |  |  |     +-- min-value?   uint16
         |  |  |  +-- current-value?     uint16
         |  |  +-- max-retransmit
         |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client)
+        |  |  |  |  +--:(server-to-client-only)
         |  |  |  |     +-- max-value?   uint16
         |  |  |  |     +-- min-value?   uint16
         |  |  |  +-- current-value?     uint16
         |  |  +-- ack-timeout
         |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client)
+        |  |  |  |  +--:(server-to-client-only)
         |  |  |  |     +-- max-value-decimal?   decimal64
         |  |  |  |     +-- min-value-decimal?   decimal64
 
@@ -229,50 +229,50 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
         |  |  |  +-- current-value-decimal?     decimal64
         |  |  +-- ack-random-factor
         |  |     +-- (direction)?
-        |  |     |  +--:(server-to-client)
+        |  |     |  +--:(server-to-client-only)
         |  |     |     +-- max-value-decimal?   decimal64
         |  |     |     +-- min-value-decimal?   decimal64
         |  |     +-- current-value-decimal?     decimal64
         |  +-- idle-config
         |     +-- heartbeat-interval
         |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client)
+        |     |  |  +--:(server-to-client-only)
         |     |  |     +-- max-value?   uint16
         |     |  |     +-- min-value?   uint16
         |     |  +-- current-value?     uint16
         |     +-- missing-hb-allowed
         |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client)
+        |     |  |  +--:(server-to-client-only)
         |     |  |     +-- max-value?   uint16
         |     |  |     +-- min-value?   uint16
         |     |  +-- current-value?     uint16
         |     +-- probing-rate
         |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client)
+        |     |  |  +--:(server-to-client-only)
         |     |  |     +-- max-value?   uint16
         |     |  |     +-- min-value?   uint16
         |     |  +-- current-value?     uint16
         |     +-- max-retransmit
         |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client)
+        |     |  |  +--:(server-to-client-only)
         |     |  |     +-- max-value?   uint16
         |     |  |     +-- min-value?   uint16
         |     |  +-- current-value?     uint16
         |     +-- ack-timeout
         |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client)
+        |     |  |  +--:(server-to-client-only)
         |     |  |     +-- max-value-decimal?   decimal64
         |     |  |     +-- min-value-decimal?   decimal64
         |     |  +-- current-value-decimal?     decimal64
         |     +-- ack-random-factor
         |        +-- (direction)?
-        |        |  +--:(server-to-client)
+        |        |  +--:(server-to-client-only)
         |        |     +-- max-value-decimal?   decimal64
         |        |     +-- min-value-decimal?   decimal64
         |        +-- current-value-decimal?     decimal64
         +--:(redirected-signal)
         |  +-- (direction)?
-        |     +--:(server-to-client)
+        |     +--:(server-to-client-only)
         |        +-- alt-server           string
 
 
@@ -434,10 +434,10 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
        choice direction {
          description
            "Indicates the communication direction in which the
-            attributes can be included.";
-         case server-to-client {
+            nodes can be included.";
+         case server-to-client-only {
            description
-             "These attributes appear only in a mitigation message
+             "These nodes appear only in a mitigation message
               sent from the server to the client.";
            leaf mid {
              type uint32;
@@ -624,10 +624,10 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
        choice direction {
          description
            "Indicates the communication direction in which the
-            attributes can be included.";
-         case server-to-client {
+            nodes can be included.";
+         case server-to-client-only {
            description
-             "These attributes appear only in a mitigation message
+             "These nodes appear only in a mitigation message
               sent from the server to the client.";
            leaf max-value {
              type uint16;
@@ -659,10 +659,10 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
        choice direction {
          description
            "Indicates the communication direction in which the
-            attributes can be included.";
-         case server-to-client {
+            nodes can be included.";
+         case server-to-client-only {
            description
-             "These attributes appear only in a mitigation message
+             "These nodes appear only in a mitigation message
               sent from the server to the client.";
            leaf max-value {
              type uint16;
@@ -698,10 +698,10 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
        choice direction {
          description
            "Indicates the communication direction in which the
-            attributes can be included.";
-         case server-to-client {
+            nodes can be included.";
+         case server-to-client-only {
            description
-             "These attributes appear only in a mitigation message
+             "These nodes appear only in a mitigation message
               sent from the server to the client.";
            leaf max-value {
              type uint16;
@@ -740,10 +740,10 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
        choice direction {
          description
            "Indicates the communication direction in which the
-            attributes can be included.";
-         case server-to-client {
+            nodes can be included.";
+         case server-to-client-only {
            description
-             "These attributes appear only in a mitigation message
+             "These nodes appear only in a mitigation message
               sent from the server to the client.";
            leaf max-value {
              type uint16;
@@ -770,10 +770,10 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
        choice direction {
          description
            "Indicates the communication direction in which the
-            attributes can be included.";
-         case server-to-client {
+            nodes can be included.";
+         case server-to-client-only {
            description
-             "These attributes appear only in a mitigation message
+             "These nodes appear only in a mitigation message
               sent from the server to the client.";
            leaf max-value-decimal {
              type decimal64 {
@@ -818,10 +818,10 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
        choice direction {
          description
            "Indicates the communication direction in which the
-            attributes can be included.";
-         case server-to-client {
+            nodes can be included.";
+         case server-to-client-only {
            description
-             "These attributes appear only in a mitigation message
+             "These nodes appear only in a mitigation message
               sent from the server to the client.";
            leaf max-value-decimal {
              type decimal64 {
@@ -881,10 +881,10 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
      choice direction {
        description
          "Indicates the communication direction in which the
-          attributes can be included.";
-       case server-to-client {
+          nodes can be included.";
+       case server-to-client-only {
          description
-           "These attributes appear only in a mitigation message
+           "These nodes appear only in a mitigation message
             sent from the server to the client.";
          leaf alt-server {
            type string;
