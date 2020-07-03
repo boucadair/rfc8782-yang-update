@@ -209,9 +209,7 @@ module ietf-dots-signal-channel {
               }
               leaf mid {
                 when "../../conflict-cause = 'overlapping-targets'";
-                type leafref {
-                  path "../../../mid";
-                }
+                type uint32;
                 description
                   "Reference to the conflicting 'mid' bound to
                    the same DOTS client.";
