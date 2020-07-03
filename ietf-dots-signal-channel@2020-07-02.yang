@@ -128,12 +128,14 @@ module ietf-dots-signal-channel {
            triggered unless the DOTS signal channel
            session is lost.";
       }
-      choice direction {
+    choice direction {
+      description
+        "Indicates the communication direction in which the
+         attributes can be included.";
+      case server-to-client {
         description
-          "xxx.";
-        case server-to-client {
-          description
-            "xx.";
+          "These attributes appear only in a mitigation message
+           sent from the server to the client.";
           leaf mitigation-start {
             type uint64;
             description
@@ -277,10 +279,12 @@ module ietf-dots-signal-channel {
          open.";
       choice direction {
         description
-          "xxx.";
+          "Indicates the communication direction in which the
+           attributes can be included.";
         case server-to-client {
           description
-            "xx.";
+            "These attributes appear only in a mitigation message
+             sent from the server to the client.";
           leaf max-value {
             type uint16;
             units "seconds";
@@ -310,10 +314,12 @@ module ietf-dots-signal-channel {
         "Maximum number of missing heartbeats allowed.";
       choice direction {
         description
-          "xxx.";
+          "Indicates the communication direction in which the
+           attributes can be included.";
         case server-to-client {
           description
-            "xx.";
+            "These attributes appear only in a mitigation message
+             sent from the server to the client.";
           leaf max-value {
             type uint16;
             description
@@ -339,10 +345,12 @@ module ietf-dots-signal-channel {
          no response.";
       choice direction {
         description
-          "xxx.";
+          "Indicates the communication direction in which the
+           attributes can be included.";
         case server-to-client {
           description
-            "xx.";
+            "These attributes appear only in a mitigation message
+             sent from the server to the client.";
           leaf max-value {
             type uint16;
             units "byte/second";
@@ -371,10 +379,12 @@ module ietf-dots-signal-channel {
          message.";
       choice direction {
         description
-          "xxx.";
+          "Indicates the communication direction in which the
+           attributes can be included.";
         case server-to-client {
           description
-            "xx.";
+            "These attributes appear only in a mitigation message
+             sent from the server to the client.";
           leaf max-value {
             type uint16;
             description
@@ -399,10 +409,12 @@ module ietf-dots-signal-channel {
         "Initial retransmission timeout value.";
       choice direction {
         description
-          "xxx.";
+          "Indicates the communication direction in which the
+           attributes can be included.";
         case server-to-client {
           description
-            "xx.";
+            "These attributes appear only in a mitigation message
+             sent from the server to the client.";
           leaf max-value-decimal {
             type decimal64 {
               fraction-digits 2;
@@ -437,10 +449,12 @@ module ietf-dots-signal-channel {
          retransmissions.";
       choice direction {
         description
-          "xxx.";
+          "Indicates the communication direction in which the
+           attributes can be included.";
         case server-to-client {
           description
-            "xx.";
+            "These attributes appear only in a mitigation message
+             sent from the server to the client.";
           leaf max-value-decimal {
             type decimal64 {
               fraction-digits 2;
@@ -497,10 +511,12 @@ module ietf-dots-signal-channel {
       "Grouping for the redirected signaling.";
     choice direction {
       description
-        "xxx.";
+        "Indicates the communication direction in which the
+         attributes can be included.";
       case server-to-client {
         description
-          "xx.";
+          "These attributes appear only in a mitigation message
+           sent from the server to the client.";
         leaf alt-server {
           type string;
           mandatory true;
