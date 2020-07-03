@@ -22,7 +22,6 @@ module ietf-dots-signal-channel {
   import iana-dots-signal-channel {
     prefix iana-signal;
   }
-
   import ietf-yang-structure-ext {
     prefix sx;
     reference
@@ -42,7 +41,7 @@ module ietf-dots-signal-channel {
               <mailto:mohamed.boucadair&orange.com>
 
      Author:  Prashanth Patil
-              <mailto:praspati@cisco.com>
+              <mailto:praspati&cisco.com>
 
      Author:  Andrew Mortensen
               <mailto:amortensen&arbor.net>
@@ -488,13 +487,6 @@ module ietf-dots-signal-channel {
   grouping signal-config {
     description
       "DOTS signal channel session configuration.";
-    leaf sid {
-      type uint32;
-      mandatory true;
-      description
-        "An identifier for the DOTS signal channel
-         session configuration data.";
-    }
     container mitigating-config {
       description
         "Configuration parameters to use when a mitigation
