@@ -34,11 +34,14 @@ module ietf-dots-signal-channel {
     "WG Web:   <https://datatracker.ietf.org/wg/dots/>
      WG List:  <mailto:dots&ietf.org>
 
-     Editor:  Konda, Tirumaleswar Reddy.K
-              <mailto:TirumaleswarReddy_Konda&McAfee.com>
-
      Editor:  Mohamed Boucadair
               <mailto:mohamed.boucadair&orange.com>
+
+     Editor:  Jon Shallow
+              <mailto:supjps-ietf@jpshallow.com>
+
+     Author:  Konda, Tirumaleswar Reddy.K
+              <mailto:TirumaleswarReddy_Konda&McAfee.com>
 
      Author:  Prashanth Patil
               <mailto:praspati&cisco.com>
