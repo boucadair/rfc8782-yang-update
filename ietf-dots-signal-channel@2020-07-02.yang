@@ -22,6 +22,7 @@ module ietf-dots-signal-channel {
   import iana-dots-signal-channel {
     prefix iana-signal;
   }
+
   import ietf-yang-structure-ext {
     prefix sx;
     reference
@@ -65,15 +66,13 @@ module ietf-dots-signal-channel {
      This version of this YANG module is part of RFC 8782; see
      the RFC itself for full legal notices.";
 
-
   revision 2020-07-02 {
     description
       "Updated revision.";
     reference
-      "RFC xxxx: A YANG Data Model for Distributed Denial-of-Service 
+      "RFC xxxx: A YANG Data Model for Distributed Denial-of-Service
                  Open Threat Signaling (DOTS) Signal Channel";
   }
-
   revision 2020-05-28 {
     description
       "Initial revision.";
@@ -90,17 +89,8 @@ module ietf-dots-signal-channel {
     description
       "Specifies the scope of the mitigation request.";
     list scope {
-      key "mid";
       description
         "The scope of the request.";
-      leaf mid {
-        type uint32;
-        description
-          "Mitigation request identifier.
-
-           This identifier must be unique for each mitigation
-           request bound to the DOTS client.";
-      }
       uses ietf-data:target;
       leaf-list alias-name {
         type string;
@@ -128,14 +118,27 @@ module ietf-dots-signal-channel {
            triggered unless the DOTS signal channel
            session is lost.";
       }
-    choice direction {
-      description
-        "Indicates the communication direction in which the
-         attributes can be included.";
-      case server-to-client {
+      choice direction {
         description
-          "These attributes appear only in a mitigation message
-           sent from the server to the client.";
+          "Indicates the communication direction in which the
+           attributes can be included.";
+        case client-to-server {
+          description
+            "These attributes appear only in a mitigation message
+             sent from the client to the server.";
+          leaf mid {
+            type uint32;
+            description
+              "Mitigation request identifier.
+
+               This identifier must be unique for each mitigation
+               request bound to the DOTS client.";
+          }
+        }
+        case server-to-client {
+          description
+            "These attributes appear only in a mitigation message
+             sent from the server to the client.";
           leaf mitigation-start {
             type uint64;
             description
