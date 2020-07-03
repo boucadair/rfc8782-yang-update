@@ -867,9 +867,9 @@ module ietf-dots-signal-channel {
 
     <section anchor="Security" title="Security Considerations">
       <t>This document defines YANG data structures that are meant to be used
-      as an abstract representation of DOTS signal channel message. As such,
-      it does not introduce any new vulnerabilities beyond those specified
-      Section 10 of <xref target="RFC8782"></xref>.</t>
+      as an abstract representation of DOTS signal channel messages. As such,
+      this document does not introduce any new vulnerabilities beyond those
+      specified Section 10 of <xref target="RFC8782"></xref>.</t>
     </section>
 
     <section anchor="IANA" title="IANA Considerations">
