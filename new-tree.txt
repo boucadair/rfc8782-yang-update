@@ -123,10 +123,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf mid {
             type uint32;
@@ -281,10 +281,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value {
             type uint16;
@@ -316,10 +316,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value {
             type uint16;
@@ -347,10 +347,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value {
             type uint16;
@@ -381,10 +381,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value {
             type uint16;
@@ -411,10 +411,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value-decimal {
             type decimal64 {
@@ -451,10 +451,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value-decimal {
             type decimal64 {
@@ -506,10 +506,10 @@ module ietf-dots-signal-channel {
     choice direction {
       description
         "Indicates the communication direction in which the
-         attributes can be included.";
-      case server-to-client {
+         nodes can be included.";
+      case server-to-client-only {
         description
-          "These attributes appear only in a mitigation message
+          "These nodes appear only in a mitigation message
            sent from the server to the client.";
         leaf alt-server {
           type string;
