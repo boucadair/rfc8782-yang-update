@@ -109,6 +109,8 @@
       document uses the the "structure" extension specified in <xref
       target="RFC8791"></xref>.</t>
 
+         <t>This document updates RFC 8782.</t>
+         
       <t>The meaning of the symbols in YANG tree diagrams is defined in <xref
       target="RFC8340"></xref> and <xref target="RFC8791"></xref>.</t>
     </section>
