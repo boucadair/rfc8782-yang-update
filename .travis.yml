@@ -28,9 +28,9 @@ install:
 
 script:
 
-  - xym draft-boucadair-dots-rfc8782-00.txt
+  - xym draft-boucadair-dots-rfc8782-yang-update-00.txt
   - export yang_extracted=`ls *.yang`
-  - xml2rfc draft-boucadair-dots-rfc8782-00.xml
+  - xml2rfc draft-boucadair-dots-rfc8782-yang-update-00.xml
   - pyang -f tree --ietf  ietf-dots-signal-channel@2020-07-02.yang
   - yanglint -f yang ietf-dots-signal-channel@2020-07-02.yang
   - yanglint --verbose ietf-dots-signal-channel@2020-07-02.yang -i
