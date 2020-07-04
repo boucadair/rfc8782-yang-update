@@ -15,9 +15,8 @@ module: ietf-dots-signal-channel
        |     +-- lifetime?                     int32
        |     +-- trigger-mitigation?           boolean
        |     +-- (direction)?
-       |        +--:(client-to-server)
-       |        |  +-- mid?                    uint32
-       |        +--:(server-to-client)
+       |        +--:(server-to-client-only)
+       |           +-- mid?                    uint32
        |           +-- mitigation-start?       uint64
        |           +-- status?                 iana-signal:status
        |           +-- conflict-information
@@ -48,84 +47,83 @@ module: ietf-dots-signal-channel
        |           +-- attack-status?
        |                   iana-signal:attack-status
        +--:(signal-config)
-       |  +-- sid                        uint32
        |  +-- mitigating-config
        |  |  +-- heartbeat-interval
        |  |  |  +-- (direction)?
-       |  |  |  |  +--:(server-to-client)
+       |  |  |  |  +--:(server-to-client-only)
        |  |  |  |     +-- max-value?   uint16
        |  |  |  |     +-- min-value?   uint16
        |  |  |  +-- current-value?     uint16
        |  |  +-- missing-hb-allowed
        |  |  |  +-- (direction)?
-       |  |  |  |  +--:(server-to-client)
+       |  |  |  |  +--:(server-to-client-only)
        |  |  |  |     +-- max-value?   uint16
        |  |  |  |     +-- min-value?   uint16
        |  |  |  +-- current-value?     uint16
        |  |  +-- probing-rate
        |  |  |  +-- (direction)?
-       |  |  |  |  +--:(server-to-client)
+       |  |  |  |  +--:(server-to-client-only)
        |  |  |  |     +-- max-value?   uint16
        |  |  |  |     +-- min-value?   uint16
        |  |  |  +-- current-value?     uint16
        |  |  +-- max-retransmit
        |  |  |  +-- (direction)?
-       |  |  |  |  +--:(server-to-client)
+       |  |  |  |  +--:(server-to-client-only)
        |  |  |  |     +-- max-value?   uint16
        |  |  |  |     +-- min-value?   uint16
        |  |  |  +-- current-value?     uint16
        |  |  +-- ack-timeout
        |  |  |  +-- (direction)?
-       |  |  |  |  +--:(server-to-client)
+       |  |  |  |  +--:(server-to-client-only)
        |  |  |  |     +-- max-value-decimal?   decimal64
        |  |  |  |     +-- min-value-decimal?   decimal64
        |  |  |  +-- current-value-decimal?     decimal64
        |  |  +-- ack-random-factor
        |  |     +-- (direction)?
-       |  |     |  +--:(server-to-client)
+       |  |     |  +--:(server-to-client-only)
        |  |     |     +-- max-value-decimal?   decimal64
        |  |     |     +-- min-value-decimal?   decimal64
        |  |     +-- current-value-decimal?     decimal64
        |  +-- idle-config
        |     +-- heartbeat-interval
        |     |  +-- (direction)?
-       |     |  |  +--:(server-to-client)
+       |     |  |  +--:(server-to-client-only)
        |     |  |     +-- max-value?   uint16
        |     |  |     +-- min-value?   uint16
        |     |  +-- current-value?     uint16
        |     +-- missing-hb-allowed
        |     |  +-- (direction)?
-       |     |  |  +--:(server-to-client)
+       |     |  |  +--:(server-to-client-only)
        |     |  |     +-- max-value?   uint16
        |     |  |     +-- min-value?   uint16
        |     |  +-- current-value?     uint16
        |     +-- probing-rate
        |     |  +-- (direction)?
-       |     |  |  +--:(server-to-client)
+       |     |  |  +--:(server-to-client-only)
        |     |  |     +-- max-value?   uint16
        |     |  |     +-- min-value?   uint16
        |     |  +-- current-value?     uint16
        |     +-- max-retransmit
        |     |  +-- (direction)?
-       |     |  |  +--:(server-to-client)
+       |     |  |  +--:(server-to-client-only)
        |     |  |     +-- max-value?   uint16
        |     |  |     +-- min-value?   uint16
        |     |  +-- current-value?     uint16
        |     +-- ack-timeout
        |     |  +-- (direction)?
-       |     |  |  +--:(server-to-client)
+       |     |  |  +--:(server-to-client-only)
        |     |  |     +-- max-value-decimal?   decimal64
        |     |  |     +-- min-value-decimal?   decimal64
        |     |  +-- current-value-decimal?     decimal64
        |     +-- ack-random-factor
        |        +-- (direction)?
-       |        |  +--:(server-to-client)
+       |        |  +--:(server-to-client-only)
        |        |     +-- max-value-decimal?   decimal64
        |        |     +-- min-value-decimal?   decimal64
        |        +-- current-value-decimal?     decimal64
        +--:(redirected-signal)
        |  +-- (direction)?
-       |     +--:(server-to-client)
+       |     +--:(server-to-client-only)
        |        +-- alt-server           string
        |        +-- alt-server-record*   inet:ip-address
        +--:(heartbeat)
