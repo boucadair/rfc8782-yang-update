@@ -38,7 +38,7 @@ module ietf-dots-signal-channel {
               <mailto:mohamed.boucadair&orange.com>
 
      Editor:  Jon Shallow
-              <mailto:supjps-ietf@jpshallow.com>
+              <mailto:supjps-ietf&jpshallow.com>
 
      Author:  Konda, Tirumaleswar Reddy.K
               <mailto:TirumaleswarReddy_Konda&McAfee.com>
@@ -123,10 +123,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf mid {
             type uint32;
@@ -184,7 +184,8 @@ module ietf-dots-signal-channel {
                   "Conflicting alias-name.";
               }
               list acl-list {
-                when "../../conflict-cause = 'conflict-with-acceptlist'";
+                when "../../conflict-cause ="
+                   + " 'conflict-with-acceptlist'";
                 key "acl-name";
                 description
                   "List of conflicting ACLs as defined in the DOTS data
@@ -280,10 +281,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value {
             type uint16;
@@ -315,10 +316,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value {
             type uint16;
@@ -346,10 +347,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value {
             type uint16;
@@ -380,10 +381,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value {
             type uint16;
@@ -410,10 +411,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value-decimal {
             type decimal64 {
@@ -450,10 +451,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           attributes can be included.";
-        case server-to-client {
+           nodes can be included.";
+        case server-to-client-only {
           description
-            "These attributes appear only in a mitigation message
+            "These nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value-decimal {
             type decimal64 {
@@ -505,10 +506,10 @@ module ietf-dots-signal-channel {
     choice direction {
       description
         "Indicates the communication direction in which the
-         attributes can be included.";
-      case server-to-client {
+         nodes can be included.";
+      case server-to-client-only {
         description
-          "These attributes appear only in a mitigation message
+          "These nodes appear only in a mitigation message
            sent from the server to the client.";
         leaf alt-server {
           type string;
