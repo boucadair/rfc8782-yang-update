@@ -5,8 +5,8 @@
 DOTS                                                        M. Boucadair
 Internet-Draft                                                    Orange
 Updates: 8782 (if approved)                                   J. Shallow
-Intended status: Standards Track                            July 3, 2020
-Expires: January 4, 2021
+Intended status: Standards Track                            July 4, 2020
+Expires: January 5, 2021
 
 
     A YANG Data Model for Distributed Denial-of-Service Open Threat
@@ -36,7 +36,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 4, 2021.
+   This Internet-Draft will expire on January 5, 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Boucadair & Shallow      Expires January 4, 2021                [Page 1]
+Boucadair & Shallow      Expires January 5, 2021                [Page 1]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
@@ -70,8 +70,8 @@ Table of Contents
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
    6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
    7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  18
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  18
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  19
      8.2.  Informative References  . . . . . . . . . . . . . . . . .  19
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
 
@@ -92,8 +92,7 @@ Table of Contents
    This YANG module is not intended to be used via NETCONF/RESTCONF for
    DOTS server management purposes; such a module is out of the scope of
    this document.  It serves only to provide abstract data structures.
-   This document uses the the "structure" extension specified in
-   [RFC8791].
+   This document uses the "structure" extension specified in [RFC8791].
 
    The meaning of the symbols in YANG tree diagrams is defined in
    [RFC8340] and [RFC8791].
@@ -105,14 +104,19 @@ Table of Contents
 
    o  Follow the YANG data structure specified in [RFC8791].
 
-   o  Remove "config" clauses
+   o  Remove "config" clauses.  Note that "config" statements will be
+      ignored (if present) anyway according to Section 4 of [RFC8791].
 
 
 
-Boucadair & Shallow      Expires January 4, 2021                [Page 2]
+Boucadair & Shallow      Expires January 5, 2021                [Page 2]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
+
+   o  Remove the list keys for the mitigation scope message type given
+      that Section 4 of [RFC8791] specifies that a list does not require
+      to have a "key" statement defined.
 
    o  Add in "choice" to indicate the communication direction in which a
       data node applies.  If no 'choice' is indicated, a node can appear
@@ -133,158 +137,160 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
    This tree structure obsoletes the ones described in Section 5.1 of
    [RFC8782].
 
-structure ietf-dots-signal-channel:
-  +-- dots-signal
-     +-- (message-type)?
-        +--:(mitigation-scope)
-        |  +-- scope*
-        |     +-- target-prefix*                inet:ip-prefix
-        |     +-- target-port-range* [lower-port]
-        |     |  +-- lower-port    inet:port-number
-        |     |  +-- upper-port?   inet:port-number
-        |     +-- target-protocol*              uint8
-        |     +-- target-fqdn*                  inet:domain-name
-        |     +-- target-uri*                   inet:uri
-        |     +-- alias-name*                   string
-        |     +-- lifetime?                     int32
-        |     +-- trigger-mitigation?           boolean
-        |     +-- (direction)?
-        |        +--:(server-to-client-only)
-        |           +-- mid?                    uint32
-        |           +-- mitigation-start?       uint64
-        |           +-- status?                 iana-signal:status
-        |           +-- conflict-information
-        |           |  +-- conflict-status?  iana-signal:conflict-status
-        |           |  +-- conflict-cause?   iana-signal:conflict-cause
-        |           |  +-- retry-timer?       uint32
-        |           |  +-- conflict-scope
-        |           |     +-- target-prefix*       inet:ip-prefix
-        |           |     +-- target-port-range* [lower-port]
-        |           |     |  +-- lower-port    inet:port-number
-        |           |     |  +-- upper-port?   inet:port-number
+    module: ietf-dots-signal-channel
+
+      structure dots-signal:
+        +-- (message-type)?
+           +--:(mitigation-scope)
+           |  +-- scope* []
+           |     +-- target-prefix*                inet:ip-prefix
+           |     +-- target-port-range* [lower-port]
+           |     |  +-- lower-port    inet:port-number
+           |     |  +-- upper-port?   inet:port-number
+           |     +-- target-protocol*              uint8
+           |     +-- target-fqdn*                  inet:domain-name
+           |     +-- target-uri*                   inet:uri
+           |     +-- alias-name*                   string
+           |     +-- lifetime?                     int32
+           |     +-- trigger-mitigation?           boolean
+           |     +-- (direction)?
+           |        +--:(server-to-client-only)
+           |           +-- mid?                    uint32
+           |           +-- mitigation-start?       uint64
+           |           +-- status?                 iana-signal:status
+           |           +-- conflict-information
+           |           |  +-- conflict-status?
+           |           |  |       iana-signal:conflict-status
+           |           |  +-- conflict-cause?
 
 
 
-Boucadair & Shallow      Expires January 4, 2021                [Page 3]
+Boucadair & Shallow      Expires January 5, 2021                [Page 3]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
-        |           |     +-- target-protocol*     uint8
-        |           |     +-- target-fqdn*         inet:domain-name
-        |           |     +-- target-uri*          inet:uri
-        |           |     +-- alias-name*          string
-        |           |     +-- acl-list* [acl-name]
-        |           |     +-- acl-name
-        |           |     |   -> /ietf-data:dots-data/dots-client/acls/
-        |           |     |      acl/name
-        |           |     +-- acl-type?
-        |           |         -> /ietf-data:dots-data/dots-client/acls/
-        |           |            acl/type
-        |           |     +-- mid?                 uint32
-        |           +-- bytes-dropped?        yang:zero-based-counter64
-        |           +-- bps-dropped?          yang:gauge64
-        |           +-- pkts-dropped?         yang:zero-based-counter64
-        |           +-- pps-dropped?          yang:gauge64
-        |           +-- attack-status?        iana-signal:attack-status
-        +--:(signal-config)
-        |  +-- mitigating-config
-        |  |  +-- heartbeat-interval
-        |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client-only)
-        |  |  |  |     +-- max-value?   uint16
-        |  |  |  |     +-- min-value?   uint16
-        |  |  |  +-- current-value?     uint16
-        |  |  +-- missing-hb-allowed
-        |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client-only)
-        |  |  |  |     +-- max-value?   uint16
-        |  |  |  |     +-- min-value?   uint16
-        |  |  |  +-- current-value?     uint16
-        |  |  +-- probing-rate
-        |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client-only)
-        |  |  |  |     +-- max-value?   uint16
-        |  |  |  |     +-- min-value?   uint16
-        |  |  |  +-- current-value?     uint16
-        |  |  +-- max-retransmit
-        |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client-only)
-        |  |  |  |     +-- max-value?   uint16
-        |  |  |  |     +-- min-value?   uint16
-        |  |  |  +-- current-value?     uint16
-        |  |  +-- ack-timeout
-        |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client-only)
-        |  |  |  |     +-- max-value-decimal?   decimal64
-        |  |  |  |     +-- min-value-decimal?   decimal64
+           |           |  |       iana-signal:conflict-cause
+           |           |  +-- retry-timer?       uint32
+           |           |  +-- conflict-scope
+           |           |     +-- target-prefix*       inet:ip-prefix
+           |           |     +-- target-port-range* [lower-port]
+           |           |     |  +-- lower-port    inet:port-number
+           |           |     |  +-- upper-port?   inet:port-number
+           |           |     +-- target-protocol*     uint8
+           |           |     +-- target-fqdn*         inet:domain-name
+           |           |     +-- target-uri*          inet:uri
+           |           |     +-- alias-name*          string
+           |           |     +-- acl-list* [acl-name]
+           |           |     |  +-- acl-name    leafref
+           |           |     |  +-- acl-type?   leafref
+           |           |     +-- mid?                 uint32
+           |           +-- bytes-dropped?
+           |           |       yang:zero-based-counter64
+           |           +-- bps-dropped?            yang:gauge64
+           |           +-- pkts-dropped?
+           |           |       yang:zero-based-counter64
+           |           +-- pps-dropped?            yang:gauge64
+           |           +-- attack-status?
+           |                   iana-signal:attack-status
+           +--:(signal-config)
+           |  +-- mitigating-config
+           |  |  +-- heartbeat-interval
+           |  |  |  +-- (direction)?
+           |  |  |  |  +--:(server-to-client-only)
+           |  |  |  |     +-- max-value?   uint16
+           |  |  |  |     +-- min-value?   uint16
+           |  |  |  +-- current-value?     uint16
+           |  |  +-- missing-hb-allowed
+           |  |  |  +-- (direction)?
+           |  |  |  |  +--:(server-to-client-only)
+           |  |  |  |     +-- max-value?   uint16
+           |  |  |  |     +-- min-value?   uint16
+           |  |  |  +-- current-value?     uint16
+           |  |  +-- probing-rate
+           |  |  |  +-- (direction)?
+           |  |  |  |  +--:(server-to-client-only)
+           |  |  |  |     +-- max-value?   uint16
+           |  |  |  |     +-- min-value?   uint16
+           |  |  |  +-- current-value?     uint16
+           |  |  +-- max-retransmit
+           |  |  |  +-- (direction)?
+           |  |  |  |  +--:(server-to-client-only)
+           |  |  |  |     +-- max-value?   uint16
+           |  |  |  |     +-- min-value?   uint16
 
 
 
-Boucadair & Shallow      Expires January 4, 2021                [Page 4]
+Boucadair & Shallow      Expires January 5, 2021                [Page 4]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
-        |  |  |  +-- current-value-decimal?     decimal64
-        |  |  +-- ack-random-factor
-        |  |     +-- (direction)?
-        |  |     |  +--:(server-to-client-only)
-        |  |     |     +-- max-value-decimal?   decimal64
-        |  |     |     +-- min-value-decimal?   decimal64
-        |  |     +-- current-value-decimal?     decimal64
-        |  +-- idle-config
-        |     +-- heartbeat-interval
-        |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client-only)
-        |     |  |     +-- max-value?   uint16
-        |     |  |     +-- min-value?   uint16
-        |     |  +-- current-value?     uint16
-        |     +-- missing-hb-allowed
-        |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client-only)
-        |     |  |     +-- max-value?   uint16
-        |     |  |     +-- min-value?   uint16
-        |     |  +-- current-value?     uint16
-        |     +-- probing-rate
-        |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client-only)
-        |     |  |     +-- max-value?   uint16
-        |     |  |     +-- min-value?   uint16
-        |     |  +-- current-value?     uint16
-        |     +-- max-retransmit
-        |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client-only)
-        |     |  |     +-- max-value?   uint16
-        |     |  |     +-- min-value?   uint16
-        |     |  +-- current-value?     uint16
-        |     +-- ack-timeout
-        |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client-only)
-        |     |  |     +-- max-value-decimal?   decimal64
-        |     |  |     +-- min-value-decimal?   decimal64
-        |     |  +-- current-value-decimal?     decimal64
-        |     +-- ack-random-factor
-        |        +-- (direction)?
-        |        |  +--:(server-to-client-only)
-        |        |     +-- max-value-decimal?   decimal64
-        |        |     +-- min-value-decimal?   decimal64
-        |        +-- current-value-decimal?     decimal64
-        +--:(redirected-signal)
-        |  +-- (direction)?
-        |     +--:(server-to-client-only)
-        |        +-- alt-server           string
+           |  |  |  +-- current-value?     uint16
+           |  |  +-- ack-timeout
+           |  |  |  +-- (direction)?
+           |  |  |  |  +--:(server-to-client-only)
+           |  |  |  |     +-- max-value-decimal?   decimal64
+           |  |  |  |     +-- min-value-decimal?   decimal64
+           |  |  |  +-- current-value-decimal?     decimal64
+           |  |  +-- ack-random-factor
+           |  |     +-- (direction)?
+           |  |     |  +--:(server-to-client-only)
+           |  |     |     +-- max-value-decimal?   decimal64
+           |  |     |     +-- min-value-decimal?   decimal64
+           |  |     +-- current-value-decimal?     decimal64
+           |  +-- idle-config
+           |     +-- heartbeat-interval
+           |     |  +-- (direction)?
+           |     |  |  +--:(server-to-client-only)
+           |     |  |     +-- max-value?   uint16
+           |     |  |     +-- min-value?   uint16
+           |     |  +-- current-value?     uint16
+           |     +-- missing-hb-allowed
+           |     |  +-- (direction)?
+           |     |  |  +--:(server-to-client-only)
+           |     |  |     +-- max-value?   uint16
+           |     |  |     +-- min-value?   uint16
+           |     |  +-- current-value?     uint16
+           |     +-- probing-rate
+           |     |  +-- (direction)?
+           |     |  |  +--:(server-to-client-only)
+           |     |  |     +-- max-value?   uint16
+           |     |  |     +-- min-value?   uint16
+           |     |  +-- current-value?     uint16
+           |     +-- max-retransmit
+           |     |  +-- (direction)?
+           |     |  |  +--:(server-to-client-only)
+           |     |  |     +-- max-value?   uint16
+           |     |  |     +-- min-value?   uint16
+           |     |  +-- current-value?     uint16
+           |     +-- ack-timeout
+           |     |  +-- (direction)?
+           |     |  |  +--:(server-to-client-only)
+           |     |  |     +-- max-value-decimal?   decimal64
+           |     |  |     +-- min-value-decimal?   decimal64
+           |     |  +-- current-value-decimal?     decimal64
+           |     +-- ack-random-factor
+           |        +-- (direction)?
+           |        |  +--:(server-to-client-only)
+           |        |     +-- max-value-decimal?   decimal64
 
 
 
-Boucadair & Shallow      Expires January 4, 2021                [Page 5]
+Boucadair & Shallow      Expires January 5, 2021                [Page 5]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
-        |        +-- alt-server-record*   inet:ip-address
-        +--:(heartbeat)
-           +-- peer-hb-status             boolean
+           |        |     +-- min-value-decimal?   decimal64
+           |        +-- current-value-decimal?     decimal64
+           +--:(redirected-signal)
+           |  +-- (direction)?
+           |     +--:(server-to-client-only)
+           |        +-- alt-server           string
+           |        +-- alt-server-record*   inet:ip-address
+           +--:(heartbeat)
+              +-- peer-hb-status             boolean
 
 
 4.  YANG Module
@@ -294,7 +300,7 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
    This version obsoletes the one described in Section 5.3 of [RFC8782].
 
- <CODE BEGINS> file "ietf-dots-signal-channel@2020-07-03.yang"
+ <CODE BEGINS> file "ietf-dots-signal-channel@2020-07-02.yang"
  module ietf-dots-signal-channel {
    yang-version 1.1;
    namespace "urn:ietf:params:xml:ns:yang:ietf-dots-signal-channel";
@@ -325,18 +331,18 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
        "RFC 8791: YANG Data Structure Extensions";
    }
 
+
+
+Boucadair & Shallow      Expires January 5, 2021                [Page 6]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
    organization
      "IETF DDoS Open Threat Signaling (DOTS) Working Group";
    contact
      "WG Web:   <https://datatracker.ietf.org/wg/dots/>
       WG List:  <mailto:dots&ietf.org>
-
-
-
-Boucadair & Shallow      Expires January 4, 2021                [Page 6]
-
-Internet-Draft       DOTS Signal Channel YANG Module           July 2020
-
 
       Editor:  Mohamed Boucadair
                <mailto:mohamed.boucadair&orange.com>
@@ -380,19 +386,20 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
                   Open Threat Signaling (DOTS) Signal Channel";
    }
    revision 2020-05-28 {
+
+
+
+Boucadair & Shallow      Expires January 5, 2021                [Page 7]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
      description
        "Initial revision.";
      reference
        "RFC 8782: Distributed Denial-of-Service Open Threat
                   Signaling (DOTS) Signal Channel Specification";
    }
-
-
-
-Boucadair & Shallow      Expires January 4, 2021                [Page 7]
-
-Internet-Draft       DOTS Signal Channel YANG Module           July 2020
-
 
    /*
     * Groupings
@@ -435,6 +442,14 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
          description
            "Indicates the communication direction in which the
             nodes can be included.";
+
+
+
+Boucadair & Shallow      Expires January 5, 2021                [Page 8]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
          case server-to-client-only {
            description
              "These nodes appear only in a mitigation message
@@ -442,14 +457,6 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
            leaf mid {
              type uint32;
              description
-
-
-
-Boucadair & Shallow      Expires January 4, 2021                [Page 8]
-
-Internet-Draft       DOTS Signal Channel YANG Module           July 2020
-
-
                "Mitigation request identifier.
 
                 This identifier must be unique for each mitigation
@@ -491,6 +498,14 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
              }
              container conflict-scope {
                description
+
+
+
+Boucadair & Shallow      Expires January 5, 2021                [Page 9]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
                  "Provides more information about the conflict scope.";
                uses ietf-data:target {
                  when "/dots-signal/scope/conflict-information/"
@@ -498,14 +513,6 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
                }
                leaf-list alias-name {
                  when "../../conflict-cause = 'overlapping-targets'";
-
-
-
-Boucadair & Shallow      Expires January 4, 2021                [Page 9]
-
-Internet-Draft       DOTS Signal Channel YANG Module           July 2020
-
-
                  type string;
                  description
                    "Conflicting alias-name.";
@@ -547,6 +554,14 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
              }
            }
            leaf bytes-dropped {
+
+
+
+Boucadair & Shallow      Expires January 5, 2021               [Page 10]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
              type yang:zero-based-counter64;
              units "bytes";
              description
@@ -554,14 +569,6 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
                 request since the attack mitigation was triggered.
                 The count wraps around when it reaches the maximum value
                 of counter64 for dropped bytes.";
-
-
-
-Boucadair & Shallow      Expires January 4, 2021               [Page 10]
-
-Internet-Draft       DOTS Signal Channel YANG Module           July 2020
-
-
            }
            leaf bps-dropped {
              type yang:gauge64;
@@ -604,20 +611,19 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
      }
    }
 
+
+
+Boucadair & Shallow      Expires January 5, 2021               [Page 11]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
    grouping config-parameters {
      description
        "Subset of DOTS signal channel session configuration.";
      container heartbeat-interval {
        description
          "DOTS agents regularly send heartbeats to each other
-
-
-
-Boucadair & Shallow      Expires January 4, 2021               [Page 11]
-
-Internet-Draft       DOTS Signal Channel YANG Module           July 2020
-
-
           after mutual authentication is successfully
           completed in order to keep the DOTS signal channel
           open.";
@@ -660,20 +666,20 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
          description
            "Indicates the communication direction in which the
             nodes can be included.";
+
+
+
+Boucadair & Shallow      Expires January 5, 2021               [Page 12]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
          case server-to-client-only {
            description
              "These nodes appear only in a mitigation message
               sent from the server to the client.";
            leaf max-value {
              type uint16;
-
-
-
-Boucadair & Shallow      Expires January 4, 2021               [Page 12]
-
-Internet-Draft       DOTS Signal Channel YANG Module           July 2020
-
-
              description
                "Maximum acceptable missing-hb-allowed value.";
            }
@@ -716,20 +722,20 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
                "Minimum acceptable probing-rate value.";
            }
          }
+
+
+
+Boucadair & Shallow      Expires January 5, 2021               [Page 13]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
        }
        leaf current-value {
          type uint16;
          units "byte/second";
          default "5";
          description
-
-
-
-Boucadair & Shallow      Expires January 4, 2021               [Page 13]
-
-Internet-Draft       DOTS Signal Channel YANG Module           July 2020
-
-
            "Current probing-rate value.";
        }
      }
@@ -772,20 +778,20 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
            "Indicates the communication direction in which the
             nodes can be included.";
          case server-to-client-only {
+
+
+
+Boucadair & Shallow      Expires January 5, 2021               [Page 14]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
            description
              "These nodes appear only in a mitigation message
               sent from the server to the client.";
            leaf max-value-decimal {
              type decimal64 {
                fraction-digits 2;
-
-
-
-Boucadair & Shallow      Expires January 4, 2021               [Page 14]
-
-Internet-Draft       DOTS Signal Channel YANG Module           July 2020
-
-
              }
              units "seconds";
              description
@@ -828,20 +834,20 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
                fraction-digits 2;
              }
              description
+
+
+
+Boucadair & Shallow      Expires January 5, 2021               [Page 15]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
                "Maximum acceptable ack-random-factor value.";
            }
            leaf min-value-decimal {
              type decimal64 {
                fraction-digits 2;
              }
-
-
-
-Boucadair & Shallow      Expires January 4, 2021               [Page 15]
-
-Internet-Draft       DOTS Signal Channel YANG Module           July 2020
-
-
              description
                "Minimum acceptable ack-random-factor value.";
            }
@@ -884,20 +890,20 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
           nodes can be included.";
        case server-to-client-only {
          description
+
+
+
+Boucadair & Shallow      Expires January 5, 2021               [Page 16]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
            "These nodes appear only in a mitigation message
             sent from the server to the client.";
          leaf alt-server {
            type string;
            mandatory true;
            description
-
-
-
-Boucadair & Shallow      Expires January 4, 2021               [Page 16]
-
-Internet-Draft       DOTS Signal Channel YANG Module           July 2020
-
-
              "FQDN of an alternate server.";
          }
          leaf-list alt-server-record {
@@ -940,20 +946,20 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
        }
        case heartbeat {
          description
+
+
+
+Boucadair & Shallow      Expires January 5, 2021               [Page 17]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
            "DOTS heartbeats.";
          leaf peer-hb-status {
            type boolean;
            mandatory true;
            description
              "Indicates whether a DOTS agent receives heartbeats
-
-
-
-Boucadair & Shallow      Expires January 4, 2021               [Page 17]
-
-Internet-Draft       DOTS Signal Channel YANG Module           July 2020
-
-
               from its peer.  The value is set to 'true' if the
               DOTS agent is receiving heartbeat messages
               from its peer.";
@@ -994,6 +1000,16 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
    Many thanks to Martin Bjoerklund for the suggestion to use RFC8791.
 
+
+
+
+
+
+Boucadair & Shallow      Expires January 5, 2021               [Page 18]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
 8.  References
 
 8.1.  Normative References
@@ -1001,14 +1017,6 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
               <https://www.rfc-editor.org/info/rfc3688>.
-
-
-
-
-Boucadair & Shallow      Expires January 4, 2021               [Page 18]
-
-Internet-Draft       DOTS Signal Channel YANG Module           July 2020
-
 
    [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
               the Network Configuration Protocol (NETCONF)", RFC 6020,
@@ -1046,6 +1054,18 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 Authors' Addresses
 
+
+
+
+
+
+
+
+Boucadair & Shallow      Expires January 5, 2021               [Page 19]
+
+Internet-Draft       DOTS Signal Channel YANG Module           July 2020
+
+
    Mohamed Boucadair
    Orange
    Rennes  35000
@@ -1061,4 +1081,40 @@ Authors' Addresses
 
 
 
-Boucadair & Shallow      Expires January 4, 2021               [Page 19]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Boucadair & Shallow      Expires January 5, 2021               [Page 20]

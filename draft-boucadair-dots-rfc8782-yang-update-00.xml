@@ -106,11 +106,9 @@
       <t>This YANG module is not intended to be used via NETCONF/RESTCONF for
       DOTS server management purposes; such a module is out of the scope of
       this document. It serves only to provide abstract data structures. This
-      document uses the the "structure" extension specified in <xref
+      document uses the "structure" extension specified in <xref
       target="RFC8791"></xref>.</t>
 
-         <t>This document updates RFC 8782.</t>
-         
       <t>The meaning of the symbols in YANG tree diagrams is defined in <xref
       target="RFC8340"></xref> and <xref target="RFC8791"></xref>.</t>
     </section>
@@ -123,12 +121,18 @@
           <t>Follow the YANG data structure specified in <xref
           target="RFC8791"></xref>.</t>
 
-          <t>Remove "config" clauses</t>
+          <t>Remove "config" clauses. Note that "config" statements will be
+          ignored (if present) anyway according to Section 4 of <xref
+          target="RFC8791"></xref>.</t>
+
+          <t>Remove the list keys for the mitigation scope message type given
+          that Section 4 of <xref target="RFC8791"></xref> specifies that a
+          list does not require to have a "key" statement defined.</t>
 
           <t>Add in "choice" to indicate the communication direction in which
           a data node applies. If no 'choice' is indicated, a node can appear
           in both directions (i.e., from DOTS client to DOTS server and vice
-          versa). </t>
+          versa).</t>
 
           <t>Remove "cuid", "cdid", and "sid" nodes from the structure because
           these nodes are included as URI-Paths, not within the message
@@ -146,134 +150,136 @@
       <xref target="RFC8782"></xref>.</t>
 
       <t><figure align="center">
-          <artwork><![CDATA[structure ietf-dots-signal-channel:
-  +-- dots-signal
-     +-- (message-type)?
-        +--:(mitigation-scope)
-        |  +-- scope* 
-        |     +-- target-prefix*                inet:ip-prefix
-        |     +-- target-port-range* [lower-port]
-        |     |  +-- lower-port    inet:port-number
-        |     |  +-- upper-port?   inet:port-number
-        |     +-- target-protocol*              uint8
-        |     +-- target-fqdn*                  inet:domain-name
-        |     +-- target-uri*                   inet:uri
-        |     +-- alias-name*                   string
-        |     +-- lifetime?                     int32
-        |     +-- trigger-mitigation?           boolean
-        |     +-- (direction)?
-        |        +--:(server-to-client-only)
-        |           +-- mid?                    uint32
-        |           +-- mitigation-start?       uint64
-        |           +-- status?                 iana-signal:status
-        |           +-- conflict-information
-        |           |  +-- conflict-status?  iana-signal:conflict-status
-        |           |  +-- conflict-cause?   iana-signal:conflict-cause
-        |           |  +-- retry-timer?       uint32
-        |           |  +-- conflict-scope
-        |           |     +-- target-prefix*       inet:ip-prefix
-        |           |     +-- target-port-range* [lower-port]
-        |           |     |  +-- lower-port    inet:port-number
-        |           |     |  +-- upper-port?   inet:port-number
-        |           |     +-- target-protocol*     uint8
-        |           |     +-- target-fqdn*         inet:domain-name
-        |           |     +-- target-uri*          inet:uri
-        |           |     +-- alias-name*          string
-        |           |     +-- acl-list* [acl-name]
-        |           |     +-- acl-name
-        |           |     |   -> /ietf-data:dots-data/dots-client/acls/
-        |           |     |      acl/name
-        |           |     +-- acl-type?
-        |           |         -> /ietf-data:dots-data/dots-client/acls/
-        |           |            acl/type
-        |           |     +-- mid?                 uint32
-        |           +-- bytes-dropped?        yang:zero-based-counter64
-        |           +-- bps-dropped?          yang:gauge64
-        |           +-- pkts-dropped?         yang:zero-based-counter64
-        |           +-- pps-dropped?          yang:gauge64
-        |           +-- attack-status?        iana-signal:attack-status
-        +--:(signal-config)
-        |  +-- mitigating-config
-        |  |  +-- heartbeat-interval
-        |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client-only)
-        |  |  |  |     +-- max-value?   uint16
-        |  |  |  |     +-- min-value?   uint16
-        |  |  |  +-- current-value?     uint16
-        |  |  +-- missing-hb-allowed
-        |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client-only)
-        |  |  |  |     +-- max-value?   uint16
-        |  |  |  |     +-- min-value?   uint16
-        |  |  |  +-- current-value?     uint16
-        |  |  +-- probing-rate
-        |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client-only)
-        |  |  |  |     +-- max-value?   uint16
-        |  |  |  |     +-- min-value?   uint16
-        |  |  |  +-- current-value?     uint16
-        |  |  +-- max-retransmit
-        |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client-only)
-        |  |  |  |     +-- max-value?   uint16
-        |  |  |  |     +-- min-value?   uint16
-        |  |  |  +-- current-value?     uint16
-        |  |  +-- ack-timeout
-        |  |  |  +-- (direction)?
-        |  |  |  |  +--:(server-to-client-only)
-        |  |  |  |     +-- max-value-decimal?   decimal64
-        |  |  |  |     +-- min-value-decimal?   decimal64
-        |  |  |  +-- current-value-decimal?     decimal64
-        |  |  +-- ack-random-factor
-        |  |     +-- (direction)?
-        |  |     |  +--:(server-to-client-only)
-        |  |     |     +-- max-value-decimal?   decimal64
-        |  |     |     +-- min-value-decimal?   decimal64
-        |  |     +-- current-value-decimal?     decimal64
-        |  +-- idle-config
-        |     +-- heartbeat-interval
-        |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client-only)
-        |     |  |     +-- max-value?   uint16
-        |     |  |     +-- min-value?   uint16
-        |     |  +-- current-value?     uint16
-        |     +-- missing-hb-allowed
-        |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client-only)
-        |     |  |     +-- max-value?   uint16
-        |     |  |     +-- min-value?   uint16
-        |     |  +-- current-value?     uint16
-        |     +-- probing-rate
-        |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client-only)
-        |     |  |     +-- max-value?   uint16
-        |     |  |     +-- min-value?   uint16
-        |     |  +-- current-value?     uint16
-        |     +-- max-retransmit
-        |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client-only)
-        |     |  |     +-- max-value?   uint16
-        |     |  |     +-- min-value?   uint16
-        |     |  +-- current-value?     uint16
-        |     +-- ack-timeout
-        |     |  +-- (direction)?
-        |     |  |  +--:(server-to-client-only)
-        |     |  |     +-- max-value-decimal?   decimal64
-        |     |  |     +-- min-value-decimal?   decimal64
-        |     |  +-- current-value-decimal?     decimal64
-        |     +-- ack-random-factor
-        |        +-- (direction)?
-        |        |  +--:(server-to-client-only)
-        |        |     +-- max-value-decimal?   decimal64
-        |        |     +-- min-value-decimal?   decimal64
-        |        +-- current-value-decimal?     decimal64
-        +--:(redirected-signal)
-        |  +-- (direction)?
-        |     +--:(server-to-client-only)
-        |        +-- alt-server           string
-        |        +-- alt-server-record*   inet:ip-address
-        +--:(heartbeat)
-           +-- peer-hb-status             boolean
+          <artwork align="center"><![CDATA[module: ietf-dots-signal-channel
+
+  structure dots-signal:
+    +-- (message-type)?
+       +--:(mitigation-scope)
+       |  +-- scope* []
+       |     +-- target-prefix*                inet:ip-prefix
+       |     +-- target-port-range* [lower-port]
+       |     |  +-- lower-port    inet:port-number
+       |     |  +-- upper-port?   inet:port-number
+       |     +-- target-protocol*              uint8
+       |     +-- target-fqdn*                  inet:domain-name
+       |     +-- target-uri*                   inet:uri
+       |     +-- alias-name*                   string
+       |     +-- lifetime?                     int32
+       |     +-- trigger-mitigation?           boolean
+       |     +-- (direction)?
+       |        +--:(server-to-client-only)
+       |           +-- mid?                    uint32
+       |           +-- mitigation-start?       uint64
+       |           +-- status?                 iana-signal:status
+       |           +-- conflict-information
+       |           |  +-- conflict-status?
+       |           |  |       iana-signal:conflict-status
+       |           |  +-- conflict-cause?
+       |           |  |       iana-signal:conflict-cause
+       |           |  +-- retry-timer?       uint32
+       |           |  +-- conflict-scope
+       |           |     +-- target-prefix*       inet:ip-prefix
+       |           |     +-- target-port-range* [lower-port]
+       |           |     |  +-- lower-port    inet:port-number
+       |           |     |  +-- upper-port?   inet:port-number
+       |           |     +-- target-protocol*     uint8
+       |           |     +-- target-fqdn*         inet:domain-name
+       |           |     +-- target-uri*          inet:uri
+       |           |     +-- alias-name*          string
+       |           |     +-- acl-list* [acl-name]
+       |           |     |  +-- acl-name    leafref
+       |           |     |  +-- acl-type?   leafref
+       |           |     +-- mid?                 uint32
+       |           +-- bytes-dropped?
+       |           |       yang:zero-based-counter64
+       |           +-- bps-dropped?            yang:gauge64
+       |           +-- pkts-dropped?
+       |           |       yang:zero-based-counter64
+       |           +-- pps-dropped?            yang:gauge64
+       |           +-- attack-status?
+       |                   iana-signal:attack-status
+       +--:(signal-config)
+       |  +-- mitigating-config
+       |  |  +-- heartbeat-interval
+       |  |  |  +-- (direction)?
+       |  |  |  |  +--:(server-to-client-only)
+       |  |  |  |     +-- max-value?   uint16
+       |  |  |  |     +-- min-value?   uint16
+       |  |  |  +-- current-value?     uint16
+       |  |  +-- missing-hb-allowed
+       |  |  |  +-- (direction)?
+       |  |  |  |  +--:(server-to-client-only)
+       |  |  |  |     +-- max-value?   uint16
+       |  |  |  |     +-- min-value?   uint16
+       |  |  |  +-- current-value?     uint16
+       |  |  +-- probing-rate
+       |  |  |  +-- (direction)?
+       |  |  |  |  +--:(server-to-client-only)
+       |  |  |  |     +-- max-value?   uint16
+       |  |  |  |     +-- min-value?   uint16
+       |  |  |  +-- current-value?     uint16
+       |  |  +-- max-retransmit
+       |  |  |  +-- (direction)?
+       |  |  |  |  +--:(server-to-client-only)
+       |  |  |  |     +-- max-value?   uint16
+       |  |  |  |     +-- min-value?   uint16
+       |  |  |  +-- current-value?     uint16
+       |  |  +-- ack-timeout
+       |  |  |  +-- (direction)?
+       |  |  |  |  +--:(server-to-client-only)
+       |  |  |  |     +-- max-value-decimal?   decimal64
+       |  |  |  |     +-- min-value-decimal?   decimal64
+       |  |  |  +-- current-value-decimal?     decimal64
+       |  |  +-- ack-random-factor
+       |  |     +-- (direction)?
+       |  |     |  +--:(server-to-client-only)
+       |  |     |     +-- max-value-decimal?   decimal64
+       |  |     |     +-- min-value-decimal?   decimal64
+       |  |     +-- current-value-decimal?     decimal64
+       |  +-- idle-config
+       |     +-- heartbeat-interval
+       |     |  +-- (direction)?
+       |     |  |  +--:(server-to-client-only)
+       |     |  |     +-- max-value?   uint16
+       |     |  |     +-- min-value?   uint16
+       |     |  +-- current-value?     uint16
+       |     +-- missing-hb-allowed
+       |     |  +-- (direction)?
+       |     |  |  +--:(server-to-client-only)
+       |     |  |     +-- max-value?   uint16
+       |     |  |     +-- min-value?   uint16
+       |     |  +-- current-value?     uint16
+       |     +-- probing-rate
+       |     |  +-- (direction)?
+       |     |  |  +--:(server-to-client-only)
+       |     |  |     +-- max-value?   uint16
+       |     |  |     +-- min-value?   uint16
+       |     |  +-- current-value?     uint16
+       |     +-- max-retransmit
+       |     |  +-- (direction)?
+       |     |  |  +--:(server-to-client-only)
+       |     |  |     +-- max-value?   uint16
+       |     |  |     +-- min-value?   uint16
+       |     |  +-- current-value?     uint16
+       |     +-- ack-timeout
+       |     |  +-- (direction)?
+       |     |  |  +--:(server-to-client-only)
+       |     |  |     +-- max-value-decimal?   decimal64
+       |     |  |     +-- min-value-decimal?   decimal64
+       |     |  +-- current-value-decimal?     decimal64
+       |     +-- ack-random-factor
+       |        +-- (direction)?
+       |        |  +--:(server-to-client-only)
+       |        |     +-- max-value-decimal?   decimal64
+       |        |     +-- min-value-decimal?   decimal64
+       |        +-- current-value-decimal?     decimal64
+       +--:(redirected-signal)
+       |  +-- (direction)?
+       |     +--:(server-to-client-only)
+       |        +-- alt-server           string
+       |        +-- alt-server-record*   inet:ip-address
+       +--:(heartbeat)
+          +-- peer-hb-status             boolean
 
 ]]></artwork>
         </figure></t>
@@ -288,7 +294,7 @@
       target="RFC8782"></xref>.</t>
 
       <t><figure align="center">
-          <artwork><![CDATA[<CODE BEGINS> file "ietf-dots-signal-channel@2020-07-03.yang"
+          <artwork align="center"><![CDATA[<CODE BEGINS> file "ietf-dots-signal-channel@2020-07-02.yang"
 module ietf-dots-signal-channel {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-dots-signal-channel";
