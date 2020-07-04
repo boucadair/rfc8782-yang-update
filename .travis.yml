@@ -20,7 +20,6 @@ install:
 script: 
 
   - xml2rfc draft-boucadair-dots-rfc8782-yang-update-00.xml
-  - pyang -f tree --ietf  ietf-dots-signal-channel@2020-07-02.yang
-  - pyang -f tree --tree-print-structures ietf-dots-signal-channel@2020-07-02.yang
+  - pyang –f tree --tree-line-length 69 ietf-dots-signal-channel@2020-07-02.yang
   - yanglint -f yang ietf-dots-signal-channel@2020-07-02.yang
   - yanglint --verbose ietf-dots-signal-channel@2020-07-02.yang -i 
