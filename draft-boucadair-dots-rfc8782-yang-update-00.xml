@@ -83,7 +83,8 @@
     <abstract>
       <t>This document specifies an updated version of the Distributed
       Denial-of-Service Open Threat Signaling (DOTS) Signal Channel YANG data
-      model.</t>
+      model. This updated version makes use of the new mechanisms for defining
+      abstract data structures with YANG defined in RFC8791.</t>
 
       <t>This document updates RFC 8782.</t>
     </abstract>
@@ -118,21 +119,19 @@
       target="RFC8782"></xref> are as follows:</t>
 
       <t><list style="symbols">
-          <t>Follow the YANG data structure specified in <xref
+          <t>Follow the new YANG data structure specified in <xref
           target="RFC8791"></xref>.</t>
-
-          <t>Remove "config" clauses. Note that "config" statements will be
-          ignored (if present) anyway according to Section 4 of <xref
-          target="RFC8791"></xref>.</t>
-
-          <t>Remove the list keys for the mitigation scope message type given
-          that Section 4 of <xref target="RFC8791"></xref> specifies that a
-          list does not require to have a "key" statement defined.</t>
 
           <t>Add in "choice" to indicate the communication direction in which
           a data node applies. If no 'choice' is indicated, a node can appear
           in both directions (i.e., from DOTS client to DOTS server and vice
           versa).</t>
+
+          <t>Remove "config" clauses. Note that "config" statements will be
+          ignored (if present) anyway according to Section 4 of <xref
+          target="RFC8791"></xref>.</t>
+
+          <t>Remove the list keys for the mitigation scope message type. </t>
 
           <t>Remove "cuid", "cdid", and "sid" nodes from the structure because
           these nodes are included as URI-Paths, not within the message
@@ -367,7 +366,7 @@ module ietf-dots-signal-channel {
 
   revision 2020-07-02 {
     description
-      "Updated revision.";
+      "Updated revision to comply with RFC8791.";
     reference
       "RFC xxxx: A YANG Data Model for Distributed Denial-of-Service
                  Open Threat Signaling (DOTS) Signal Channel";

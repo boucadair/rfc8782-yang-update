@@ -5,8 +5,8 @@
 DOTS                                                        M. Boucadair
 Internet-Draft                                                    Orange
 Updates: 8782 (if approved)                                   J. Shallow
-Intended status: Standards Track                            July 4, 2020
-Expires: January 5, 2021
+Intended status: Standards Track                            July 5, 2020
+Expires: January 6, 2021
 
 
     A YANG Data Model for Distributed Denial-of-Service Open Threat
@@ -17,7 +17,8 @@ Abstract
 
    This document specifies an updated version of the Distributed Denial-
    of-Service Open Threat Signaling (DOTS) Signal Channel YANG data
-   model.
+   model.  This updated version makes use of the new mechanisms for
+   defining abstract data structures with YANG defined in RFC8791.
 
    This document updates RFC 8782.
 
@@ -36,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on January 5, 2021.
+   This Internet-Draft will expire on January 6, 2021.
 
 Copyright Notice
 
@@ -49,15 +50,15 @@ Copyright Notice
    publication of this document.  Please review these documents
    carefully, as they describe your rights and restrictions with respect
    to this document.  Code Components extracted from this document must
-   include Simplified BSD License text as described in Section 4.e of
 
 
 
-Boucadair & Shallow      Expires January 5, 2021                [Page 1]
+Boucadair & Shallow      Expires January 6, 2021                [Page 1]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+   include Simplified BSD License text as described in Section 4.e of
    the Trust Legal Provisions and are provided without warranty as
    described in the Simplified BSD License.
 
@@ -69,11 +70,11 @@ Table of Contents
    4.  YANG Module . . . . . . . . . . . . . . . . . . . . . . . . .   6
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  18
    6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  18
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  18
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  19
    8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  19
      8.1.  Normative References  . . . . . . . . . . . . . . . . . .  19
      8.2.  Informative References  . . . . . . . . . . . . . . . . .  19
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  20
 
 1.  Introduction
 
@@ -102,26 +103,26 @@ Table of Contents
    The main changes compared to the YANG version published in [RFC8782]
    are as follows:
 
-   o  Follow the YANG data structure specified in [RFC8791].
-
-   o  Remove "config" clauses.  Note that "config" statements will be
-      ignored (if present) anyway according to Section 4 of [RFC8791].
+   o  Follow the new YANG data structure specified in [RFC8791].
 
 
 
-Boucadair & Shallow      Expires January 5, 2021                [Page 2]
+
+
+Boucadair & Shallow      Expires January 6, 2021                [Page 2]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
-
-   o  Remove the list keys for the mitigation scope message type given
-      that Section 4 of [RFC8791] specifies that a list does not require
-      to have a "key" statement defined.
 
    o  Add in "choice" to indicate the communication direction in which a
       data node applies.  If no 'choice' is indicated, a node can appear
       in both directions (i.e., from DOTS client to DOTS server and vice
       versa).
+
+   o  Remove "config" clauses.  Note that "config" statements will be
+      ignored (if present) anyway according to Section 4 of [RFC8791].
+
+   o  Remove the list keys for the mitigation scope message type.
 
    o  Remove "cuid", "cdid", and "sid" nodes from the structure because
       these nodes are included as URI-Paths, not within the message
@@ -161,15 +162,15 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
            |           +-- conflict-information
            |           |  +-- conflict-status?
            |           |  |       iana-signal:conflict-status
-           |           |  +-- conflict-cause?
 
 
 
-Boucadair & Shallow      Expires January 5, 2021                [Page 3]
+Boucadair & Shallow      Expires January 6, 2021                [Page 3]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+           |           |  +-- conflict-cause?
            |           |  |       iana-signal:conflict-cause
            |           |  +-- retry-timer?       uint32
            |           |  +-- conflict-scope
@@ -217,15 +218,15 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
            |  |  |  +-- (direction)?
            |  |  |  |  +--:(server-to-client-only)
            |  |  |  |     +-- max-value?   uint16
-           |  |  |  |     +-- min-value?   uint16
 
 
 
-Boucadair & Shallow      Expires January 5, 2021                [Page 4]
+Boucadair & Shallow      Expires January 6, 2021                [Page 4]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+           |  |  |  |     +-- min-value?   uint16
            |  |  |  +-- current-value?     uint16
            |  |  +-- ack-timeout
            |  |  |  +-- (direction)?
@@ -273,15 +274,15 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
            |     +-- ack-random-factor
            |        +-- (direction)?
            |        |  +--:(server-to-client-only)
-           |        |     +-- max-value-decimal?   decimal64
 
 
 
-Boucadair & Shallow      Expires January 5, 2021                [Page 5]
+Boucadair & Shallow      Expires January 6, 2021                [Page 5]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+           |        |     +-- max-value-decimal?   decimal64
            |        |     +-- min-value-decimal?   decimal64
            |        +-- current-value-decimal?     decimal64
            +--:(redirected-signal)
@@ -329,14 +330,15 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
      prefix sx;
      reference
        "RFC 8791: YANG Data Structure Extensions";
-   }
 
 
 
-Boucadair & Shallow      Expires January 5, 2021                [Page 6]
+Boucadair & Shallow      Expires January 6, 2021                [Page 6]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
+
+   }
 
    organization
      "IETF DDoS Open Threat Signaling (DOTS) Working Group";
@@ -380,20 +382,20 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
    revision 2020-07-02 {
      description
-       "Updated revision.";
+       "Updated revision to comply with RFC8791.";
      reference
        "RFC xxxx: A YANG Data Model for Distributed Denial-of-Service
                   Open Threat Signaling (DOTS) Signal Channel";
-   }
-   revision 2020-05-28 {
 
 
 
-Boucadair & Shallow      Expires January 5, 2021                [Page 7]
+Boucadair & Shallow      Expires January 6, 2021                [Page 7]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+   }
+   revision 2020-05-28 {
      description
        "Initial revision.";
      reference
@@ -440,16 +442,16 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
        }
        choice direction {
          description
-           "Indicates the communication direction in which the
-            nodes can be included.";
 
 
 
-Boucadair & Shallow      Expires January 5, 2021                [Page 8]
+Boucadair & Shallow      Expires January 6, 2021                [Page 8]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+           "Indicates the communication direction in which the
+            nodes can be included.";
          case server-to-client-only {
            description
              "These nodes appear only in a mitigation message
@@ -496,16 +498,16 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
                   same request that has a conflict before the expiry of
                   this timer.";
              }
-             container conflict-scope {
-               description
 
 
 
-Boucadair & Shallow      Expires January 5, 2021                [Page 9]
+Boucadair & Shallow      Expires January 6, 2021                [Page 9]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+             container conflict-scope {
+               description
                  "Provides more information about the conflict scope.";
                uses ietf-data:target {
                  when "/dots-signal/scope/conflict-information/"
@@ -552,16 +554,16 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
                     the same DOTS client.";
                }
              }
-           }
-           leaf bytes-dropped {
 
 
 
-Boucadair & Shallow      Expires January 5, 2021               [Page 10]
+Boucadair & Shallow      Expires January 6, 2021               [Page 10]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+           }
+           leaf bytes-dropped {
              type yang:zero-based-counter64;
              units "bytes";
              description
@@ -608,15 +610,16 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
            }
          }
        }
-     }
-   }
 
 
 
-Boucadair & Shallow      Expires January 5, 2021               [Page 11]
+Boucadair & Shallow      Expires January 6, 2021               [Page 11]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
+
+     }
+   }
 
    grouping config-parameters {
      description
@@ -663,17 +666,17 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
        description
          "Maximum number of missing heartbeats allowed.";
        choice direction {
-         description
-           "Indicates the communication direction in which the
-            nodes can be included.";
 
 
 
-Boucadair & Shallow      Expires January 5, 2021               [Page 12]
+Boucadair & Shallow      Expires January 6, 2021               [Page 12]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+         description
+           "Indicates the communication direction in which the
+            nodes can be included.";
          case server-to-client-only {
            description
              "These nodes appear only in a mitigation message
@@ -719,17 +722,17 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
              type uint16;
              units "byte/second";
              description
-               "Minimum acceptable probing-rate value.";
-           }
-         }
 
 
 
-Boucadair & Shallow      Expires January 5, 2021               [Page 13]
+Boucadair & Shallow      Expires January 6, 2021               [Page 13]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+               "Minimum acceptable probing-rate value.";
+           }
+         }
        }
        leaf current-value {
          type uint16;
@@ -775,17 +778,17 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
          "Initial retransmission timeout value.";
        choice direction {
          description
-           "Indicates the communication direction in which the
-            nodes can be included.";
-         case server-to-client-only {
 
 
 
-Boucadair & Shallow      Expires January 5, 2021               [Page 14]
+Boucadair & Shallow      Expires January 6, 2021               [Page 14]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+           "Indicates the communication direction in which the
+            nodes can be included.";
+         case server-to-client-only {
            description
              "These nodes appear only in a mitigation message
               sent from the server to the client.";
@@ -831,17 +834,17 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
               sent from the server to the client.";
            leaf max-value-decimal {
              type decimal64 {
-               fraction-digits 2;
-             }
-             description
 
 
 
-Boucadair & Shallow      Expires January 5, 2021               [Page 15]
+Boucadair & Shallow      Expires January 6, 2021               [Page 15]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+               fraction-digits 2;
+             }
+             description
                "Maximum acceptable ack-random-factor value.";
            }
            leaf min-value-decimal {
@@ -887,17 +890,17 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
      choice direction {
        description
          "Indicates the communication direction in which the
-          nodes can be included.";
-       case server-to-client-only {
-         description
 
 
 
-Boucadair & Shallow      Expires January 5, 2021               [Page 16]
+Boucadair & Shallow      Expires January 6, 2021               [Page 16]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+          nodes can be included.";
+       case server-to-client-only {
+         description
            "These nodes appear only in a mitigation message
             sent from the server to the client.";
          leaf alt-server {
@@ -943,17 +946,17 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
          description
            "Redirected signaling.";
          uses redirected-signal;
-       }
-       case heartbeat {
-         description
 
 
 
-Boucadair & Shallow      Expires January 5, 2021               [Page 17]
+Boucadair & Shallow      Expires January 6, 2021               [Page 17]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
+       }
+       case heartbeat {
+         description
            "DOTS heartbeats.";
          leaf peer-hb-status {
            type boolean;
@@ -996,19 +999,20 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
          Prefix: signal
          Reference: RFC XXXX
 
-7.  Acknowledgements
-
-   Many thanks to Martin Bjoerklund for the suggestion to use RFC8791.
 
 
 
 
 
 
-Boucadair & Shallow      Expires January 5, 2021               [Page 18]
+Boucadair & Shallow      Expires January 6, 2021               [Page 18]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
+
+7.  Acknowledgements
+
+   Many thanks to Martin Bjoerklund for the suggestion to use RFC8791.
 
 8.  References
 
@@ -1052,19 +1056,17 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
 
-Authors' Addresses
 
 
 
 
 
-
-
-
-Boucadair & Shallow      Expires January 5, 2021               [Page 19]
+Boucadair & Shallow      Expires January 6, 2021               [Page 19]
 
 Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
+
+Authors' Addresses
 
    Mohamed Boucadair
    Orange
@@ -1115,6 +1117,4 @@ Internet-Draft       DOTS Signal Channel YANG Module           July 2020
 
 
 
-
-
-Boucadair & Shallow      Expires January 5, 2021               [Page 20]
+Boucadair & Shallow      Expires January 6, 2021               [Page 20]
