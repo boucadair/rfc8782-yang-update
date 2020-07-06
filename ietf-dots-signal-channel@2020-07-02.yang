@@ -530,7 +530,7 @@ module ietf-dots-signal-channel {
   }
 
   /*
-   * Main Container for DOTS Signal Channel
+   * DOTS Signal Channel Structure
    */
 
   sx:structure dots-signal {
