@@ -73,7 +73,7 @@ module ietf-dots-signal-channel {
 
   revision 2020-07-02 {
     description
-      "Updated revision.";
+      "Updated revision to comply with RFC8791.";
     reference
       "RFC xxxx: A YANG Data Model for Distributed Denial-of-Service
                  Open Threat Signaling (DOTS) Signal Channel";
@@ -535,7 +535,7 @@ module ietf-dots-signal-channel {
 
   sx:structure dots-signal {
     description
-      "Main container for DOTS signal message.
+      "Main structure for DOTS signal message.
 
        A DOTS signal message can be a mitigation, a configuration,
        or a redirected signal message.";
@@ -547,16 +547,22 @@ module ietf-dots-signal-channel {
         description
           "Mitigation scope of a mitigation message.";
         uses mitigation-scope;
+        reference
+          "Section 4.4 of RFC 8782";
       }
       case signal-config {
         description
           "Configuration message.";
         uses signal-config;
+        reference
+          "Section 4.5 of RFC 8782";
       }
       case redirected-signal {
         description
           "Redirected signaling.";
         uses redirected-signal;
+        reference
+          "Section 4.6 of RFC 8782";
       }
       case heartbeat {
         description
@@ -570,6 +576,8 @@ module ietf-dots-signal-channel {
              DOTS agent is receiving heartbeat messages
              from its peer.";
         }
+        reference
+          "Section 4.7 of RFC 8782";
       }
     }
   }
