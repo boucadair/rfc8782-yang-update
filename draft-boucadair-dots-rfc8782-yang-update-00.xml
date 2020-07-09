@@ -84,7 +84,7 @@
       <t>This document specifies an updated version of the Distributed
       Denial-of-Service Open Threat Signaling (DOTS) Signal Channel YANG data
       model. This updated version makes use of the new mechanisms for defining
-      abstract data structures with YANG defined in RFC8791.</t>
+      abstract data structures with YANG as specified in RFC8791.</t>
 
       <t>This document updates RFC 8782.</t>
     </abstract>
@@ -94,15 +94,16 @@
     <section anchor="intro" title="Introduction">
       <t>As specified in <xref target="RFC8782"></xref>, messages exchanged
       between DOTS agents are serialized using Concise Binary Object
-      Representation (CBOR). CBOR-encoded payloads are used to carry signal
-      channel-specific payload messages which convey request parameters and
-      response information such as errors.</t>
+      Representation (CBOR) <xref target="RFC7252"></xref>. CBOR-encoded
+      payloads are used to carry signal channel-specific payload messages
+      which convey request parameters and response information such as
+      errors.</t>
 
       <t>This document specifies a YANG module <xref target="RFC7950"></xref>
       for representing DOTS mitigation scopes, DOTS signal channel session
       configuration data, and DOTS redirected signaling. All parameters in the
       payload of the DOTS signal channel are mapped to CBOR types as specified
-      in Table 4 of <xref target="RFC8782"></xref>.</t>
+      in Table 5 of <xref target="RFC8782"></xref>.</t>
 
       <t>This YANG module is not intended to be used via NETCONF/RESTCONF for
       DOTS server management purposes; such a module is out of the scope of
@@ -114,7 +115,7 @@
       target="RFC8340"></xref> and <xref target="RFC8791"></xref>.</t>
     </section>
 
-    <section title="Summary of Changes vs. RFC8782">
+    <section title="Summary of Changes From RFC8782">
       <t>The main changes compared to the YANG version published in <xref
       target="RFC8782"></xref> are as follows:</t>
 
@@ -123,20 +124,33 @@
           target="RFC8791"></xref>.</t>
 
           <t>Add in "choice" to indicate the communication direction in which
-          a data node applies. If no 'choice' is indicated, a node can appear
-          in both directions (i.e., from DOTS client to DOTS server and vice
-          versa).</t>
+          a data node applies. If no "choice" is indicated, a data node can
+          appear in both directions (i.e., from DOTS clients to DOTS servers
+          and vice versa).</t>
 
           <t>Remove "config" clauses. Note that "config" statements will be
           ignored (if present) anyway according to Section 4 of <xref
-          target="RFC8791"></xref>.</t>
+          target="RFC8791"></xref>. This supersedes the references to the use
+          of &lsquo;ro&rsquo; and &lsquo;rw&rsquo; which are now covered by
+          &ldquo;choice&rdquo; above.</t>
 
-          <t>Remove the list keys for the mitigation scope message type. </t>
+          <t>Remove "cuid", "cdid", and "sid" data nodes from the structure
+          because these data nodes are included as Uri-Path options, not
+          within the message body.</t>
 
-          <t>Remove "cuid", "cdid", and "sid" nodes from the structure because
-          these nodes are included as URI-Paths, not within the message
-          body.</t>
+          <t>Remove the list keys for the mitigation scope message type (i.e.,
+          "cuid" and "mid"). "mid" is not indicated as a key because it is
+          included as Uri-Path option for requests and in the message body for
+          responses. Note that Section 4 of <xref target="RFC8791"></xref>
+          specifies that a list does not require to have a key statement
+          defined.</t>
         </list></t>
+
+      <t>These changes are made with the constraint to avoid changes to the
+      mapping table defined in Table 5 of <xref target="RFC8782"></xref>. A
+      DOTS signal channel attribute that may be present in both requests and
+      responses will thus have the same CBOR key value and CBOR major
+      type.</t>
     </section>
 
     <section title="Tree Structure">
@@ -145,7 +159,7 @@
       mitigation, a configuration, a redirect, or a heartbeat message. The use
       of these attributes is specified in <xref target="RFC8782"></xref>.</t>
 
-      <t>This tree structure obsoletes the ones described in Section 5.1 of
+      <t>This tree structure obsoletes the one described in Section 5.1 of
       <xref target="RFC8782"></xref>.</t>
 
       <t><figure align="center">
@@ -289,7 +303,7 @@
       target="RFC6991"></xref> and types defined in <xref
       target="RFC8783"></xref>.</t>
 
-      <t>This version obsoletes the one described in Section 5.3 of <xref
+      <t>This version obsoletes the version described in Section 5.3 of <xref
       target="RFC8782"></xref>.</t>
 
       <t><figure align="center">
@@ -317,6 +331,9 @@ module ietf-dots-signal-channel {
   }
   import iana-dots-signal-channel {
     prefix iana-signal;
+    reference
+      "RFC 8782: Distributed Denial-of-Service Open Threat Signaling
+                 (DOTS) Signal Channel Specification";
   }
   import ietf-yang-structure-ext {
     prefix sx;
@@ -419,10 +436,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           nodes can be included.";
+           data nodes can be included.";
         case server-to-client-only {
           description
-            "These nodes appear only in a mitigation message
+            "These data nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf mid {
             type uint32;
@@ -577,10 +594,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           nodes can be included.";
+           data nodes can be included.";
         case server-to-client-only {
           description
-            "These nodes appear only in a mitigation message
+            "These data nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value {
             type uint16;
@@ -612,10 +629,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           nodes can be included.";
+           data nodes can be included.";
         case server-to-client-only {
           description
-            "These nodes appear only in a mitigation message
+            "These data nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value {
             type uint16;
@@ -643,10 +660,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           nodes can be included.";
+           data nodes can be included.";
         case server-to-client-only {
           description
-            "These nodes appear only in a mitigation message
+            "These data nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value {
             type uint16;
@@ -677,10 +694,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           nodes can be included.";
+           data nodes can be included.";
         case server-to-client-only {
           description
-            "These nodes appear only in a mitigation message
+            "These data nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value {
             type uint16;
@@ -707,10 +724,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           nodes can be included.";
+           data nodes can be included.";
         case server-to-client-only {
           description
-            "These nodes appear only in a mitigation message
+            "These data nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value-decimal {
             type decimal64 {
@@ -747,10 +764,10 @@ module ietf-dots-signal-channel {
       choice direction {
         description
           "Indicates the communication direction in which the
-           nodes can be included.";
+           data nodes can be included.";
         case server-to-client-only {
           description
-            "These nodes appear only in a mitigation message
+            "These data nodes appear only in a mitigation message
              sent from the server to the client.";
           leaf max-value-decimal {
             type decimal64 {
@@ -802,10 +819,10 @@ module ietf-dots-signal-channel {
     choice direction {
       description
         "Indicates the communication direction in which the
-         nodes can be included.";
+         data nodes can be included.";
       case server-to-client-only {
         description
-          "These nodes appear only in a mitigation message
+          "These data nodes appear only in a mitigation message
            sent from the server to the client.";
         leaf alt-server {
           type string;
@@ -823,12 +840,12 @@ module ietf-dots-signal-channel {
   }
 
   /*
-   * Main Container for DOTS Signal Channel
+   * DOTS Signal Channel Structure
    */
 
   sx:structure dots-signal {
     description
-      "Main container for DOTS signal message.
+      "Main structure for DOTS signal message.
 
        A DOTS signal message can be a mitigation, a configuration,
        or a redirected signal message.";
@@ -840,16 +857,22 @@ module ietf-dots-signal-channel {
         description
           "Mitigation scope of a mitigation message.";
         uses mitigation-scope;
+        reference
+          "Section 4.4 of RFC 8782";
       }
       case signal-config {
         description
           "Configuration message.";
         uses signal-config;
+        reference
+          "Section 4.5 of RFC 8782";
       }
       case redirected-signal {
         description
           "Redirected signaling.";
         uses redirected-signal;
+        reference
+          "Section 4.6 of RFC 8782";
       }
       case heartbeat {
         description
@@ -863,6 +886,8 @@ module ietf-dots-signal-channel {
              DOTS agent is receiving heartbeat messages
              from its peer.";
         }
+        reference
+          "Section 4.7 of RFC 8782";
       }
     }
   }
@@ -902,6 +927,11 @@ module ietf-dots-signal-channel {
     <section title="Acknowledgements">
       <t>Many thanks to Martin Bj&ouml;rklund for the suggestion to use
       RFC8791.</t>
+
+      <t>The initial version of the DOTS signal channel YANG model was
+      specified in <xref target="RFC8782"></xref> authored by Tirumaleswar
+      Reddy.K, Mohamed Boucadair, Prashanth Patil, Andrew Mortensen, and Nik
+      Teague.</t>
     </section>
   </middle>
 
@@ -922,6 +952,8 @@ module ietf-dots-signal-channel {
       <?rfc include='reference.RFC.6020'?>
 
       <?rfc include='reference.RFC.7950'?>
+
+      <?rfc include='reference.RFC.7252'?>
     </references>
 
     <references title="Informative References">
