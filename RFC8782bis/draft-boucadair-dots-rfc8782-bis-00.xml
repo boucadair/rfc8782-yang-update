@@ -183,27 +183,28 @@
       the LAN (Local Area Network), while a DOTS gateway is embedded in the
       CPE (Customer Premises Equipment).</t>
 
-      <t><figure anchor="fig1" title="Sample DOTS Deployment (1)">
-          <artwork align="center"><![CDATA[       Network
-      Resource         CPE Router        Access Network     __________
-    +-----------+   +--------------+    +-------------+    /          \
-    |           |___|              |____|             |___ | Internet |
-    |DOTS Client|   | DOTS Gateway |    | DOTS Server |    |          |
-    |           |   |              |    |             |    |          |
-    +-----------+   +--------------+    +-------------+    \__________/]]></artwork>
+      <t><figure align="center" anchor="fig1"
+          title="Sample DOTS Deployment (1)">
+          <artwork align="center"><![CDATA[  Network
+  Resource         CPE Router        Access Network     __________
++-----------+   +--------------+    +-------------+    /          \
+|           |___|              |____|             |___ | Internet |
+|DOTS Client|   | DOTS Gateway |    | DOTS Server |    |          |
+|           |   |              |    |             |    |          |
++-----------+   +--------------+    +-------------+    \__________/]]></artwork>
         </figure></t>
 
       <t>DOTS servers can also be reachable over the Internet, as depicted in
       <xref target="fig_blah"></xref>.</t>
 
       <t><figure anchor="fig_blah" title="Sample DOTS Deployment (2)">
-          <artwork align="center"><![CDATA[      Network                                           DDoS Mitigation
-      Resource         CPE Router        __________         Service
-    +-----------+   +--------------+    /          \    +-------------+
-    |           |___|              |____|          |___ |             |
-    |DOTS Client|   | DOTS Gateway |    | Internet |    | DOTS Server |
-    |           |   |              |    |          |    |             |
-    +-----------+   +--------------+    \__________/    +-------------+
+          <artwork align="center"><![CDATA[  Network                                           DDoS Mitigation
+  Resource         CPE Router        __________         Service
++-----------+   +--------------+    /          \    +-------------+
+|           |___|              |____|          |___ |             |
+|DOTS Client|   | DOTS Gateway |    | Internet |    | DOTS Server |
+|           |   |              |    |          |    |             |
++-----------+   +--------------+    \__________/    +-------------+
 ]]></artwork>
         </figure>In typical deployments, the DOTS client belongs to a
       different administrative domain than the DOTS server. For example, the
@@ -286,7 +287,7 @@
 
           <t>Update the IANA section to allocate a new range for
           comprehension-optional attributes (<xref
-          target="range"></xref>).</t>
+          target="format"></xref>).</t>
         </list></t>
 
       <t>These changes are made with the constraint to avoid changes to the
@@ -451,12 +452,12 @@
       recommendations about possible translator discovery mechanisms. The
       following are some (non-exhaustive) deployment examples that may be
       considered: <list style="symbols">
-          <t>Port Control Protocol (PCP) <xref target="RFC6887"></xref> or
-          Session Traversal Utilities for NAT (STUN) <xref
-          target="RFC8489"></xref> may be used to retrieve the external
-          addresses/prefixes and/or port numbers. Information retrieved by
-          means of PCP or STUN will be used to feed the DOTS signal channel
-          messages that will be sent to a DOTS server.</t>
+          <t hangText="*">Port Control Protocol (PCP) <xref
+          target="RFC6887"></xref> or Session Traversal Utilities for NAT
+          (STUN) <xref target="RFC8489"></xref> may be used to retrieve the
+          external addresses/prefixes and/or port numbers. Information
+          retrieved by means of PCP or STUN will be used to feed the DOTS
+          signal channel messages that will be sent to a DOTS server.</t>
 
           <t>A DOTS gateway may be co-located with the translator. The DOTS
           gateway will need to update the DOTS messages based upon the local
@@ -489,17 +490,17 @@
         CoAP request to perform the desired DOTS operation.</t>
 
         <figure>
-          <artwork><![CDATA[         +-----------------------+----------------+-------------+
-         | Operation             | Operation Path | Details     |
-         +=======================+================+=============+
-         | Mitigation            | /mitigate      | Section 4.4 |
-         +-----------------------+----------------+-------------+
-         | Session configuration | /config        | Section 4.5 |
-         +-----------------------+----------------+-------------+
-         | Heartbeat             | /hb            | Section 4.7 |
-         +-----------------------+----------------+-------------+
+          <artwork align="center"><![CDATA[+-----------------------+----------------+-------------+
+| Operation             | Operation Path | Details     |
++=======================+================+=============+
+| Mitigation            | /mitigate      | Section 4.4 |
++-----------------------+----------------+-------------+
+| Session configuration | /config        | Section 4.5 |
++-----------------------+----------------+-------------+
+| Heartbeat             | /hb            | Section 4.7 |
++-----------------------+----------------+-------------+
 
-                Table 1: Operations and Corresponding URIs]]></artwork>
+       Table 1: Operations and Corresponding URIs]]></artwork>
         </figure>
 
         <t></t>
@@ -587,23 +588,23 @@
 
         <t><figure anchor="fig_happy_eyeballs"
             title="DOTS Happy Eyeballs (Sample Flow)">
-            <artwork align="center"><![CDATA[    +-----------+                                         +-----------+
-    |DOTS Client|                                         |DOTS Server|
-    +-----------+                                         +-----------+
-          |                                                     |
-       T0 |--DTLS ClientHello, IPv6 ---->X                      |
-       T1 |--DTLS ClientHello, IPv4 ---->X                      |
-       T2 |--TCP SYN, IPv6-------------->X                      |
-       T3 |--TCP SYN, IPv4------------------------------------->|
-          |<-TCP SYNACK-----------------------------------------|
-          |--TCP ACK------------------------------------------->|
-          |<------------Establish TLS Session------------------>|
-          |----------------DOTS signal------------------------->|
-          |                                                     |
+            <artwork align="center"><![CDATA[+-----------+                                         +-----------+
+|DOTS Client|                                         |DOTS Server|
++-----------+                                         +-----------+
+      |                                                     |
+   T0 |--DTLS ClientHello, IPv6 ---->X                      |
+   T1 |--DTLS ClientHello, IPv4 ---->X                      |
+   T2 |--TCP SYN, IPv6-------------->X                      |
+   T3 |--TCP SYN, IPv4------------------------------------->|
+      |<-TCP SYNACK-----------------------------------------|
+      |--TCP ACK------------------------------------------->|
+      |<------------Establish TLS Session------------------>|
+      |----------------DOTS signal------------------------->|
+      |                                                     |
 
-     Note:
-      * Retransmission messages are not shown.
-      * T1-T0=T2-T1=T3-T2= Connection Attempt Delay.]]></artwork>
+ Note:
+  * Retransmission messages are not shown.
+  * T1-T0=T2-T1=T3-T2= Connection Attempt Delay.]]></artwork>
           </figure></t>
 
         <t>A single DOTS signal channel between DOTS agents can be used to
@@ -832,7 +833,7 @@
               any protocol. <vspace blankLines="1" />This is an optional
               attribute.</t>
 
-              <t hangText="target-fqdn: ">A list of Fully Qualified Domain
+              <t hangText="target-fqdn:">A list of Fully Qualified Domain
               Names (FQDNs) identifying resources under attack <xref
               target="RFC8499"></xref>.<vspace blankLines="1" />How a name is
               passed to an underlying name resolution library is
@@ -850,7 +851,7 @@
                 </list><vspace blankLines="1" />This is an optional
               attribute.</t>
 
-              <t hangText="target-uri: ">A list of URIs <xref
+              <t hangText="target-uri:">A list of URIs <xref
               target="RFC3986"></xref> identifying resources under attack.
               <vspace blankLines="1" />The same validation checks used for
               'target-fqdn' MUST be followed by DOTS servers to validate a
@@ -866,7 +867,7 @@
               under attack.<vspace blankLines="1" />This is an optional
               attribute.</t>
 
-              <t hangText="lifetime: ">Lifetime of the mitigation request in
+              <t hangText="lifetime:">Lifetime of the mitigation request in
               seconds. The RECOMMENDED lifetime of a mitigation request is
               3600 seconds: this value was chosen to be long enough so that
               refreshing is not typically a burden on the DOTS client, while
@@ -887,7 +888,7 @@
               lifetime in status messages sent to the DOTS client. <vspace
               blankLines="1" />This is a mandatory attribute.</t>
 
-              <t hangText="trigger-mitigation: ">If the parameter value is set
+              <t hangText="trigger-mitigation:">If the parameter value is set
               to 'false', DDoS mitigation will not be triggered for the
               mitigation request unless the DOTS signal channel session is
               lost. <vspace blankLines="1" />If the DOTS client ceases to
@@ -1061,34 +1062,34 @@
 
           <t><figure anchor="Figure2a"
               title="PUT for DOTS Mitigation Request (CBOR)">
-              <artwork align="left"><![CDATA[      A1                                      # map(1)
-         01                                   # unsigned(1)
-         A1                                   # map(1)
-            02                                # unsigned(2)
-            81                                # array(1)
-               A4                             # map(4)
-                  06                          # unsigned(6)
-                  82                          # array(2)
-                     74                       # text(20)
-                        323030313A6462383A363430313A3A312F313238
-                     74                       # text(20)
-                        323030313A6462383A363430313A3A322F313238
-                  07                          # unsigned(7)
-                  83                          # array(3)
-                     A1                       # map(1)
-                        08                    # unsigned(8)
-                        18 50                 # unsigned(80)
-                     A1                       # map(1)
-                        08                    # unsigned(8)
-                        19 01BB               # unsigned(443)
-                     A1                       # map(1)
-                        08                    # unsigned(8)
-                        19 1F90               # unsigned(8080)
-                  0A                          # unsigned(10)
-                  81                          # array(1)
-                     06                       # unsigned(6)
-                  0E                          # unsigned(14)
-                  19 0E10                     # unsigned(3600)
+              <artwork align="left"><![CDATA[   A1                                      # map(1)
+      01                                   # unsigned(1)
+      A1                                   # map(1)
+         02                                # unsigned(2)
+         81                                # array(1)
+            A4                             # map(4)
+               06                          # unsigned(6)
+               82                          # array(2)
+                  74                       # text(20)
+                     323030313A6462383A363430313A3A312F313238
+                  74                       # text(20)
+                     323030313A6462383A363430313A3A322F313238
+               07                          # unsigned(7)
+               83                          # array(3)
+                  A1                       # map(1)
+                     08                    # unsigned(8)
+                     18 50                 # unsigned(80)
+                  A1                       # map(1)
+                     08                    # unsigned(8)
+                     19 01BB               # unsigned(443)
+                  A1                       # map(1)
+                     08                    # unsigned(8)
+                     19 1F90               # unsigned(8080)
+               0A                          # unsigned(10)
+               81                          # array(1)
+                  06                       # unsigned(6)
+               0E                          # unsigned(14)
+               19 0E10                     # unsigned(3600)
 ]]></artwork>
             </figure></t>
 
@@ -1150,7 +1151,8 @@
           'cuid' or 'mid' Uri-Path options, includes multiple 'scope'
           parameters, or contains invalid or unknown parameters, the DOTS
           server MUST reply with 4.00 (Bad Request). DOTS agents can safely
-          ignore comprehension-optional parameters they don't understand.</t>
+          ignore comprehension-optional parameters they don't understand
+          (<xref target="format"></xref>).</t>
 
           <t>A DOTS server that receives a mitigation request with a
           'lifetime' set to '0' MUST reply with a 4.00 (Bad Request).</t>
@@ -1401,17 +1403,17 @@
           DDoS attack is active to limit the size of the response.</t>
 
           <figure>
-            <artwork><![CDATA[      +-------+-----------------------------------------------------+
-      | Value | Description                                         |
-      +=======+=====================================================+
-      | c     | Return only configuration descendant data nodes     |
-      +-------+-----------------------------------------------------+
-      | n     | Return only non-configuration descendant data nodes |
-      +-------+-----------------------------------------------------+
-      | a     | Return all descendant data nodes                    |
-      +-------+-----------------------------------------------------+
+            <artwork align="center"><![CDATA[+-------+-----------------------------------------------------+
+| Value | Description                                         |
++=======+=====================================================+
+| c     | Return only configuration descendant data nodes     |
++-------+-----------------------------------------------------+
+| n     | Return only non-configuration descendant data nodes |
++-------+-----------------------------------------------------+
+| a     | Return all descendant data nodes                    |
++-------+-----------------------------------------------------+
 
-               Table 2: Permitted Values of the 'c' Parameter]]></artwork>
+         Table 2: Permitted Values of the 'c' Parameter]]></artwork>
           </figure>
 
           <t>The DOTS client can use block-wise transfer <xref
@@ -1580,49 +1582,49 @@
             </list></t>
 
           <t><figure>
-              <artwork><![CDATA[    +-----------+----------------------------------------------------+
-    | Parameter | Description                                        |
-    |     Value |                                                    |
-    +===========+====================================================+
-    |         1 | Attack mitigation setup is in progress (e.g.,      |
-    |           | changing the network path to redirect the inbound  |
-    |           | traffic to a DOTS mitigator).                      |
-    +-----------+----------------------------------------------------+
-    |         2 | Attack is being successfully mitigated (e.g.,      |
-    |           | traffic is redirected to a DDoS mitigator and      |
-    |           | attack traffic is dropped).                        |
-    +-----------+----------------------------------------------------+
-    |         3 | Attack has stopped and the DOTS client can         |
-    |           | withdraw the mitigation request.  This status code |
-    |           | will be transmitted for immediate mitigation       |
-    |           | requests till the mitigation is withdrawn or the   |
-    |           | lifetime expires.  For mitigation requests with    |
-    |           | preconfigured scopes (i.e., 'trigger-mitigation'   |
-    |           | set to 'false'), this status code will be          |
-    |           | transmitted four times and then transition to "8". |
-    +-----------+----------------------------------------------------+
-    |         4 | Attack has exceeded the mitigation provider        |
-    |           | capability.                                        |
-    +-----------+----------------------------------------------------+
-    |         5 | DOTS client has withdrawn the mitigation request   |
-    |           | and the mitigation is active but terminating.      |
-    +-----------+----------------------------------------------------+
-    |         6 | Attack mitigation is now terminated.               |
-    +-----------+----------------------------------------------------+
-    |         7 | Attack mitigation is withdrawn (by the DOTS        |
-    |           | server).  If a mitigation request with 'trigger-   |
-    |           | mitigation' set to 'false' is withdrawn because it |
-    |           | overlaps with an immediate mitigation request,     |
-    |           | this status code will be transmitted four times    |
-    |           | and then transition to "8" for the mitigation      |
-    |           | request with preconfigured scopes.                 |
-    +-----------+----------------------------------------------------+
-    |         8 | Attack mitigation will be triggered for the        |
-    |           | mitigation request only when the DOTS signal       |
-    |           | channel session is lost.                           |
-    +-----------+----------------------------------------------------+
+              <artwork align="center"><![CDATA[+-----------+----------------------------------------------------+
+| Parameter | Description                                        |
+|     Value |                                                    |
++===========+====================================================+
+|         1 | Attack mitigation setup is in progress (e.g.,      |
+|           | changing the network path to redirect the inbound  |
+|           | traffic to a DOTS mitigator).                      |
++-----------+----------------------------------------------------+
+|         2 | Attack is being successfully mitigated (e.g.,      |
+|           | traffic is redirected to a DDoS mitigator and      |
+|           | attack traffic is dropped).                        |
++-----------+----------------------------------------------------+
+|         3 | Attack has stopped and the DOTS client can         |
+|           | withdraw the mitigation request.  This status code |
+|           | will be transmitted for immediate mitigation       |
+|           | requests till the mitigation is withdrawn or the   |
+|           | lifetime expires.  For mitigation requests with    |
+|           | preconfigured scopes (i.e., 'trigger-mitigation'   |
+|           | set to 'false'), this status code will be          |
+|           | transmitted four times and then transition to "8". |
++-----------+----------------------------------------------------+
+|         4 | Attack has exceeded the mitigation provider        |
+|           | capability.                                        |
++-----------+----------------------------------------------------+
+|         5 | DOTS client has withdrawn the mitigation request   |
+|           | and the mitigation is active but terminating.      |
++-----------+----------------------------------------------------+
+|         6 | Attack mitigation is now terminated.               |
++-----------+----------------------------------------------------+
+|         7 | Attack mitigation is withdrawn (by the DOTS        |
+|           | server).  If a mitigation request with 'trigger-   |
+|           | mitigation' set to 'false' is withdrawn because it |
+|           | overlaps with an immediate mitigation request,     |
+|           | this status code will be transmitted four times    |
+|           | and then transition to "8" for the mitigation      |
+|           | request with preconfigured scopes.                 |
++-----------+----------------------------------------------------+
+|         8 | Attack mitigation will be triggered for the        |
+|           | mitigation request only when the DOTS signal       |
+|           | channel session is lost.                           |
++-----------+----------------------------------------------------+
 
-                  Table 3: Values of 'status' Parameter]]></artwork>
+              Table 3: Values of 'status' Parameter]]></artwork>
             </figure></t>
 
           <t></t>
@@ -1718,34 +1720,34 @@
 
             <t><figure anchor="Figure6"
                 title="Notifications of Attack Mitigation Status">
-                <artwork align="center"><![CDATA[   +-----------+                              +-----------+
-   |DOTS Client|                              |DOTS Server|
-   +-----------+                              +-----------+
-         |                                          |
-         |  GET /<mid>                              |
-         |  Token: 0x4a                             | Registration
-         |  Observe: 0                              |
-         +----------------------------------------->|
-         |                                          |
-         |  2.05 Content                            |
-         |  Token: 0x4a                             | Notification of
-         |  Observe: 12                             | the current state
-         |  status: "attack-mitigation-in-progress" |
-         |<-----------------------------------------+
-         |                                          |
-         |  2.05 Content                            |
-         |  Token: 0x4a                             | Notification upon
-         |  Observe: 44                             | a state change
-         |  status: "attack-successfully-mitigated" |
-         |<-----------------------------------------+
-         |                                          |
-         |  2.05 Content                            |
-         |  Token: 0x4a                             | Notification upon
-         |  Observe: 60                             | a state change
-         |  status: "attack-stopped"                |
-         |<-----------------------------------------+
-         |                                          |
-                            ...]]></artwork>
+                <artwork align="center"><![CDATA[+-----------+                              +-----------+
+|DOTS Client|                              |DOTS Server|
++-----------+                              +-----------+
+      |                                          |
+      |  GET /<mid>                              |
+      |  Token: 0x4a                             | Registration
+      |  Observe: 0                              |
+      +----------------------------------------->|
+      |                                          |
+      |  2.05 Content                            |
+      |  Token: 0x4a                             | Notification of
+      |  Observe: 12                             | the current state
+      |  status: "attack-mitigation-in-progress" |
+      |<-----------------------------------------+
+      |                                          |
+      |  2.05 Content                            |
+      |  Token: 0x4a                             | Notification upon
+      |  Observe: 44                             | a state change
+      |  status: "attack-successfully-mitigated" |
+      |<-----------------------------------------+
+      |                                          |
+      |  2.05 Content                            |
+      |  Token: 0x4a                             | Notification upon
+      |  Observe: 60                             | a state change
+      |  status: "attack-stopped"                |
+      |<-----------------------------------------+
+      |                                          |
+                         ...]]></artwork>
               </figure></t>
           </section>
 
@@ -1851,19 +1853,19 @@
           <t>The 'attack-status' parameter is a mandatory attribute when
           performing an efficacy update. The various possible values contained
           in the 'attack-status' parameter are described in Table 4.<figure>
-              <artwork><![CDATA[            +-----------+-------------------------------------+
-            | Parameter | Description                         |
-            |     Value |                                     |
-            +===========+=====================================+
-            |         1 | The DOTS client determines that it  |
-            |           | is still under attack.              |
-            +-----------+-------------------------------------+
-            |         2 | The DOTS client determines that the |
-            |           | attack is successfully mitigated    |
-            |           | (e.g., attack traffic is not seen). |
-            +-----------+-------------------------------------+
+              <artwork align="center"><![CDATA[+-----------+-------------------------------------+
+| Parameter | Description                         |
+|     Value |                                     |
++===========+=====================================+
+|         1 | The DOTS client determines that it  |
+|           | is still under attack.              |
++-----------+-------------------------------------+
+|         2 | The DOTS client determines that the |
+|           | attack is successfully mitigated    |
+|           | (e.g., attack traffic is not seen). |
++-----------+-------------------------------------+
 
-                Table 4: Values of 'attack-status' Parameter]]></artwork>
+    Table 4: Values of 'attack-status' Parameter]]></artwork>
             </figure></t>
 
           <t>The DOTS server indicates the result of processing a PUT request
@@ -2131,13 +2133,13 @@
               <t hangText="mitigating-config:">Set of configuration parameters
               to use when a mitigation is active. The following parameters may
               be included: <list style="hanging">
-                  <t hangText="heartbeat-interval: ">Time interval in seconds
+                  <t hangText="heartbeat-interval:">Time interval in seconds
                   between two consecutive heartbeat messages. <vspace
                   blankLines="1" />'0' is used to disable the heartbeat
                   mechanism. <vspace blankLines="1" />This is an optional
                   attribute.</t>
 
-                  <t hangText="missing-hb-allowed: ">Maximum number of
+                  <t hangText="missing-hb-allowed:">Maximum number of
                   consecutive heartbeat messages for which the DOTS agent did
                   not receive a response before concluding that the session is
                   disconnected. <vspace blankLines="1" />This is an optional
@@ -2149,23 +2151,23 @@
                   parameter in CoAP). <vspace blankLines="1" />This is an
                   optional attribute.</t>
 
-                  <t hangText="max-retransmit: ">Maximum number of
+                  <t hangText="max-retransmit:">Maximum number of
                   retransmissions for a message (referred to as MAX_RETRANSMIT
                   parameter in CoAP). <vspace blankLines="1" />This is an
                   optional attribute.</t>
 
-                  <t hangText="ack-timeout: ">Timeout value in seconds used to
+                  <t hangText="ack-timeout:">Timeout value in seconds used to
                   calculate the initial retransmission timeout value (referred
                   to as ACK_TIMEOUT parameter in CoAP). <vspace
                   blankLines="1" />This is an optional attribute.</t>
 
-                  <t hangText="ack-random-factor: ">Random factor used to
+                  <t hangText="ack-random-factor:">Random factor used to
                   influence the timing of retransmissions (referred to as
                   ACK_RANDOM_FACTOR parameter in CoAP). <vspace
                   blankLines="1" />This is an optional attribute.</t>
                 </list></t>
 
-              <t hangText="idle-config: ">Set of configuration parameters to
+              <t hangText="idle-config:">Set of configuration parameters to
               use when no mitigation is active. This attribute has the same
               structure as 'mitigating-config'.</t>
             </list></t>
@@ -2253,9 +2255,9 @@
           <t>A PUT request (Figures <xref format="counter"
           target="Figure13"></xref> and <xref format="counter"
           target="Figure13a"></xref>) is used to convey the configuration
-          parameters for the signal channel (e.g., 'heartbeat interval',
-          maximum retransmissions). Message transmission parameters for CoAP
-          are defined in Section 4.8 of <xref target="RFC7252"></xref>. The
+          parameters for the signal channel (e.g., heartbeat interval, maximum
+          retransmissions). Message transmission parameters for CoAP are
+          defined in Section 4.8 of <xref target="RFC7252"></xref>. The
           RECOMMENDED values of transmission parameter values are
           'ack-timeout' (2 seconds), 'max-retransmit' (3), and
           'ack-random-factor' (1.5). In addition to those parameters, the
@@ -2753,13 +2755,13 @@
         session, preferably by resuming the (D)TLS session.</t>
 
         <figure>
-          <artwork><![CDATA[      |  Note: If a new DOTS signal channel session cannot be
-      |  established, the DOTS client SHOULD NOT retry to establish the
-      |  DOTS signal channel session more frequently than every 300
-      |  seconds (5 minutes) and MUST NOT retry more frequently than
-      |  every 60 seconds (1 minute).  It is recommended that DOTS
-      |  clients support the means to alert administrators about the
-      |  failure to establish a (D)TLS session.]]></artwork>
+          <artwork align="center"><![CDATA[|  Note: If a new DOTS signal channel session cannot be
+|  established, the DOTS client SHOULD NOT retry to establish the
+|  DOTS signal channel session more frequently than every 300
+|  seconds (5 minutes) and MUST NOT retry more frequently than
+|  every 60 seconds (1 minute).  It is recommended that DOTS
+|  clients support the means to alert administrators about the
+|  failure to establish a (D)TLS session.]]></artwork>
         </figure>
 
         <t>In case of a massive DDoS attack that saturates the incoming
@@ -4462,14 +4464,17 @@ Note that:
                  title="DOTS Signal Channel CBOR Key Values Sub-Registry">
           <t></t>
 
-          <section anchor="range"
-                   title="A New Range for Comprehension-optional Parameters">
+          <section anchor="format" title="Registration Template">
             <t>This specification requests IANA to update the allocation
             policy of "DOTS Signal Channel CBOR Key Values" registry <xref
-            target="Key-Map"></xref> as follows:</t>
+            target="Key-Map"></xref> as follows:<list style="hanging">
+                <t hangText="Parameter name:"><vspace />Parameter name as used
+                in the DOTS signal channel.</t>
 
-            <t><figure>
-                <artwork align="center"><![CDATA[OLD:
+                <t hangText="CBOR Key Value:"><vspace />Key value for the
+                parameter. The key value MUST be an integer in the 1-65535
+                range. <vspace blankLines="1" /><figure>
+                    <artwork align="center"><![CDATA[OLD:
 +-------------+-------------------------+------------------------+
 | Range       | Registration Procedures | Note                   |
 +=============+=========================+========================+
@@ -4490,7 +4495,55 @@ NEW:
 | 32768-49151 | IETF Review             | comprehension-optional |
 | 49152-65535 | Private Use             | comprehension-optional |
 +-------------+-------------------------+------------------------+]]></artwork>
-              </figure></t>
+                  </figure><vspace blankLines="1" />Registration requests for
+                the 16384-32767 range are evaluated after a three-week review
+                period on the dots-signal-reg-review@ietf.org mailing list, on
+                the advice of one or more Designated Experts. However, to
+                allow for the allocation of values prior to publication, the
+                Designated Experts may approve registration once they are
+                satisfied that such a specification will be published. New
+                registration requests should be sent in the form of an email
+                to the review mailing list; the request should use an
+                appropriate subject (e.g., "Request to register CBOR Key Value
+                for DOTS: example"). IANA will only accept new registrations
+                from the Designated Experts, and it will check that review was
+                requested on the mailing list in accordance with these
+                procedures.<vspace blankLines="1" />Within the review period,
+                the Designated Experts will either approve or deny the
+                registration request, communicating this decision to the
+                review list and IANA. Denials should include an explanation
+                and, if applicable, suggestions as to how to make the request
+                successful. Registration requests that are undetermined for a
+                period longer than 21 days can be brought to the IESG's
+                attention (using the iesg@ietf.org mailing list) for
+                resolution.<vspace blankLines="1" />Criteria that should be
+                applied by the Designated Experts include determining whether
+                the proposed registration duplicates existing functionality,
+                whether it is likely to be of general applicability or whether
+                it is useful only for a single use case, and whether the
+                registration description is clear. IANA must only accept
+                registry updates to the 16384-32767 range from the Designated
+                Experts and should direct all requests for registration to the
+                review mailing list. It is suggested that multiple Designated
+                Experts be appointed. In cases where a registration decision
+                could be perceived as creating a conflict of interest for a
+                particular Expert, that Expert should defer to the judgment of
+                the other Experts.</t>
+
+                <t hangText="CBOR Major Type:"><vspace />CBOR Major type and
+                optional tag for the parameter.</t>
+
+                <t hangText="Change Controller:"><vspace />For Standards Track
+                RFCs, list the "IESG". For others, give the name of the
+                responsible party. Other details (e.g., email address) may
+                also be included.</t>
+
+                <t hangText="Specification Document(s):"><vspace />Reference
+                to the document or documents that specify the parameter,
+                preferably including URIs that can be used to retrieve copies
+                of the documents. An indication of the relevant sections may
+                also be included but is not required.</t>
+              </list></t>
           </section>
 
           <section anchor="initial" title="Subregistry Content">

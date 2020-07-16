@@ -125,25 +125,24 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
      11.5.  CBOR Tag Registration  . . . . . . . . . . . . . . . . .  95
      11.6.  DOTS Signal Channel Protocol Registry  . . . . . . . . .  95
        11.6.1.  DOTS Signal Channel CBOR Key Values Sub-Registry . .  95
-         11.6.1.1.  A New Range for Comprehension-optional
-                    Parameters . . . . . . . . . . . . . . . . . . .  95
-         11.6.1.2.  Subregistry Content  . . . . . . . . . . . . . .  96
-       11.6.2.  Status Codes Subregistry . . . . . . . . . . . . . .  99
-       11.6.3.  Conflict Status Codes Subregistry  . . . . . . . . . 100
-       11.6.4.  Conflict Cause Codes Subregistry . . . . . . . . . . 101
-       11.6.5.  Attack Status Codes Subregistry  . . . . . . . . . . 102
-     11.7.  DOTS Signal Channel YANG Modules . . . . . . . . . . . . 103
-   12. Security Considerations . . . . . . . . . . . . . . . . . . . 105
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . . 107
-     13.1.  Normative References . . . . . . . . . . . . . . . . . . 107
-     13.2.  Informative References . . . . . . . . . . . . . . . . . 110
-   Appendix A.  CUID Generation  . . . . . . . . . . . . . . . . . . 115
-   Appendix B.  Acknowledgements . . . . . . . . . . . . . . . . . . 115
-     B.1.  Acknowledgements from RFC8782 . . . . . . . . . . . . . . 115
-   Appendix C.  Contributors . . . . . . . . . . . . . . . . . . . . 116
-     C.1.  Authors of RFC8782  . . . . . . . . . . . . . . . . . . . 116
-     C.2.  Contributors to RFC8782 . . . . . . . . . . . . . . . . . 117
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . . 117
+         11.6.1.1.  Registration Template  . . . . . . . . . . . . .  95
+         11.6.1.2.  Subregistry Content  . . . . . . . . . . . . . .  97
+       11.6.2.  Status Codes Subregistry . . . . . . . . . . . . . . 100
+       11.6.3.  Conflict Status Codes Subregistry  . . . . . . . . . 101
+       11.6.4.  Conflict Cause Codes Subregistry . . . . . . . . . . 102
+       11.6.5.  Attack Status Codes Subregistry  . . . . . . . . . . 103
+     11.7.  DOTS Signal Channel YANG Modules . . . . . . . . . . . . 104
+   12. Security Considerations . . . . . . . . . . . . . . . . . . . 106
+   13. References  . . . . . . . . . . . . . . . . . . . . . . . . . 108
+     13.1.  Normative References . . . . . . . . . . . . . . . . . . 108
+     13.2.  Informative References . . . . . . . . . . . . . . . . . 111
+   Appendix A.  CUID Generation  . . . . . . . . . . . . . . . . . . 116
+   Appendix B.  Acknowledgements . . . . . . . . . . . . . . . . . . 116
+     B.1.  Acknowledgements from RFC8782 . . . . . . . . . . . . . . 116
+   Appendix C.  Contributors . . . . . . . . . . . . . . . . . . . . 117
+     C.1.  Authors of RFC8782  . . . . . . . . . . . . . . . . . . . 117
+     C.2.  Contributors to RFC8782 . . . . . . . . . . . . . . . . . 118
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . . 118
 
 1.  Introduction
 
@@ -161,7 +160,8 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
    assigned to the control plane, etc.  When processing network traffic,
    such applications are supposed to use these resources to provide the
    intended functionality in the most efficient manner.  However, a DDoS
-
+   attacker may be able to prevent an application from performing its
+   intended task by making the application exhaust its finite resources.
 
 
 
@@ -169,9 +169,6 @@ Boucadair, et al.       Expires January 17, 2021                [Page 3]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
-
-   attacker may be able to prevent an application from performing its
-   intended task by making the application exhaust its finite resources.
 
    A TCP DDoS SYN flood [RFC4987], for example, is a memory-exhausting
    attack while an ACK flood is a CPU-exhausting attack.  Attacks on the
@@ -202,13 +199,13 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
    (Local Area Network), while a DOTS gateway is embedded in the CPE
    (Customer Premises Equipment).
 
-        Network
-       Resource         CPE Router        Access Network     __________
-     +-----------+   +--------------+    +-------------+    /          \
-     |           |___|              |____|             |___ | Internet |
-     |DOTS Client|   | DOTS Gateway |    | DOTS Server |    |          |
-     |           |   |              |    |             |    |          |
-     +-----------+   +--------------+    +-------------+    \__________/
+      Network
+      Resource         CPE Router        Access Network     __________
+    +-----------+   +--------------+    +-------------+    /          \
+    |           |___|              |____|             |___ | Internet |
+    |DOTS Client|   | DOTS Gateway |    | DOTS Server |    |          |
+    |           |   |              |    |             |    |          |
+    +-----------+   +--------------+    +-------------+    \__________/
 
                    Figure 1: Sample DOTS Deployment (1)
 
@@ -221,18 +218,21 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
+
+
+
 Boucadair, et al.       Expires January 17, 2021                [Page 4]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
-       Network                                           DDoS Mitigation
-       Resource         CPE Router        __________         Service
-     +-----------+   +--------------+    /          \    +-------------+
-     |           |___|              |____|          |___ |             |
-     |DOTS Client|   | DOTS Gateway |    | Internet |    | DOTS Server |
-     |           |   |              |    |          |    |             |
-     +-----------+   +--------------+    \__________/    +-------------+
+      Network                                           DDoS Mitigation
+      Resource         CPE Router        __________         Service
+    +-----------+   +--------------+    /          \    +-------------+
+    |           |___|              |____|          |___ |             |
+    |DOTS Client|   | DOTS Gateway |    | Internet |    | DOTS Server |
+    |           |   |              |    |          |    |             |
+    +-----------+   +--------------+    \__________/    +-------------+
 
                    Figure 2: Sample DOTS Deployment (2)
 
@@ -566,17 +566,17 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
    path prefix to form the URI used with a CoAP request to perform the
    desired DOTS operation.
 
-            +-----------------------+----------------+-------------+
-            | Operation             | Operation Path | Details     |
-            +=======================+================+=============+
-            | Mitigation            | /mitigate      | Section 4.4 |
-            +-----------------------+----------------+-------------+
-            | Session configuration | /config        | Section 4.5 |
-            +-----------------------+----------------+-------------+
-            | Heartbeat             | /hb            | Section 4.7 |
-            +-----------------------+----------------+-------------+
+         +-----------------------+----------------+-------------+
+         | Operation             | Operation Path | Details     |
+         +=======================+================+=============+
+         | Mitigation            | /mitigate      | Section 4.4 |
+         +-----------------------+----------------+-------------+
+         | Session configuration | /config        | Section 4.5 |
+         +-----------------------+----------------+-------------+
+         | Heartbeat             | /hb            | Section 4.7 |
+         +-----------------------+----------------+-------------+
 
-                   Table 1: Operations and Corresponding URIs
+                Table 1: Operations and Corresponding URIs
 
 5.3.  Happy Eyeballs for DOTS Signal Channel
 
@@ -674,23 +674,23 @@ Boucadair, et al.       Expires January 17, 2021               [Page 12]
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
-     +-----------+                                         +-----------+
-     |DOTS Client|                                         |DOTS Server|
-     +-----------+                                         +-----------+
-           |                                                     |
-        T0 |--DTLS ClientHello, IPv6 ---->X                      |
-        T1 |--DTLS ClientHello, IPv4 ---->X                      |
-        T2 |--TCP SYN, IPv6-------------->X                      |
-        T3 |--TCP SYN, IPv4------------------------------------->|
-           |<-TCP SYNACK-----------------------------------------|
-           |--TCP ACK------------------------------------------->|
-           |<------------Establish TLS Session------------------>|
-           |----------------DOTS signal------------------------->|
-           |                                                     |
+    +-----------+                                         +-----------+
+    |DOTS Client|                                         |DOTS Server|
+    +-----------+                                         +-----------+
+          |                                                     |
+       T0 |--DTLS ClientHello, IPv6 ---->X                      |
+       T1 |--DTLS ClientHello, IPv4 ---->X                      |
+       T2 |--TCP SYN, IPv6-------------->X                      |
+       T3 |--TCP SYN, IPv4------------------------------------->|
+          |<-TCP SYNACK-----------------------------------------|
+          |--TCP ACK------------------------------------------->|
+          |<------------Establish TLS Session------------------>|
+          |----------------DOTS signal------------------------->|
+          |                                                     |
 
-      Note:
-       * Retransmission messages are not shown.
-       * T1-T0=T2-T1=T3-T2= Connection Attempt Delay.
+     Note:
+      * Retransmission messages are not shown.
+      * T1-T0=T2-T1=T3-T2= Connection Attempt Delay.
 
                 Figure 4: DOTS Happy Eyeballs (Sample Flow)
 
@@ -981,7 +981,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
       This is an optional attribute.
 
-   target-fqdn:   A list of Fully Qualified Domain Names (FQDNs)
+   target-fqdn:  A list of Fully Qualified Domain Names (FQDNs)
       identifying resources under attack [RFC8499].
 
       How a name is passed to an underlying name resolution library is
@@ -1000,7 +1000,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
       This is an optional attribute.
 
-   target-uri:   A list of URIs [RFC3986] identifying resources under
+   target-uri:  A list of URIs [RFC3986] identifying resources under
       attack.
 
 
@@ -1024,7 +1024,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
       This is an optional attribute.
 
-   lifetime:   Lifetime of the mitigation request in seconds.  The
+   lifetime:  Lifetime of the mitigation request in seconds.  The
       RECOMMENDED lifetime of a mitigation request is 3600 seconds: this
       value was chosen to be long enough so that refreshing is not
       typically a burden on the DOTS client, while still making the
@@ -1048,7 +1048,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
       This is a mandatory attribute.
 
-   trigger-mitigation:   If the parameter value is set to 'false', DDoS
+   trigger-mitigation:  If the parameter value is set to 'false', DDoS
       mitigation will not be triggered for the mitigation request unless
       the DOTS signal channel session is lost.
 
@@ -1290,34 +1290,34 @@ Boucadair, et al.       Expires January 17, 2021               [Page 23]
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
-         A1                                      # map(1)
-            01                                   # unsigned(1)
-            A1                                   # map(1)
-               02                                # unsigned(2)
-               81                                # array(1)
-                  A4                             # map(4)
-                     06                          # unsigned(6)
-                     82                          # array(2)
-                        74                       # text(20)
-                           323030313A6462383A363430313A3A312F313238
-                        74                       # text(20)
-                           323030313A6462383A363430313A3A322F313238
-                     07                          # unsigned(7)
-                     83                          # array(3)
-                        A1                       # map(1)
-                           08                    # unsigned(8)
-                           18 50                 # unsigned(80)
-                        A1                       # map(1)
-                           08                    # unsigned(8)
-                           19 01BB               # unsigned(443)
-                        A1                       # map(1)
-                           08                    # unsigned(8)
-                           19 1F90               # unsigned(8080)
-                     0A                          # unsigned(10)
-                     81                          # array(1)
-                        06                       # unsigned(6)
-                     0E                          # unsigned(14)
-                     19 0E10                     # unsigned(3600)
+      A1                                      # map(1)
+         01                                   # unsigned(1)
+         A1                                   # map(1)
+            02                                # unsigned(2)
+            81                                # array(1)
+               A4                             # map(4)
+                  06                          # unsigned(6)
+                  82                          # array(2)
+                     74                       # text(20)
+                        323030313A6462383A363430313A3A312F313238
+                     74                       # text(20)
+                        323030313A6462383A363430313A3A322F313238
+                  07                          # unsigned(7)
+                  83                          # array(3)
+                     A1                       # map(1)
+                        08                    # unsigned(8)
+                        18 50                 # unsigned(80)
+                     A1                       # map(1)
+                        08                    # unsigned(8)
+                        19 01BB               # unsigned(443)
+                     A1                       # map(1)
+                        08                    # unsigned(8)
+                        19 1F90               # unsigned(8080)
+                  0A                          # unsigned(10)
+                  81                          # array(1)
+                     06                       # unsigned(6)
+                  0E                          # unsigned(14)
+                  19 0E10                     # unsigned(3600)
 
              Figure 9: PUT for DOTS Mitigation Request (CBOR)
 
@@ -1383,7 +1383,8 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
    'cuid' or 'mid' Uri-Path options, includes multiple 'scope'
    parameters, or contains invalid or unknown parameters, the DOTS
    server MUST reply with 4.00 (Bad Request).  DOTS agents can safely
-   ignore comprehension-optional parameters they don't understand.
+   ignore comprehension-optional parameters they don't understand
+   (Section 11.6.1.1).
 
    A DOTS server that receives a mitigation request with a 'lifetime'
    set to '0' MUST reply with a 4.00 (Bad Request).
@@ -1393,7 +1394,6 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
    mitigation request by sending back a 2.01 (Created) response to the
    DOTS client; the DOTS server will consequently try to mitigate the
    attack.  A DOTS server could reject mitigation requests when it is
-
 
 
 
@@ -1659,17 +1659,17 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
    configuration values) when the DDoS attack is active to limit the
    size of the response.
 
-         +-------+-----------------------------------------------------+
-         | Value | Description                                         |
-         +=======+=====================================================+
-         | c     | Return only configuration descendant data nodes     |
-         +-------+-----------------------------------------------------+
-         | n     | Return only non-configuration descendant data nodes |
-         +-------+-----------------------------------------------------+
-         | a     | Return all descendant data nodes                    |
-         +-------+-----------------------------------------------------+
+      +-------+-----------------------------------------------------+
+      | Value | Description                                         |
+      +=======+=====================================================+
+      | c     | Return only configuration descendant data nodes     |
+      +-------+-----------------------------------------------------+
+      | n     | Return only non-configuration descendant data nodes |
+      +-------+-----------------------------------------------------+
+      | a     | Return all descendant data nodes                    |
+      +-------+-----------------------------------------------------+
 
-                  Table 2: Permitted Values of the 'c' Parameter
+               Table 2: Permitted Values of the 'c' Parameter
 
    The DOTS client can use block-wise transfer [RFC7959] to get the list
    of all its mitigations maintained by a DOTS server, it can send a
@@ -1906,49 +1906,49 @@ Boucadair, et al.       Expires January 17, 2021               [Page 34]
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
-      +-----------+----------------------------------------------------+
-      | Parameter | Description                                        |
-      |     Value |                                                    |
-      +===========+====================================================+
-      |         1 | Attack mitigation setup is in progress (e.g.,      |
-      |           | changing the network path to redirect the inbound  |
-      |           | traffic to a DOTS mitigator).                      |
-      +-----------+----------------------------------------------------+
-      |         2 | Attack is being successfully mitigated (e.g.,      |
-      |           | traffic is redirected to a DDoS mitigator and      |
-      |           | attack traffic is dropped).                        |
-      +-----------+----------------------------------------------------+
-      |         3 | Attack has stopped and the DOTS client can         |
-      |           | withdraw the mitigation request.  This status code |
-      |           | will be transmitted for immediate mitigation       |
-      |           | requests till the mitigation is withdrawn or the   |
-      |           | lifetime expires.  For mitigation requests with    |
-      |           | preconfigured scopes (i.e., 'trigger-mitigation'   |
-      |           | set to 'false'), this status code will be          |
-      |           | transmitted four times and then transition to "8". |
-      +-----------+----------------------------------------------------+
-      |         4 | Attack has exceeded the mitigation provider        |
-      |           | capability.                                        |
-      +-----------+----------------------------------------------------+
-      |         5 | DOTS client has withdrawn the mitigation request   |
-      |           | and the mitigation is active but terminating.      |
-      +-----------+----------------------------------------------------+
-      |         6 | Attack mitigation is now terminated.               |
-      +-----------+----------------------------------------------------+
-      |         7 | Attack mitigation is withdrawn (by the DOTS        |
-      |           | server).  If a mitigation request with 'trigger-   |
-      |           | mitigation' set to 'false' is withdrawn because it |
-      |           | overlaps with an immediate mitigation request,     |
-      |           | this status code will be transmitted four times    |
-      |           | and then transition to "8" for the mitigation      |
-      |           | request with preconfigured scopes.                 |
-      +-----------+----------------------------------------------------+
-      |         8 | Attack mitigation will be triggered for the        |
-      |           | mitigation request only when the DOTS signal       |
-      |           | channel session is lost.                           |
-      +-----------+----------------------------------------------------+
+    +-----------+----------------------------------------------------+
+    | Parameter | Description                                        |
+    |     Value |                                                    |
+    +===========+====================================================+
+    |         1 | Attack mitigation setup is in progress (e.g.,      |
+    |           | changing the network path to redirect the inbound  |
+    |           | traffic to a DOTS mitigator).                      |
+    +-----------+----------------------------------------------------+
+    |         2 | Attack is being successfully mitigated (e.g.,      |
+    |           | traffic is redirected to a DDoS mitigator and      |
+    |           | attack traffic is dropped).                        |
+    +-----------+----------------------------------------------------+
+    |         3 | Attack has stopped and the DOTS client can         |
+    |           | withdraw the mitigation request.  This status code |
+    |           | will be transmitted for immediate mitigation       |
+    |           | requests till the mitigation is withdrawn or the   |
+    |           | lifetime expires.  For mitigation requests with    |
+    |           | preconfigured scopes (i.e., 'trigger-mitigation'   |
+    |           | set to 'false'), this status code will be          |
+    |           | transmitted four times and then transition to "8". |
+    +-----------+----------------------------------------------------+
+    |         4 | Attack has exceeded the mitigation provider        |
+    |           | capability.                                        |
+    +-----------+----------------------------------------------------+
+    |         5 | DOTS client has withdrawn the mitigation request   |
+    |           | and the mitigation is active but terminating.      |
+    +-----------+----------------------------------------------------+
+    |         6 | Attack mitigation is now terminated.               |
+    +-----------+----------------------------------------------------+
+    |         7 | Attack mitigation is withdrawn (by the DOTS        |
+    |           | server).  If a mitigation request with 'trigger-   |
+    |           | mitigation' set to 'false' is withdrawn because it |
+    |           | overlaps with an immediate mitigation request,     |
+    |           | this status code will be transmitted four times    |
+    |           | and then transition to "8" for the mitigation      |
+    |           | request with preconfigured scopes.                 |
+    +-----------+----------------------------------------------------+
+    |         8 | Attack mitigation will be triggered for the        |
+    |           | mitigation request only when the DOTS signal       |
+    |           | channel session is lost.                           |
+    +-----------+----------------------------------------------------+
 
-                    Table 3: Values of 'status' Parameter
+                  Table 3: Values of 'status' Parameter
 
 
 
@@ -2074,34 +2074,34 @@ Boucadair, et al.       Expires January 17, 2021               [Page 37]
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
-    +-----------+                              +-----------+
-    |DOTS Client|                              |DOTS Server|
-    +-----------+                              +-----------+
-          |                                          |
-          |  GET /<mid>                              |
-          |  Token: 0x4a                             | Registration
-          |  Observe: 0                              |
-          +----------------------------------------->|
-          |                                          |
-          |  2.05 Content                            |
-          |  Token: 0x4a                             | Notification of
-          |  Observe: 12                             | the current state
-          |  status: "attack-mitigation-in-progress" |
-          |<-----------------------------------------+
-          |                                          |
-          |  2.05 Content                            |
-          |  Token: 0x4a                             | Notification upon
-          |  Observe: 44                             | a state change
-          |  status: "attack-successfully-mitigated" |
-          |<-----------------------------------------+
-          |                                          |
-          |  2.05 Content                            |
-          |  Token: 0x4a                             | Notification upon
-          |  Observe: 60                             | a state change
-          |  status: "attack-stopped"                |
-          |<-----------------------------------------+
-          |                                          |
-                             ...
+   +-----------+                              +-----------+
+   |DOTS Client|                              |DOTS Server|
+   +-----------+                              +-----------+
+         |                                          |
+         |  GET /<mid>                              |
+         |  Token: 0x4a                             | Registration
+         |  Observe: 0                              |
+         +----------------------------------------->|
+         |                                          |
+         |  2.05 Content                            |
+         |  Token: 0x4a                             | Notification of
+         |  Observe: 12                             | the current state
+         |  status: "attack-mitigation-in-progress" |
+         |<-----------------------------------------+
+         |                                          |
+         |  2.05 Content                            |
+         |  Token: 0x4a                             | Notification upon
+         |  Observe: 44                             | a state change
+         |  status: "attack-successfully-mitigated" |
+         |<-----------------------------------------+
+         |                                          |
+         |  2.05 Content                            |
+         |  Token: 0x4a                             | Notification upon
+         |  Observe: 60                             | a state change
+         |  status: "attack-stopped"                |
+         |<-----------------------------------------+
+         |                                          |
+                            ...
 
            Figure 15: Notifications of Attack Mitigation Status
 
@@ -2242,19 +2242,19 @@ Boucadair, et al.       Expires January 17, 2021               [Page 40]
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
-               +-----------+-------------------------------------+
-               | Parameter | Description                         |
-               |     Value |                                     |
-               +===========+=====================================+
-               |         1 | The DOTS client determines that it  |
-               |           | is still under attack.              |
-               +-----------+-------------------------------------+
-               |         2 | The DOTS client determines that the |
-               |           | attack is successfully mitigated    |
-               |           | (e.g., attack traffic is not seen). |
-               +-----------+-------------------------------------+
+            +-----------+-------------------------------------+
+            | Parameter | Description                         |
+            |     Value |                                     |
+            +===========+=====================================+
+            |         1 | The DOTS client determines that it  |
+            |           | is still under attack.              |
+            +-----------+-------------------------------------+
+            |         2 | The DOTS client determines that the |
+            |           | attack is successfully mitigated    |
+            |           | (e.g., attack traffic is not seen). |
+            +-----------+-------------------------------------+
 
-                   Table 4: Values of 'attack-status' Parameter
+                Table 4: Values of 'attack-status' Parameter
 
    The DOTS server indicates the result of processing a PUT request
    using CoAP Response Codes.  The Response Code 2.04 (Changed) is
@@ -2546,14 +2546,14 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
    mitigating-config:  Set of configuration parameters to use when a
       mitigation is active.  The following parameters may be included:
 
-      heartbeat-interval:   Time interval in seconds between two
+      heartbeat-interval:  Time interval in seconds between two
          consecutive heartbeat messages.
 
          '0' is used to disable the heartbeat mechanism.
 
          This is an optional attribute.
 
-      missing-hb-allowed:   Maximum number of consecutive heartbeat
+      missing-hb-allowed:  Maximum number of consecutive heartbeat
          messages for which the DOTS agent did not receive a response
          before concluding that the session is disconnected.
 
@@ -2565,7 +2565,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
          This is an optional attribute.
 
-      max-retransmit:   Maximum number of retransmissions for a message
+      max-retransmit:  Maximum number of retransmissions for a message
          (referred to as MAX_RETRANSMIT parameter in CoAP).
 
          This is an optional attribute.
@@ -2578,19 +2578,19 @@ Boucadair, et al.       Expires January 17, 2021               [Page 46]
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
-      ack-timeout:   Timeout value in seconds used to calculate the
+      ack-timeout:  Timeout value in seconds used to calculate the
          initial retransmission timeout value (referred to as
          ACK_TIMEOUT parameter in CoAP).
 
          This is an optional attribute.
 
-      ack-random-factor:   Random factor used to influence the timing of
+      ack-random-factor:  Random factor used to influence the timing of
          retransmissions (referred to as ACK_RANDOM_FACTOR parameter in
          CoAP).
 
          This is an optional attribute.
 
-   idle-config:   Set of configuration parameters to use when no
+   idle-config:  Set of configuration parameters to use when no
       mitigation is active.  This attribute has the same structure as
       'mitigating-config'.
 
@@ -2693,9 +2693,9 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 5.5.2.  Convey DOTS Signal Channel Session Configuration
 
    A PUT request (Figures 21 and 22) is used to convey the configuration
-   parameters for the signal channel (e.g., 'heartbeat interval',
-   maximum retransmissions).  Message transmission parameters for CoAP
-   are defined in Section 4.8 of [RFC7252].  The RECOMMENDED values of
+   parameters for the signal channel (e.g., heartbeat interval, maximum
+   retransmissions).  Message transmission parameters for CoAP are
+   defined in Section 4.8 of [RFC7252].  The RECOMMENDED values of
    transmission parameter values are 'ack-timeout' (2 seconds), 'max-
    retransmit' (3), and 'ack-random-factor' (1.5).  In addition to those
    parameters, the RECOMMENDED specific DOTS transmission parameter
@@ -3337,13 +3337,13 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
    DOTS client MUST then try to reestablish the DOTS signal channel
    session, preferably by resuming the (D)TLS session.
 
-       |  Note: If a new DOTS signal channel session cannot be
-       |  established, the DOTS client SHOULD NOT retry to establish the
-       |  DOTS signal channel session more frequently than every 300
-       |  seconds (5 minutes) and MUST NOT retry more frequently than
-       |  every 60 seconds (1 minute).  It is recommended that DOTS
-       |  clients support the means to alert administrators about the
-       |  failure to establish a (D)TLS session.
+     |  Note: If a new DOTS signal channel session cannot be
+     |  established, the DOTS client SHOULD NOT retry to establish the
+     |  DOTS signal channel session more frequently than every 300
+     |  seconds (5 minutes) and MUST NOT retry more frequently than
+     |  every 60 seconds (1 minute).  It is recommended that DOTS
+     |  clients support the means to alert administrators about the
+     |  failure to establish a (D)TLS session.
 
    In case of a massive DDoS attack that saturates the incoming link(s)
    to the DOTS client, all traffic from the DOTS server to the DOTS
@@ -5300,17 +5300,17 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 11.6.1.  DOTS Signal Channel CBOR Key Values Sub-Registry
 
-11.6.1.1.  A New Range for Comprehension-optional Parameters
+11.6.1.1.  Registration Template
 
    This specification requests IANA to update the allocation policy of
    "DOTS Signal Channel CBOR Key Values" registry [Key-Map] as follows:
 
+   Parameter name:
+      Parameter name as used in the DOTS signal channel.
 
-
-
-
-
-
+   CBOR Key Value:
+      Key value for the parameter.  The key value MUST be an integer in
+      the 1-65535 range.
 
 
 
@@ -5344,6 +5344,63 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
     | 49152-65535 | Private Use             | comprehension-optional |
     +-------------+-------------------------+------------------------+
 
+      Registration requests for the 16384-32767 range are evaluated
+      after a three-week review period on the dots-signal-reg-
+      review@ietf.org mailing list, on the advice of one or more
+      Designated Experts.  However, to allow for the allocation of
+      values prior to publication, the Designated Experts may approve
+      registration once they are satisfied that such a specification
+      will be published.  New registration requests should be sent in
+      the form of an email to the review mailing list; the request
+      should use an appropriate subject (e.g., "Request to register CBOR
+      Key Value for DOTS: example").  IANA will only accept new
+      registrations from the Designated Experts, and it will check that
+      review was requested on the mailing list in accordance with these
+      procedures.
+
+      Within the review period, the Designated Experts will either
+      approve or deny the registration request, communicating this
+      decision to the review list and IANA.  Denials should include an
+      explanation and, if applicable, suggestions as to how to make the
+      request successful.  Registration requests that are undetermined
+      for a period longer than 21 days can be brought to the IESG's
+      attention (using the iesg@ietf.org mailing list) for resolution.
+
+      Criteria that should be applied by the Designated Experts include
+      determining whether the proposed registration duplicates existing
+      functionality, whether it is likely to be of general applicability
+      or whether it is useful only for a single use case, and whether
+
+
+
+Boucadair, et al.       Expires January 17, 2021               [Page 96]
+
+Internet-Draft        DOTS Signal Channel Protocol             July 2020
+
+
+      the registration description is clear.  IANA must only accept
+      registry updates to the 16384-32767 range from the Designated
+      Experts and should direct all requests for registration to the
+      review mailing list.  It is suggested that multiple Designated
+      Experts be appointed.  In cases where a registration decision
+      could be perceived as creating a conflict of interest for a
+      particular Expert, that Expert should defer to the judgment of the
+      other Experts.
+
+   CBOR Major Type:
+      CBOR Major type and optional tag for the parameter.
+
+   Change Controller:
+      For Standards Track RFCs, list the "IESG".  For others, give the
+      name of the responsible party.  Other details (e.g., email
+      address) may also be included.
+
+   Specification Document(s):
+      Reference to the document or documents that specify the parameter,
+      preferably including URIs that can be used to retrieve copies of
+      the documents.  An indication of the relevant sections may also be
+      included but is not required.
+
 11.6.1.2.  Subregistry Content
 
    IANA is requested to update these entries from the "DOTS Signal
@@ -5369,15 +5426,15 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
    +---------------------+------------+-----+----------+---------------+
    | mid                 | 5          | 0   | IESG     | [RFCXXXX]     |
    +---------------------+------------+-----+----------+---------------+
-   | target-prefix       | 6          | 4   | IESG     | [RFCXXXX]     |
 
 
 
-Boucadair, et al.       Expires January 17, 2021               [Page 96]
+Boucadair, et al.       Expires January 17, 2021               [Page 97]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
+   | target-prefix       | 6          | 4   | IESG     | [RFCXXXX]     |
    +---------------------+------------+-----+----------+---------------+
    | target-port-range   | 7          | 4   | IESG     | [RFCXXXX]     |
    +---------------------+------------+-----+----------+---------------+
@@ -5425,15 +5482,15 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
    +---------------------+------------+-----+----------+---------------+
    | attack-status       | 29         | 0   | IESG     | [RFCXXXX]     |
    +---------------------+------------+-----+----------+---------------+
-   | ietf-dots-signal-   | 30         | 5   | IESG     | [RFCXXXX]     |
 
 
 
-Boucadair, et al.       Expires January 17, 2021               [Page 97]
+Boucadair, et al.       Expires January 17, 2021               [Page 98]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
+   | ietf-dots-signal-   | 30         | 5   | IESG     | [RFCXXXX]     |
    |channel:signal-config|            |     |          |               |
    +---------------------+------------+-----+----------+---------------+
    | sid                 | 31         | 0   | IESG     | [RFCXXXX]     |
@@ -5481,15 +5538,15 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
    +---------------------+------------+-----+----------+---------------+
    | peer-hb-status      | 51         | 7   | IESG     | [RFCXXXX]     |
    +---------------------+------------+-----+----------+---------------+
-   | Unassigned          | 52-49151   |     |          |               |
 
 
 
-Boucadair, et al.       Expires January 17, 2021               [Page 98]
+Boucadair, et al.       Expires January 17, 2021               [Page 99]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
+   | Unassigned          | 52-49151   |     |          |               |
    +---------------------+------------+-----+----------+---------------+
    |Reserved for Private |49152-65535 |     |          | [RFCXXXX]     |
    | Use                 |            |     |          |               |
@@ -5537,15 +5594,15 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
      |              | withdrawn-    | withdrawn the        |           |
      |              | mitigation    | mitigation request   |           |
      |              |               | and the mitigation   |           |
-     |              |               | is active but        |           |
 
 
 
-Boucadair, et al.       Expires January 17, 2021               [Page 99]
+Boucadair, et al.       Expires January 17, 2021              [Page 100]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
+     |              |               | is active but        |           |
      |              |               | terminating.         |           |
      +--------------+---------------+----------------------+-----------+
      |            6 | attack-       | Attack mitigation is | [RFCXXXX] |
@@ -5593,15 +5650,15 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
    |              |                   | request is         |           |
    |              |                   | currently          |           |
    |              |                   | inactive until     |           |
-   |              |                   | the conflicts      |           |
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 100]
+Boucadair, et al.       Expires January 17, 2021              [Page 101]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
+   |              |                   | the conflicts      |           |
    |              |                   | are resolved.      |           |
    |              |                   | Another            |           |
    |              |                   | mitigation         |           |
@@ -5652,8 +5709,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-
-Boucadair, et al.       Expires January 17, 2021              [Page 101]
+Boucadair, et al.       Expires January 17, 2021              [Page 102]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -5709,7 +5765,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 102]
+Boucadair, et al.       Expires January 17, 2021              [Page 103]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -5765,7 +5821,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 103]
+Boucadair, et al.       Expires January 17, 2021              [Page 104]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -5821,7 +5877,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 104]
+Boucadair, et al.       Expires January 17, 2021              [Page 105]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -5877,7 +5933,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 105]
+Boucadair, et al.       Expires January 17, 2021              [Page 106]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -5933,7 +5989,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 106]
+Boucadair, et al.       Expires January 17, 2021              [Page 107]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -5989,7 +6045,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 107]
+Boucadair, et al.       Expires January 17, 2021              [Page 108]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -6045,7 +6101,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 108]
+Boucadair, et al.       Expires January 17, 2021              [Page 109]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -6101,7 +6157,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 109]
+Boucadair, et al.       Expires January 17, 2021              [Page 110]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -6157,7 +6213,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 110]
+Boucadair, et al.       Expires January 17, 2021              [Page 111]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -6213,7 +6269,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 111]
+Boucadair, et al.       Expires January 17, 2021              [Page 112]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -6269,7 +6325,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 112]
+Boucadair, et al.       Expires January 17, 2021              [Page 113]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -6325,7 +6381,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 113]
+Boucadair, et al.       Expires January 17, 2021              [Page 114]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -6381,7 +6437,7 @@ Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 114]
+Boucadair, et al.       Expires January 17, 2021              [Page 115]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -6437,7 +6493,7 @@ B.1.  Acknowledgements from RFC8782
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 115]
+Boucadair, et al.       Expires January 17, 2021              [Page 116]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -6493,7 +6549,7 @@ C.1.  Authors of RFC8782
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 116]
+Boucadair, et al.       Expires January 17, 2021              [Page 117]
 
 Internet-Draft        DOTS Signal Channel Protocol             July 2020
 
@@ -6549,4 +6605,4 @@ Authors' Addresses
 
 
 
-Boucadair, et al.       Expires January 17, 2021              [Page 117]
+Boucadair, et al.       Expires January 17, 2021              [Page 118]
