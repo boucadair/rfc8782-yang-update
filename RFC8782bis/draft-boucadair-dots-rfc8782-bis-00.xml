@@ -292,7 +292,7 @@
           This modification is motivated by the need to allow for compact DOTS
           signal messages that include a long list of comprehension-optional
           attributes, e.g., DOTS telemetry messages <xref
-          target="I-D.ietf-dots-telemetry"></xref>. </t>
+          target="I-D.ietf-dots-telemetry"></xref>.</t>
         </list></t>
 
       <t>These modifications are made with the constraint to avoid changes to
@@ -4353,9 +4353,8 @@ Note that:
 
       <section anchor="uri" title="Well-Known 'dots' URI">
         <t>IANA is requested to update the the 'dots' well-known URI (Table 6)
-        entry in the Well- Known URIs registry
-        (&lt;https://www.iana.org/assignments/well-known-
-        uris/well-known-uris.xhtml&gt;) as follows:</t>
+        entry in the Well- Known URIs registry <xref target="URI"></xref> as
+        follows:</t>
 
         <t><figure align="center">
             <artwork align="center"><![CDATA[     +------------+------------+-----------+-----------+-------------+
@@ -4462,7 +4461,8 @@ Note that:
 
       <section anchor="reg" title="DOTS Signal Channel Protocol Registry">
         <t>The following sections update the "Distributed Denial-of- Service
-        Open Threat Signaling (DOTS) Signal Channel" subregistries.</t>
+        Open Threat Signaling (DOTS) Signal Channel" subregistries <xref
+        target="REG-DOTS"></xref>.</t>
 
         <section anchor="map"
                  title="DOTS Signal Channel CBOR Key Values Subregistry">
@@ -4471,8 +4471,8 @@ Note that:
 
           <section anchor="format" title="Registration Template">
             <t>This specification requests IANA to update the allocation
-            policy of "DOTS Signal Channel CBOR Key Values" registry <xref
-            target="Key-Map"></xref> as follows:<list style="hanging">
+            policy of "DOTS Signal Channel CBOR Key Values" registry as
+            follows:<list style="hanging">
                 <t hangText="Parameter name:"><vspace />Parameter name as used
                 in the DOTS signal channel.</t>
 
@@ -5278,10 +5278,24 @@ NEW:
         </front>
       </reference>
 
-      <reference anchor="Key-Map"
-                 target="https://www.iana.org/assignments/dots/dots.xhtml#dots-signal-channel-cbor-key-values">
+      <reference anchor="REG-DOTS"
+                 target="https://www.iana.org/assignments/dots/dots.xhtml">
         <front>
-          <title>DOTS Signal Channel CBOR Key Values</title>
+          <title>Distributed Denial-of-Service Open Threat Signaling (DOTS)
+          Signal Channel</title>
+
+          <author fullname="IANA">
+            <organization></organization>
+          </author>
+
+          <date />
+        </front>
+      </reference>
+
+      <reference anchor="URI"
+                 target="https://www.iana.org/assignments/well-known-uris/well-known-uris.xhtml">
+        <front>
+          <title>Well-Known URIs</title>
 
           <author fullname="IANA">
             <organization></organization>
