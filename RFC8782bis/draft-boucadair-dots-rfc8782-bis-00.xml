@@ -804,7 +804,7 @@
               <t hangText="target-prefix:">A list of prefixes identifying
               resources under attack. Prefixes are represented using Classless
               Inter-Domain Routing (CIDR) notation <xref
-              target="RFC4632"></xref>. <vspace blankLines="0" />As a
+              target="RFC4632"></xref>. <vspace blankLines="1" />As a
               reminder, the prefix length must be less than or equal to 32 (or
               128) for IPv4 (or IPv6).<vspace blankLines="1" />The prefix list
               MUST NOT include broadcast, loopback, or multicast addresses.
@@ -2754,14 +2754,14 @@
         DOTS client MUST then try to reestablish the DOTS signal channel
         session, preferably by resuming the (D)TLS session.</t>
 
-        <figure>
-          <artwork align="center"><![CDATA[|  Note: If a new DOTS signal channel session cannot be
-|  established, the DOTS client SHOULD NOT retry to establish the
-|  DOTS signal channel session more frequently than every 300
-|  seconds (5 minutes) and MUST NOT retry more frequently than
-|  every 60 seconds (1 minute).  It is recommended that DOTS
-|  clients support the means to alert administrators about the
-|  failure to establish a (D)TLS session.]]></artwork>
+        <figure align="center">
+          <artwork align="center"><![CDATA[  |  Note: If a new DOTS signal channel session cannot be
+  |  established, the DOTS client SHOULD NOT retry to establish the
+  |  DOTS signal channel session more frequently than every 300
+  |  seconds (5 minutes) and MUST NOT retry more frequently than
+  |  every 60 seconds (1 minute).  It is recommended that DOTS
+  |  clients support the means to alert administrators about the
+  |  failure to establish a (D)TLS session.]]></artwork>
         </figure>
 
         <t>In case of a massive DDoS attack that saturates the incoming
@@ -3317,7 +3317,7 @@ module ietf-dots-signal-channel {
      Relating to IETF Documents
      (http://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC 8782; see
+     This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
   revision 2020-07-02 {
@@ -3797,21 +3797,21 @@ module ietf-dots-signal-channel {
           "Mitigation scope of a mitigation message.";
         uses mitigation-scope;
         reference
-          "Section 4.4 of RFC 8782";
+          "Section 5.4 of RFC XXXX";
       }
       case signal-config {
         description
           "Configuration message.";
         uses signal-config;
         reference
-          "Section 4.5 of RFC 8782";
+          "Section 5.5 of RFC XXXX";
       }
       case redirected-signal {
         description
           "Redirected signaling.";
         uses redirected-signal;
         reference
-          "Section 4.6 of RFC 8782";
+          "Section 5.6 of RFC XXXX";
       }
       case heartbeat {
         description
@@ -3826,7 +3826,7 @@ module ietf-dots-signal-channel {
              from its peer.";
         }
         reference
-          "Section 4.7 of RFC 8782";
+          "Section 5.7 of RFC XXXX";
       }
     }
   }
