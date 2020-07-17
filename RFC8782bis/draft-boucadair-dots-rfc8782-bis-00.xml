@@ -183,15 +183,14 @@
       the LAN (Local Area Network), while a DOTS gateway is embedded in the
       CPE (Customer Premises Equipment).</t>
 
-      <t><figure align="center" anchor="fig1"
-          title="Sample DOTS Deployment (1)">
-          <artwork align="center"><![CDATA[  Network
-  Resource         CPE Router        Access Network     __________
-+-----------+   +--------------+    +-------------+    /          \
-|           |___|              |____|             |___ | Internet |
-|DOTS Client|   | DOTS Gateway |    | DOTS Server |    |          |
-|           |   |              |    |             |    |          |
-+-----------+   +--------------+    +-------------+    \__________/]]></artwork>
+      <t><figure align="left" anchor="fig1" title="Sample DOTS Deployment (1)">
+          <artwork align="left"><![CDATA[   Network
+   Resource         CPE Router        Access Network     __________
+ +-----------+   +--------------+    +-------------+    /          \
+ |           |___|              |____|             |___ | Internet |
+ |DOTS Client|   | DOTS Gateway |    | DOTS Server |    |          |
+ |           |   |              |    |             |    |          |
+ +-----------+   +--------------+    +-------------+    \__________/]]></artwork>
         </figure></t>
 
       <t>DOTS servers can also be reachable over the Internet, as depicted in
@@ -256,44 +255,51 @@
       follows:</t>
 
       <t><list style="symbols">
-          <t>Update the YANG module and the tree structure to follow the new
-          YANG data structure specified in <xref target="RFC8791"></xref>. In
-          particular: <list style="symbols">
-              <t>Add in "choice" to indicate the communication direction in
-              which a data node applies. If no "choice" is indicated, a data
+          <t>Update the "ietf-dots-signal-channel" YANG module (<xref
+          target="yrequest"></xref>) and the tree structure (<xref
+          target="tree"></xref>) to follow the new YANG data structure
+          specified in <xref target="RFC8791"></xref>. In particular: <list
+              style="symbols">
+              <t>Add in 'choice' to indicate the communication direction in
+              which a data node applies. If no 'choice' is indicated, a data
               node can appear in both directions (i.e., from DOTS clients to
               DOTS servers and vice versa).</t>
 
-              <t>Remove "config" clauses. Note that "config" statements will
+              <t>Remove 'config' clauses. Note that 'config' statements will
               be ignored (if present) anyway according to Section 4 of <xref
               target="RFC8791"></xref>. This supersedes the references to the
-              use of &lsquo;ro&rsquo; and &lsquo;rw&rsquo; which are now
-              covered by &ldquo;choice&rdquo; above.</t>
+              use of 'ro' and 'rw' which are now covered by 'choice'
+              above.</t>
 
-              <t>Remove "cuid", "cdid", and "sid" data nodes from the
+              <t>Remove 'cuid', 'cdid', and 'sid' data nodes from the
               structure because these data nodes are included as Uri-Path
               options, not within the message body.</t>
 
               <t>Remove the list keys for the mitigation scope message type
-              (i.e., "cuid" and "mid"). "mid" is not indicated as a key
+              (i.e., 'cuid' and 'mid'). 'mid' is not indicated as a key
               because it is included as Uri-Path option for requests and in
               the message body for responses. Note that Section 4 of <xref
               target="RFC8791"></xref> specifies that a list does not require
               to have a key statement defined.</t>
             </list></t>
 
-          <t>Add a new error handling section (<xref
+          <t>Add a new section with a summary of the error code responses that
+          can be returned by a DOTS server (<xref
           target="errors"></xref>).</t>
 
           <t>Update the IANA section to allocate a new range for
-          comprehension-optional attributes (<xref
-          target="format"></xref>).</t>
+          comprehension-optional attributes (<xref target="format"></xref>).
+          This modification is motivated by the need to allow for compact DOTS
+          signal messages that include a long list of comprehension-optional
+          attributes, e.g., DOTS telemetry messages <xref
+          target="I-D.ietf-dots-telemetry"></xref>. </t>
         </list></t>
 
-      <t>These changes are made with the constraint to avoid changes to the
-      mapping table defined in Table 5. A DOTS signal channel attribute that
-      may be present in both requests and responses will thus have the same
-      CBOR key value and CBOR major type.</t>
+      <t>These modifications are made with the constraint to avoid changes to
+      the mapping table defined in Table 5 (<xref target="mapping"></xref>). A
+      DOTS signal channel attribute that may be present in both requests and
+      responses will thus have the same CBOR key value and CBOR major
+      type.</t>
     </section>
 
     <section title="Design Overview">
@@ -465,7 +471,8 @@
         </list></t>
     </section>
 
-    <section title="DOTS Signal Channel: Messages &amp; Behaviors">
+    <section anchor="sig"
+             title="DOTS Signal Channel: Messages &amp; Behaviors">
       <section anchor="discover" title="DOTS Server(s) Discovery">
         <t>This document assumes that DOTS clients are provisioned with the
         reachability information of their DOTS server(s) using any of a
@@ -2826,7 +2833,7 @@
 
     <section anchor="errors" title="Error Handling">
       <t>This section is a summary of the Error Code responses that can be
-      returned by a DOTS server. These error responses MUST contain a CoAP
+      returned by a DOTS server. These error responses must contain a CoAP
       4.xx or 5.xx Response Code.</t>
 
       <t>In general, there may be an additional plain text diagnostic payload
@@ -2835,28 +2842,30 @@
       otherwise.</t>
 
       <t>Errors returned by a DOTS server can be broken into two categories,
-      those associated with the CoAP protocol itself and those generated
-      during the validation of the provided data by the DOTS server.</t>
+      those associated with CoAP itself and those generated during the
+      validation of the provided data by the DOTS server.</t>
 
       <t>The following list of common CoAP errors that are implemented by DOTS
       servers. This list is not exhaustive, other errors defined by CoAP and
       associated RFCs may be applicable. <list style="symbols">
           <t>4.00 (Bad Request) is returned by the DOTS server when the DOTS
-          client has sent a request that violates the DOTS protocol.</t>
+          client has sent a request that violates the DOTS protocol (<xref
+          target="sig"></xref>).</t>
 
           <t>4.01 (Unauthorized) is returned by the DOTS server when the DOTS
-          client is not authorized to access the DOTS server.</t>
+          client is not authorized to access the DOTS server (<xref
+          target="sig"></xref>).</t>
 
           <t>4.02 (Bad Option) is returned by the DOTS server when one or more
-          CoAP options are unknown or malformed by the CoAP protocol layer
-          <xref target="RFC7252"></xref>.</t>
+          CoAP options are unknown or malformed by the CoAP layer <xref
+          target="RFC7252"></xref>.</t>
 
           <t>4.04 (Not Found) is returned by the DOTS server when the DOTS
-          client is requesting a &lsquo;mid&rsquo; or &lsquo;sid&rsquo; that
-          is not valid.</t>
+          client is requesting a 'mid' or 'sid' that is not valid (<xref
+          target="sig"></xref>).</t>
 
           <t>4.05 (Method Not Allowed) is returned by the DOTS server when the
-          DOTS client is requesting a resource by a method (GET etc.) that is
+          DOTS client is requesting a resource by a method (e.g., GET) that is
           not supported by the DOTS server <xref target="RFC7252"></xref>.</t>
 
           <t>4.08 (Request Entity Incomplete) is returned by the DOTS server
@@ -2866,7 +2875,7 @@
           <t>4.09 (Conflict) is returned by the DOTS server if the DOTS server
           detects that a request conflicts with a previous request. The
           response body is formatted using "application/dots+cbor", and
-          contains the "conflict-clause".</t>
+          contains the "conflict-clause" (<xref target="m_req"></xref>).</t>
 
           <t>4.13 (Request Entity Too Large) may be returned by the DOTS
           server during a block transfer request <xref
@@ -2874,17 +2883,19 @@
 
           <t>4.15 (Unsupported Content-Format) is returned by the DOTS server
           when the Content-Format used in the request is not formatted as
-          "application/dots+cbor".</t>
+          "application/dots+cbor" (<xref target="sig"></xref>).</t>
 
           <t>4.22 (Unprocessable Entity) is returned by the DOTS server when
-          one or more session configuration parameters are not valid.</t>
+          one or more session configuration parameters are not valid (<xref
+          target="sigconfig"></xref>).</t>
 
           <t>5.03 (Service Unavailable) is returned by the DOTS server if the
-          DOTS server is unable to handle the request. An example is the DOTS
-          server needs to redirect the DOTS client to use an alternate DOTS
-          server. The response body is formatted using
+          DOTS server is unable to handle the request (<xref
+          target="sig"></xref>). An example is the DOTS server needs to
+          redirect the DOTS client to use an alternate DOTS server (<xref
+          target="redirect"></xref>). The response body is formatted using
           "application/dots+cbor", and contains how to handle the 5.03
-          code.</t>
+          Response Code.</t>
 
           <t>5.08 (Hop Limit Reached) is returned by the DOTS server if there
           is a data path loop through upstream DOTS gateways. The response
@@ -2910,7 +2921,7 @@
       defined by IANA: "iana-dots-signal-channel" (<xref
       target="iana-yang"></xref>).</t>
 
-      <section title="Tree Structure">
+      <section anchor="tree" title="Tree Structure">
         <t>This document defines the YANG module "ietf-dots-signal-channel",
         which has the following tree structure. A DOTS signal message can be a
         mitigation, a configuration, a redirect, or a heartbeat message.</t>
@@ -3796,22 +3807,16 @@ module ietf-dots-signal-channel {
         description
           "Mitigation scope of a mitigation message.";
         uses mitigation-scope;
-        reference
-          "Section 5.4 of RFC XXXX";
       }
       case signal-config {
         description
           "Configuration message.";
         uses signal-config;
-        reference
-          "Section 5.5 of RFC XXXX";
       }
       case redirected-signal {
         description
           "Redirected signaling.";
         uses redirected-signal;
-        reference
-          "Section 5.6 of RFC XXXX";
       }
       case heartbeat {
         description
@@ -3825,8 +3830,6 @@ module ietf-dots-signal-channel {
              DOTS agent is receiving heartbeat messages
              from its peer.";
         }
-        reference
-          "Section 5.7 of RFC XXXX";
       }
     }
   }
@@ -3840,7 +3843,7 @@ module ietf-dots-signal-channel {
     <section anchor="mapping" title="YANG/JSON Mapping Parameters to CBOR">
       <t>All parameters in the payload of the DOTS signal channel MUST be
       mapped to CBOR types as shown in Table 5 and are assigned an integer key
-      to save space. <list style="symbols">
+      to save space. <list style="empty">
           <t>Note: Implementers must check that the mapping output provided by
           their YANG-to-CBOR encoding schemes is aligned with the content of
           Table 5. For example, some CBOR and JSON types for enumerations and
@@ -4182,23 +4185,23 @@ module ietf-dots-signal-channel {
         message exchange is shown in <xref target="Figure24"></xref>.<figure
             anchor="Figure24"
             title="A Simplified TLS 1.3 Handshake with 0-RTT">
-            <artwork align="left"><![CDATA[         DOTS Client                                    DOTS Server
+            <artwork align="left"><![CDATA[    DOTS Client                                    DOTS Server
 
-         ClientHello
-         (0-RTT DOTS signal message)
-                                   -------->
-                                                         ServerHello
-                                               {EncryptedExtensions}
-                                                          {Finished}
-                                   <--------   [DOTS signal message]
-         (end_of_early_data)       
-         {Finished}                --------> 
-         [DOTS signal message]     <------->   [DOTS signal message]
+    ClientHello
+    (0-RTT DOTS signal message)
+                              -------->
+                                                    ServerHello
+                                          {EncryptedExtensions}
+                                                     {Finished}
+                              <--------   [DOTS signal message]
+    (end_of_early_data)       
+    {Finished}                --------> 
+    [DOTS signal message]     <------->   [DOTS signal message]
 
 Note that:
-       () Indicates messages protected 0-RTT keys
-       {} Indicates messages protected using handshake keys
-       [] Indicates messages protected using 1-RTT keys]]></artwork>
+    () Indicates messages protected 0-RTT keys
+    {} Indicates messages protected using handshake keys
+    [] Indicates messages protected using 1-RTT keys]]></artwork>
           </figure></t>
       </section>
 
@@ -4354,8 +4357,8 @@ Note that:
         (&lt;https://www.iana.org/assignments/well-known-
         uris/well-known-uris.xhtml&gt;) as follows:</t>
 
-        <t><figure>
-            <artwork><![CDATA[     +------------+------------+-----------+-----------+-------------+
+        <t><figure align="center">
+            <artwork align="center"><![CDATA[     +------------+------------+-----------+-----------+-------------+
      | URI Suffix | Change     | Reference | Status    | Related     |
      |            | Controller |           |           | information |
      +============+============+===========+===========+=============+
@@ -4382,7 +4385,7 @@ Note that:
    Encoding considerations: binary
 
    Security considerations: See the Security Considerations section of
-   [RFC8782].
+   [RFCXXXx].
 
    Interoperability considerations: N/A
 
@@ -4419,7 +4422,7 @@ Note that:
                title="CoAP Content-Formats Registration">
         <t>IANA is requested to update the CoAP Content-Format ID for the
         "application/ dots+cbor" media type in the "CoAP Content-Formats"
-        registry [IANA-CoAP-Content-Formats]:<?rfc subcompact="yes"?></t>
+        registry <xref target="IANA-CoAP-Content-Formats"></xref>:<?rfc subcompact="yes"?></t>
 
         <t><list style="symbols">
             <t>Media Type: application/dots+cbor</t>
@@ -4444,7 +4447,7 @@ Note that:
         channel object.</t>
 
         <t>IANA is requested to update the DOTS signal channel CBOR tag in the
-        "CBOR Tags" registry [IANA-CBOR-Tags]:<?rfc subcompact="yes"?></t>
+        "CBOR Tags" registry <xref target="IANA-CBOR-Tags"></xref>:<?rfc subcompact="yes"?></t>
 
         <t><figure>
             <artwork><![CDATA[   *  Tag: 271
@@ -4458,11 +4461,13 @@ Note that:
       </section>
 
       <section anchor="reg" title="DOTS Signal Channel Protocol Registry">
-        <t></t>
+        <t>The following sections update the "Distributed Denial-of- Service
+        Open Threat Signaling (DOTS) Signal Channel" subregistries.</t>
 
         <section anchor="map"
-                 title="DOTS Signal Channel CBOR Key Values Sub-Registry">
-          <t></t>
+                 title="DOTS Signal Channel CBOR Key Values Subregistry">
+          <t>The structure of this subregistry is provided in <xref
+          target="format"></xref>.</t>
 
           <section anchor="format" title="Registration Template">
             <t>This specification requests IANA to update the allocation
@@ -4546,7 +4551,7 @@ NEW:
               </list></t>
           </section>
 
-          <section anchor="initial" title="Subregistry Content">
+          <section anchor="initial" title="Update Subregistry Content">
             <t>IANA is requested to update these entries from the "DOTS Signal
             Channel CBOR Key Values" registry with the RFC number to be
             assigned to this document:</t>
@@ -5146,6 +5151,8 @@ NEW:
 
     <references title="Informative References">
       <?rfc include="reference.RFC.4732"?>
+
+      <?rfc include='reference.I-D.ietf-dots-telemetry'?>
 
       <?rfc include='reference.RFC.8782'?>
 
