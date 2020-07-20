@@ -11,7 +11,7 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 <rfc category="std" docName="draft-boucadair-dots-rfc8782-bis-00"
-     ipr="trust200902">
+     ipr="trust200902" obsoletes="8782">
   <front>
     <title abbrev="DOTS Signal Channel Protocol">Distributed Denial-of-Service
     Open Threat Signaling (DOTS) Signal Channel Specification</title>
@@ -5268,9 +5268,9 @@ NEW:
       <reference anchor="IANA-Proto"
                  target="http://www.iana.org/assignments/protocol-numbers">
         <front>
-          <title>IANA, "Protocol Numbers"</title>
+          <title>Protocol Numbers</title>
 
-          <author>
+          <author fullname="IANA">
             <organization></organization>
           </author>
 
