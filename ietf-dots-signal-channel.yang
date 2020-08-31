@@ -71,7 +71,7 @@ module ietf-dots-signal-channel {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2020-07-02 {
+  revision 2020-08-31 {
     description
       "Updated revision to comply with RFC8791.";
     reference
@@ -261,6 +261,11 @@ module ietf-dots-signal-channel {
                buckets over the time since the mitigation was
                triggered).";
           }
+        }
+        case client-to-server-only {
+          description
+            "These data nodes appear only in a mitigation message
+             sent from the client to the server.";
           leaf attack-status {
             type iana-signal:attack-status;
             description
