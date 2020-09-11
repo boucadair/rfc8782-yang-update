@@ -1,7 +1,29 @@
+sudo: required
+dist: bionic
+language: python
+python:
+  - "3.8"
+
+before_install:
+  - wget -nv https://download.opensuse.org/repositories/home:liberouter/xUbuntu_18.04/Release.key -O Release.key
+  - sudo apt-key add - < Release.key
+  - sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/liberouter/xUbuntu_18.04/ /' > /etc/apt/sources.list.d/libyang.list"
+  - sudo apt-get update
+  - sudo apt-get install --allow-unauthenticated libyang
+
 install: 
- - sudo apt-get install xml2rfc
- - sudo apt-get install nodejs npm
- - sudo apt install nodejs-legacy
-language: ruby
-# command to run tests
-script: make
+
+   - pip install pyang
+   - pip install xym
+   - pip install xml2rfc
+
+script:
+
+  - xym draft-ietf-dots-rfc8782-bis.txt
+  - export yang_extracted=`ls *.yang`
+  - xml2rfc draft-ietf-dots-rfc8782-bis.xml > draft-ietf-dots-rfc8782-bis.txt
+ # - pyang -f tree --ietf  ietf-dots-signal-channel@2020-07-02.yang
+ # - yanglint -f yang ietf-dots-signal-channel@2020-07-02.yang
+ # - yanglint --verbose ietf-dots-signal-channel@2020-07-02.yang -i
+
+ 
