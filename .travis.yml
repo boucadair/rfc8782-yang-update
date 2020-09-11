@@ -1,0 +1,7 @@
+install: 
+ - sudo apt-get install xml2rfc
+ - sudo apt-get install nodejs npm
+ - sudo apt install nodejs-legacy
+language: ruby
+# command to run tests
+script: make
