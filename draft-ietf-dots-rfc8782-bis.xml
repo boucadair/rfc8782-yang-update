@@ -219,10 +219,10 @@
       DOTS server or indirectly via a DOTS gateway.</t>
 
       <t>This document adheres to the DOTS architecture <xref
-      target="I-D.ietf-dots-architecture"></xref>. The requirements for DOTS
-      signal channel protocol are documented in <xref
-      target="RFC8612"></xref>. This document satisfies all the use cases
-      discussed in <xref target="I-D.ietf-dots-use-cases"></xref>.</t>
+      target="RFC8811"></xref>. The requirements for DOTS signal channel
+      protocol are documented in <xref target="RFC8612"></xref>. This document
+      satisfies all the use cases discussed in <xref
+      target="I-D.ietf-dots-use-cases"></xref>.</t>
 
       <t>This document focuses on the DOTS signal channel. This is a companion
       document of the DOTS data channel specification <xref
@@ -763,8 +763,8 @@
               resources under attack. Prefixes are represented using Classless
               Inter-Domain Routing (CIDR) notation <xref
               target="RFC4632"></xref>. <vspace blankLines="1" />As a
-              reminder, the prefix length must be less than or equal to 32 (or
-              128) for IPv4 (or IPv6).<vspace blankLines="1" />The prefix list
+              reminder, the prefix length must be less than or equal to 32 for
+              IPv4 and 128 for IPv6.<vspace blankLines="1" />The prefix list
               MUST NOT include broadcast, loopback, or multicast addresses.
               These addresses are considered to be invalid values. In
               addition, the DOTS server MUST validate that target prefixes are
@@ -1627,13 +1627,12 @@
             even less aggressive rate whenever possible (case 2 in Section
             3.1.3 of <xref target="RFC8085"></xref>).</t>
 
-            <t><!--The DOTS server MUST use the same CUID as the one used by the DOTS client to observe a mitigation request.-->When
-            conflicting requests are detected, the DOTS server enforces the
-            corresponding policy (e.g., accept all requests, reject all
-            requests, accept only one request but reject all the others). It
-            is assumed that this policy is supplied by the DOTS server
-            administrator or that it is a default behavior of the DOTS server
-            implementation. Then, the DOTS server sends a notification
+            <t>When conflicting requests are detected, the DOTS server
+            enforces the corresponding policy (e.g., accept all requests,
+            reject all requests, accept only one request but reject all the
+            others). It is assumed that this policy is supplied by the DOTS
+            server administrator or that it is a default behavior of the DOTS
+            server implementation. Then, the DOTS server sends a notification
             message(s) to the DOTS client(s) at the origin of the conflict
             (refer to the conflict parameters defined in <xref
             target="post"></xref>). A conflict notification message includes
@@ -2530,7 +2529,7 @@
 
       <section anchor="redirect" title="Redirected Signaling">
         <t>Redirected DOTS signaling is discussed in detail in Section 3.2.2
-        of <xref target="I-D.ietf-dots-architecture"></xref>.</t>
+        of <xref target="RFC8811"></xref>.</t>
 
         <t>If a DOTS server wants to redirect a DOTS client to an alternative
         DOTS server for a signal session, then the Response Code 5.03 (Service
@@ -2826,12 +2825,13 @@
        |        +--:(server-to-client-only)
        |        |  +-- mid?                    uint32
        |        |  +-- mitigation-start?       uint64
-       |        |  +-- status?                 iana-signal:status
+       |        |  +-- status?
+       |        |  |       iana-dots-signal:status
        |        |  +-- conflict-information
        |        |  |  +-- conflict-status?
-       |        |  |  |       iana-signal:conflict-status
+       |        |  |  |       iana-dots-signal:conflict-status
        |        |  |  +-- conflict-cause?
-       |        |  |  |       iana-signal:conflict-cause
+       |        |  |  |       iana-dots-signal:conflict-cause
        |        |  |  +-- retry-timer?       uint32
        |        |  |  +-- conflict-scope
        |        |  |     +-- target-prefix*       inet:ip-prefix
@@ -2854,7 +2854,7 @@
        |        |  +-- pps-dropped?            yang:gauge64
        |        +--:(client-to-server-only)
        |           +-- attack-status?
-       |                   iana-signal:attack-status
+       |                   iana-dots-signal:attack-status
        +--:(signal-config)
        |  +-- mitigating-config
        |  |  +-- heartbeat-interval
@@ -2938,17 +2938,21 @@
        +--:(heartbeat)
           +-- peer-hb-status             boolean
 
+
 ]]></artwork>
           </figure></t>
       </section>
 
       <section anchor="iana-yang" title="IANA DOTS Signal Channel YANG Module">
+        <t>This version obsoletes the version described in Section 5.2 of
+        <xref target="RFC8782"></xref>.</t>
+
         <t><figure>
-            <artwork><![CDATA[<CODE BEGINS> file "iana-dots-signal-channel@2020-05-28.yang"
+            <artwork><![CDATA[<CODE BEGINS> file "iana-dots-signal-channel@2020-09-24.yang"
 module iana-dots-signal-channel {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:iana-dots-signal-channel";
-  prefix iana-signal;
+  prefix iana-dots-signal;
 
   organization
     "IANA";
@@ -2977,6 +2981,14 @@ module iana-dots-signal-channel {
 
      This version of this YANG module is part of RFC 8782; see
      the RFC itself for full legal notices.";
+
+  revision 2020-09-24 {
+    description
+      "Second revision.";
+    reference
+      "RFC XXXX: Distributed Denial-of-Service Open Threat
+                 Signaling (DOTS) Signal Channel Specification";
+  }
 
   revision 2020-05-28 {
     description
@@ -3134,11 +3146,11 @@ module iana-dots-signal-channel {
         <xref target="RFC8782"></xref>.</t>
 
         <t><figure align="center">
-            <artwork align="center"><![CDATA[<CODE BEGINS> file "ietf-dots-signal-channel@2020-08-31.yang"
+            <artwork align="center"><![CDATA[<CODE BEGINS> file "ietf-dots-signal-channel@2020-09-24.yang"
 module ietf-dots-signal-channel {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-dots-signal-channel";
-  prefix signal;
+  prefix dots-signal;
 
   import ietf-inet-types {
     prefix inet;
@@ -3151,13 +3163,13 @@ module ietf-dots-signal-channel {
       "Section 3 of RFC 6991";
   }
   import ietf-dots-data-channel {
-    prefix ietf-data;
+    prefix data-channel;
     reference
       "RFC 8783: Distributed Denial-of-Service Open Threat Signaling
                  (DOTS) Data Channel Specification";
   }
   import iana-dots-signal-channel {
-    prefix iana-signal;
+    prefix iana-dots-signal;
     reference
       "RFC 8782: Distributed Denial-of-Service Open Threat Signaling
                  (DOTS) Signal Channel Specification";
@@ -3172,25 +3184,25 @@ module ietf-dots-signal-channel {
     "IETF DDoS Open Threat Signaling (DOTS) Working Group";
   contact
     "WG Web:   <https://datatracker.ietf.org/wg/dots/>
-     WG List:  <mailto:dots&ietf.org>
+     WG List:  <mailto:dots@ietf.org>
 
      Editor:  Mohamed Boucadair
-              <mailto:mohamed.boucadair&orange.com>
+              <mailto:mohamed.boucadair@orange.com>
 
      Editor:  Jon Shallow
-              <mailto:supjps-ietf&jpshallow.com>
+              <mailto:supjps-ietf@jpshallow.com>
 
      Author:  Konda, Tirumaleswar Reddy.K
-              <mailto:TirumaleswarReddy_Konda&McAfee.com>
+              <mailto:TirumaleswarReddy_Konda@McAfee.com>
 
      Author:  Prashanth Patil
-              <mailto:praspati&cisco.com>
+              <mailto:praspati@cisco.com>
 
      Author:  Andrew Mortensen
-              <mailto:amortensen&arbor.net>
+              <mailto:amortensen@arbor.net>
 
      Author:  Nik Teague
-              <mailto:nteague&ironmountain.co.uk>";
+              <mailto:nteague@ironmountain.co.uk>";
   description
     "This module contains YANG definition for the signaling
      messages exchanged between a DOTS client and a DOTS server.
@@ -3208,12 +3220,12 @@ module ietf-dots-signal-channel {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2020-08-31 {
+  revision 2020-09-24 {
     description
       "Updated revision to comply with RFC8791.";
     reference
-      "RFC xxxx: A YANG Data Model for Distributed Denial-of-Service
-                 Open Threat Signaling (DOTS) Signal Channel";
+      "RFC XXXX: Distributed Denial-of-Service Open Threat
+                 Signaling (DOTS) Signal Channel Specification";
   }
   revision 2020-05-28 {
     description
@@ -3233,7 +3245,7 @@ module ietf-dots-signal-channel {
     list scope {
       description
         "The scope of the request.";
-      uses ietf-data:target;
+      uses data-channel:target;
       leaf-list alias-name {
         type string;
         description
@@ -3283,7 +3295,7 @@ module ietf-dots-signal-channel {
                relative to 1970-01-01T00:00:00Z in UTC time.";
           }
           leaf status {
-            type iana-signal:status;
+            type iana-dots-signal:status;
             description
               "Indicates the status of a mitigation request.
                It must be included in responses only.";
@@ -3293,12 +3305,12 @@ module ietf-dots-signal-channel {
               "Indicates that a conflict is detected.
                Must only be used for responses.";
             leaf conflict-status {
-              type iana-signal:conflict-status;
+              type iana-dots-signal:conflict-status;
               description
                 "Indicates the conflict status.";
             }
             leaf conflict-cause {
-              type iana-signal:conflict-cause;
+              type iana-dots-signal:conflict-cause;
               description
                 "Indicates the cause of the conflict.";
             }
@@ -3313,7 +3325,7 @@ module ietf-dots-signal-channel {
             container conflict-scope {
               description
                 "Provides more information about the conflict scope.";
-              uses ietf-data:target {
+              uses data-channel:target {
                 when "/dots-signal/scope/conflict-information/"
                    + "conflict-cause = 'overlapping-targets'";
               }
@@ -3333,8 +3345,8 @@ module ietf-dots-signal-channel {
                    cuid and acl-name.";
                 leaf acl-name {
                   type leafref {
-                    path "/ietf-data:dots-data/ietf-data:dots-client/"
-                       + "ietf-data:acls/ietf-data:acl/ietf-data:name";
+                    path "/data-channel:dots-data/data-channel:dots-client/"
+                       + "data-channel:acls/data-channel:acl/data-channel:name";
                   }
                   description
                     "Reference to the conflicting ACL name bound to
@@ -3342,8 +3354,8 @@ module ietf-dots-signal-channel {
                 }
                 leaf acl-type {
                   type leafref {
-                    path "/ietf-data:dots-data/ietf-data:dots-client/"
-                       + "ietf-data:acls/ietf-data:acl/ietf-data:type";
+                    path "/data-channel:dots-data/data-channel:dots-client/"
+                       + "data-channel:acls/data-channel:acl/data-channel:type";
                   }
                   description
                     "Reference to the conflicting ACL type bound to
@@ -3404,7 +3416,7 @@ module ietf-dots-signal-channel {
             "These data nodes appear only in a mitigation message
              sent from the client to the server.";
           leaf attack-status {
-            type iana-signal:attack-status;
+            type iana-dots-signal:attack-status;
             description
               "Indicates the status of an attack as seen by the
                DOTS client.";
@@ -4861,9 +4873,8 @@ NEW:
       </section>
 
       <section anchor="yang" title="DOTS Signal Channel YANG Modules">
-        <t>This document requests IANA to register the following URIs in the
-        "ns" subregistry within the "IETF XML Registry" <xref
-        target="RFC3688"></xref>: <figure>
+        <t>IANA already registered the following URIs in the "ns" subregistry
+        within the "IETF XML Registry" <xref target="RFC3688"></xref>: <figure>
             <artwork><![CDATA[      URI:  urn:ietf:params:xml:ns:yang:ietf-dots-signal-channel
       Registrant Contact:  The IESG.
       XML:  N/A; the requested URI is an XML namespace.
@@ -4872,20 +4883,20 @@ NEW:
       Registrant Contact:  IANA.
       XML:  N/A; the requested URI is an XML namespace.
 ]]></artwork>
-          </figure>This document requests IANA to register the following YANG
+          </figure>This document requests IANA to update the following YANG
         modules in the "YANG Module Names" subregistry <xref
         target="RFC6020"></xref> within the "YANG Parameters" registry.<figure>
             <artwork><![CDATA[      Name:  ietf-dots-signal-channel
       Maintained by IANA:  N
       Namespace:  urn:ietf:params:xml:ns:yang:ietf-dots-signal-channel
-      Prefix:  signal
-      Reference:  RFC8782
+      Prefix:  dots-signal
+      Reference:  RFCXXXX
 
       Name:  iana-dots-signal-channel
       Maintained by IANA:  Y
       Namespace:  urn:ietf:params:xml:ns:yang:iana-dots-signal-channel
-      Prefix:  iana-signal
-      Reference:  RFC8782
+      Prefix:  iana-dots-signal
+      Reference:  RFCXXXX
 ]]></artwork>
           </figure></t>
 
@@ -4938,8 +4949,7 @@ NEW:
 
     <section anchor="security" title="Security Considerations">
       <t>High-level DOTS security considerations are documented in <xref
-      target="RFC8612"></xref> and <xref
-      target="I-D.ietf-dots-architecture"></xref>.</t>
+      target="RFC8612"></xref> and <xref target="RFC8811"></xref>.</t>
 
       <t>Authenticated encryption MUST be used for data confidentiality and
       message integrity. The interaction between the DOTS agents requires
@@ -5210,7 +5220,7 @@ NEW:
 
       <?rfc include="reference.I-D.ietf-dots-use-cases"?>
 
-      <?rfc include="reference.I-D.ietf-dots-architecture"?>
+      <?rfc include="reference.RFC.8811"?>
 
       <?rfc include="reference.I-D.ietf-tls-dtls13"?>
 
@@ -5339,6 +5349,8 @@ NEW:
     <section anchor="ack" title="Acknowledgements">
       <t>Many thanks to Martin Bj&ouml;rklund for the suggestion to use
       RFC8791.</t>
+
+      <t>Thanks to Ebben Aries for the yangdoctors review. </t>
 
       <section title="Acknowledgements from RFC8782">
         <t>Thanks to Christian Jacquenet, Roland Dobbins, Roman Danyliw,
