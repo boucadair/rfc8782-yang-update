@@ -12,40 +12,42 @@ module: ietf-dots-signal-channel
        |     +-- target-fqdn*                  inet:domain-name
        |     +-- target-uri*                   inet:uri
        |     +-- alias-name*                   string
-       |     +-- lifetime?                     int32
+       |     +-- lifetime?                     union
        |     +-- trigger-mitigation?           boolean
        |     +-- (direction)?
        |        +--:(server-to-client-only)
-       |           +-- mid?                    uint32
-       |           +-- mitigation-start?       uint64
-       |           +-- status?                 iana-signal:status
-       |           +-- conflict-information
-       |           |  +-- conflict-status?
-       |           |  |       iana-signal:conflict-status
-       |           |  +-- conflict-cause?
-       |           |  |       iana-signal:conflict-cause
-       |           |  +-- retry-timer?       uint32
-       |           |  +-- conflict-scope
-       |           |     +-- target-prefix*       inet:ip-prefix
-       |           |     +-- target-port-range* [lower-port]
-       |           |     |  +-- lower-port    inet:port-number
-       |           |     |  +-- upper-port?   inet:port-number
-       |           |     +-- target-protocol*     uint8
-       |           |     +-- target-fqdn*         inet:domain-name
-       |           |     +-- target-uri*          inet:uri
-       |           |     +-- alias-name*          string
-       |           |     +-- acl-list* [acl-name]
-       |           |     |  +-- acl-name    leafref
-       |           |     |  +-- acl-type?   leafref
-       |           |     +-- mid?                 uint32
-       |           +-- bytes-dropped?
-       |           |       yang:zero-based-counter64
-       |           +-- bps-dropped?            yang:gauge64
-       |           +-- pkts-dropped?
-       |           |       yang:zero-based-counter64
-       |           +-- pps-dropped?            yang:gauge64
+       |        |  +-- mid?                    uint32
+       |        |  +-- mitigation-start?       uint64
+       |        |  +-- status?
+       |        |  |       iana-dots-signal:status
+       |        |  +-- conflict-information
+       |        |  |  +-- conflict-status?
+       |        |  |  |       iana-dots-signal:conflict-status
+       |        |  |  +-- conflict-cause?
+       |        |  |  |       iana-dots-signal:conflict-cause
+       |        |  |  +-- retry-timer?       uint32
+       |        |  |  +-- conflict-scope
+       |        |  |     +-- target-prefix*       inet:ip-prefix
+       |        |  |     +-- target-port-range* [lower-port]
+       |        |  |     |  +-- lower-port    inet:port-number
+       |        |  |     |  +-- upper-port?   inet:port-number
+       |        |  |     +-- target-protocol*     uint8
+       |        |  |     +-- target-fqdn*         inet:domain-name
+       |        |  |     +-- target-uri*          inet:uri
+       |        |  |     +-- alias-name*          string
+       |        |  |     +-- acl-list* [acl-name]
+       |        |  |     |  +-- acl-name    leafref
+       |        |  |     |  +-- acl-type?   leafref
+       |        |  |     +-- mid?                 uint32
+       |        |  +-- bytes-dropped?
+       |        |  |       yang:zero-based-counter64
+       |        |  +-- bps-dropped?            yang:gauge64
+       |        |  +-- pkts-dropped?
+       |        |  |       yang:zero-based-counter64
+       |        |  +-- pps-dropped?            yang:gauge64
+       |        +--:(client-to-server-only)
        |           +-- attack-status?
-       |                   iana-signal:attack-status
+       |                   iana-dots-signal:attack-status
        +--:(signal-config)
        |  +-- mitigating-config
        |  |  +-- heartbeat-interval
