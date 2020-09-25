@@ -6,9 +6,9 @@ DOTS                                                   M. Boucadair, Ed.
 Internet-Draft                                                    Orange
 Obsoletes: 8782 (if approved)                                 J. Shallow
 Intended status: Standards Track
-Expires: March 28, 2021                                       T. Reddy.K
+Expires: March 29, 2021                                       T. Reddy.K
                                                                   McAfee
-                                                      September 24, 2020
+                                                      September 25, 2020
 
 
    Distributed Denial-of-Service Open Threat Signaling (DOTS) Signal
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on March 28, 2021.
+   This Internet-Draft will expire on March 29, 2021.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Boucadair, et al.        Expires March 28, 2021                 [Page 1]
+Boucadair, et al.        Expires March 29, 2021                 [Page 1]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -100,7 +100,7 @@ Table of Contents
      5.1.  Tree Structure  . . . . . . . . . . . . . . . . . . . . .  61
      5.2.  IANA DOTS Signal Channel YANG Module  . . . . . . . . . .  64
      5.3.  IETF DOTS Signal Channel YANG Module  . . . . . . . . . .  68
-   6.  YANG/JSON Mapping Parameters to CBOR  . . . . . . . . . . . .  80
+   6.  YANG/JSON Mapping Parameters to CBOR  . . . . . . . . . . . .  81
    7.  (D)TLS Protocol Profile and Performance Considerations  . . .  84
      7.1.  (D)TLS Protocol Profile . . . . . . . . . . . . . . . . .  84
      7.2.  (D)TLS 1.3 Considerations . . . . . . . . . . . . . . . .  86
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Boucadair, et al.        Expires March 28, 2021                 [Page 2]
+Boucadair, et al.        Expires March 29, 2021                 [Page 2]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -165,7 +165,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                 [Page 3]
+Boucadair, et al.        Expires March 29, 2021                 [Page 3]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -221,7 +221,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                 [Page 4]
+Boucadair, et al.        Expires March 29, 2021                 [Page 4]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -277,7 +277,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                 [Page 5]
+Boucadair, et al.        Expires March 29, 2021                 [Page 5]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -333,7 +333,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                 [Page 6]
+Boucadair, et al.        Expires March 29, 2021                 [Page 6]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -389,7 +389,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                 [Page 7]
+Boucadair, et al.        Expires March 29, 2021                 [Page 7]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -445,7 +445,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                 [Page 8]
+Boucadair, et al.        Expires March 29, 2021                 [Page 8]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -501,7 +501,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                 [Page 9]
+Boucadair, et al.        Expires March 29, 2021                 [Page 9]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -557,7 +557,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 10]
+Boucadair, et al.        Expires March 29, 2021                [Page 10]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -613,7 +613,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 11]
+Boucadair, et al.        Expires March 29, 2021                [Page 11]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -669,7 +669,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 12]
+Boucadair, et al.        Expires March 29, 2021                [Page 12]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -725,7 +725,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 13]
+Boucadair, et al.        Expires March 29, 2021                [Page 13]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -781,7 +781,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 14]
+Boucadair, et al.        Expires March 29, 2021                [Page 14]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -837,7 +837,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 15]
+Boucadair, et al.        Expires March 29, 2021                [Page 15]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -893,7 +893,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 16]
+Boucadair, et al.        Expires March 29, 2021                [Page 16]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -949,7 +949,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 17]
+Boucadair, et al.        Expires March 29, 2021                [Page 17]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 18]
+Boucadair, et al.        Expires March 29, 2021                [Page 18]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 19]
+Boucadair, et al.        Expires March 29, 2021                [Page 19]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 20]
+Boucadair, et al.        Expires March 29, 2021                [Page 20]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1173,7 +1173,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 21]
+Boucadair, et al.        Expires March 29, 2021                [Page 21]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1229,7 +1229,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 22]
+Boucadair, et al.        Expires March 29, 2021                [Page 22]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1285,7 +1285,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 23]
+Boucadair, et al.        Expires March 29, 2021                [Page 23]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1341,7 +1341,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 24]
+Boucadair, et al.        Expires March 29, 2021                [Page 24]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1397,7 +1397,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 25]
+Boucadair, et al.        Expires March 29, 2021                [Page 25]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1453,7 +1453,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 26]
+Boucadair, et al.        Expires March 29, 2021                [Page 26]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1509,7 +1509,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 27]
+Boucadair, et al.        Expires March 29, 2021                [Page 27]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1565,7 +1565,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 28]
+Boucadair, et al.        Expires March 29, 2021                [Page 28]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1621,7 +1621,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 29]
+Boucadair, et al.        Expires March 29, 2021                [Page 29]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1677,7 +1677,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 30]
+Boucadair, et al.        Expires March 29, 2021                [Page 30]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1733,7 +1733,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 31]
+Boucadair, et al.        Expires March 29, 2021                [Page 31]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1789,7 +1789,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 32]
+Boucadair, et al.        Expires March 29, 2021                [Page 32]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1845,7 +1845,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 33]
+Boucadair, et al.        Expires March 29, 2021                [Page 33]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1901,7 +1901,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 34]
+Boucadair, et al.        Expires March 29, 2021                [Page 34]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -1957,7 +1957,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 35]
+Boucadair, et al.        Expires March 29, 2021                [Page 35]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2013,7 +2013,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 36]
+Boucadair, et al.        Expires March 29, 2021                [Page 36]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2069,7 +2069,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 37]
+Boucadair, et al.        Expires March 29, 2021                [Page 37]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2125,7 +2125,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 38]
+Boucadair, et al.        Expires March 29, 2021                [Page 38]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2181,7 +2181,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 39]
+Boucadair, et al.        Expires March 29, 2021                [Page 39]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2237,7 +2237,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 40]
+Boucadair, et al.        Expires March 29, 2021                [Page 40]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2293,7 +2293,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 41]
+Boucadair, et al.        Expires March 29, 2021                [Page 41]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2349,7 +2349,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 42]
+Boucadair, et al.        Expires March 29, 2021                [Page 42]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2405,7 +2405,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 43]
+Boucadair, et al.        Expires March 29, 2021                [Page 43]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2461,7 +2461,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 44]
+Boucadair, et al.        Expires March 29, 2021                [Page 44]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2517,7 +2517,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 45]
+Boucadair, et al.        Expires March 29, 2021                [Page 45]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2573,7 +2573,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 46]
+Boucadair, et al.        Expires March 29, 2021                [Page 46]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2629,7 +2629,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 47]
+Boucadair, et al.        Expires March 29, 2021                [Page 47]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2685,7 +2685,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 48]
+Boucadair, et al.        Expires March 29, 2021                [Page 48]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2741,7 +2741,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 49]
+Boucadair, et al.        Expires March 29, 2021                [Page 49]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2797,7 +2797,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 50]
+Boucadair, et al.        Expires March 29, 2021                [Page 50]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2853,7 +2853,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 51]
+Boucadair, et al.        Expires March 29, 2021                [Page 51]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2909,7 +2909,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 52]
+Boucadair, et al.        Expires March 29, 2021                [Page 52]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -2965,7 +2965,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 53]
+Boucadair, et al.        Expires March 29, 2021                [Page 53]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -3021,7 +3021,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 54]
+Boucadair, et al.        Expires March 29, 2021                [Page 54]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -3077,7 +3077,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 55]
+Boucadair, et al.        Expires March 29, 2021                [Page 55]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -3133,7 +3133,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 56]
+Boucadair, et al.        Expires March 29, 2021                [Page 56]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -3189,7 +3189,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 57]
+Boucadair, et al.        Expires March 29, 2021                [Page 57]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -3245,7 +3245,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 58]
+Boucadair, et al.        Expires March 29, 2021                [Page 58]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -3301,7 +3301,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 59]
+Boucadair, et al.        Expires March 29, 2021                [Page 59]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -3357,7 +3357,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 60]
+Boucadair, et al.        Expires March 29, 2021                [Page 60]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -3403,7 +3403,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
            |     +-- target-fqdn*                  inet:domain-name
            |     +-- target-uri*                   inet:uri
            |     +-- alias-name*                   string
-           |     +-- lifetime?                     int32
+           |     +-- lifetime?                     union
            |     +-- trigger-mitigation?           boolean
            |     +-- (direction)?
            |        +--:(server-to-client-only)
@@ -3413,7 +3413,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 61]
+Boucadair, et al.        Expires March 29, 2021                [Page 61]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -3469,7 +3469,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 62]
+Boucadair, et al.        Expires March 29, 2021                [Page 62]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -3525,7 +3525,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 63]
+Boucadair, et al.        Expires March 29, 2021                [Page 63]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -3545,8 +3545,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
            |        +-- alt-server-record*   inet:ip-address
            +--:(heartbeat)
               +-- peer-hb-status             boolean
-
-
 
 5.2.  IANA DOTS Signal Channel YANG Module
 
@@ -3578,16 +3576,16 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
         authors of the code.  All rights reserved.
 
         Redistribution and use in source and binary forms, with or
+        without modification, is permitted pursuant to, and subject
+        to the license terms contained in, the Simplified BSD License
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 64]
+Boucadair, et al.        Expires March 29, 2021                [Page 64]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
-        without modification, is permitted pursuant to, and subject
-        to the license terms contained in, the Simplified BSD License
         set forth in Section 4.c of the IETF Trust's Legal Provisions
         Relating to IETF Documents
         (http://trustee.ietf.org/license-info).
@@ -3597,7 +3595,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
      revision 2020-09-24 {
        description
-         "Second revision.";
+         "Updated the prefix used for the module.";
        reference
          "RFC XXXX: Distributed Denial-of-Service Open Threat
                     Signaling (DOTS) Signal Channel Specification";
@@ -3634,16 +3632,16 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
               withdraw the mitigation request.";
          }
          enum attack-exceeded-capability {
+           value 4;
+           description
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 65]
+Boucadair, et al.        Expires March 29, 2021                [Page 65]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
-           value 4;
-           description
              "Attack has exceeded the mitigation provider
               capability.";
          }
@@ -3690,16 +3688,16 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
          enum request-active {
            value 2;
            description
+             "DOTS Server has detected conflicting mitigation
+              requests from different DOTS clients.
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 66]
+Boucadair, et al.        Expires March 29, 2021                [Page 66]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
-             "DOTS Server has detected conflicting mitigation
-              requests from different DOTS clients.
               This mitigation request is currently active.";
          }
          enum all-requests-inactive {
@@ -3746,16 +3744,16 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
      typedef attack-status {
        type enumeration {
          enum under-attack {
+           value 1;
+           description
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 67]
+Boucadair, et al.        Expires March 29, 2021                [Page 67]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
-           value 1;
-           description
              "The DOTS client determines that it is still under
               attack.";
          }
@@ -3802,18 +3800,18 @@ module ietf-dots-signal-channel {
       "RFC 8783: Distributed Denial-of-Service Open Threat Signaling
                  (DOTS) Data Channel Specification";
   }
+  import iana-dots-signal-channel {
+    prefix iana-dots-signal;
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 68]
+Boucadair, et al.        Expires March 29, 2021                [Page 68]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
-  import iana-dots-signal-channel {
-    prefix iana-dots-signal;
     reference
-      "RFC 8782: Distributed Denial-of-Service Open Threat Signaling
+      "RFC XXXX: Distributed Denial-of-Service Open Threat Signaling
                  (DOTS) Signal Channel Specification";
   }
   import ietf-yang-structure-ext {
@@ -3859,14 +3857,15 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
      Relating to IETF Documents
      (http://trustee.ietf.org/license-info).
 
+     This version of this YANG module is part of RFC XXXX; see
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 69]
+
+Boucadair, et al.        Expires March 29, 2021                [Page 69]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
-     This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
   revision 2020-09-24 {
@@ -3901,7 +3900,12 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
           "An alias name that points to a resource.";
       }
       leaf lifetime {
-        type int32;
+        type union {
+          type uint32;
+          type int32 {
+            range "-1";
+          }
+        }
         units "seconds";
         default "3600";
         description
@@ -3910,18 +3914,25 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
            A lifetime of '0' in a mitigation request is an
            invalid value.
 
-           A lifetime of negative one (-1) indicates indefinite
-           lifetime for the mitigation request.";
-      }
-      leaf trigger-mitigation {
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 70]
+Boucadair, et al.        Expires March 29, 2021                [Page 70]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
+           A lifetime of negative one (-1) indicates indefinite
+           lifetime for the mitigation request.
+
+           Lifetime is mandatory in a mitigation request.
+
+           The DOTS server must always indicate the actual lifetime
+           in the response to an accepted mitigation request and the
+           remaining lifetime in status messages sent to the
+           DOTS client.";
+      }
+      leaf trigger-mitigation {
         type boolean;
         default "true";
         description
@@ -3949,13 +3960,28 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
             type uint64;
             description
               "Mitigation start time is represented in seconds
-               relative to 1970-01-01T00:00:00Z in UTC time.";
+               relative to 1970-01-01T00:00:00Z in UTC time.
+
+               This is a mandatory attribute when an attack mitigation
+               is active. It must not be returned for a
+               mitigation with 'status' code set to 8.";
           }
           leaf status {
             type iana-dots-signal:status;
             description
               "Indicates the status of a mitigation request.
-               It must be included in responses only.";
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 71]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
+               It must be included in responses only.
+
+               This is a mandatory attribute if a mitigation
+               request is accepted and processed by the server.";
           }
           container conflict-information {
             description
@@ -3970,14 +3996,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
               type iana-dots-signal:conflict-cause;
               description
                 "Indicates the cause of the conflict.";
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 71]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
             }
             leaf retry-timer {
               type uint32;
@@ -4008,6 +4026,14 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
                   "List of conflicting ACLs as defined in the DOTS data
                    channel.  These ACLs are uniquely defined by
                    cuid and acl-name.";
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 72]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
                 leaf acl-name {
                   type leafref {
                     path "/data-channel:dots-data/data-channel:dots-client/"
@@ -4026,14 +4052,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
                     "Reference to the conflicting ACL type bound to
                      a DOTS client.";
                 }
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 72]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
               }
               leaf mid {
                 when "../../conflict-cause = 'overlapping-targets'";
@@ -4064,6 +4082,14 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
                buckets over the time since the mitigation was
                triggered).";
           }
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 73]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
           leaf pkts-dropped {
             type yang:zero-based-counter64;
             description
@@ -4082,14 +4108,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
                into five-minute buckets and then averaging these
                buckets over the time since the mitigation was
                triggered).";
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 73]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
           }
         }
         case client-to-server-only {
@@ -4100,7 +4118,10 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
             type iana-dots-signal:attack-status;
             description
               "Indicates the status of an attack as seen by the
-               DOTS client.";
+               DOTS client.
+
+               Ths is is a mandatory attribute when a client
+               performs an efficacy update.";
           }
         }
       }
@@ -4117,6 +4138,14 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
          completed in order to keep the DOTS signal channel
          open.";
       choice direction {
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 74]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
         description
           "Indicates the communication direction in which the
            data nodes can be included.";
@@ -4138,14 +4167,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
           }
         }
       }
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 74]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
       leaf current-value {
         type uint16;
         units "seconds";
@@ -4173,6 +4194,14 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
               "Maximum acceptable missing-hb-allowed value.";
           }
           leaf min-value {
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 75]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
             type uint16;
             description
               "Minimum acceptable missing-hb-allowed value.";
@@ -4194,14 +4223,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
         description
           "Indicates the communication direction in which the
            data nodes can be included.";
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 75]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
         case server-to-client-only {
           description
             "These data nodes appear only in a mitigation message
@@ -4229,6 +4250,14 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
       }
     }
     container max-retransmit {
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 76]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
       description
         "Maximum number of retransmissions of a Confirmable
          message.";
@@ -4250,14 +4279,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
             description
               "Minimum acceptable max-retransmit value.";
           }
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 76]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
         }
       }
       leaf current-value {
@@ -4285,6 +4306,14 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
             units "seconds";
             description
               "Maximum ack-timeout value.";
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 77]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
           }
           leaf min-value-decimal {
             type decimal64 {
@@ -4306,14 +4335,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
           "Current ack-timeout value.";
       }
     }
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 77]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
     container ack-random-factor {
       description
         "Random factor used to influence the timing of
@@ -4341,6 +4362,14 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
               "Minimum acceptable ack-random-factor value.";
           }
         }
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 78]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
       }
       leaf current-value-decimal {
         type decimal64 {
@@ -4362,14 +4391,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
          is active.";
       uses config-parameters;
     }
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 78]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
     container idle-config {
       description
         "Configuration parameters to use when no mitigation
@@ -4397,6 +4418,14 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
         }
         leaf-list alt-server-record {
           type inet:ip-address;
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 79]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
           description
             "List of records for the alternate server.";
         }
@@ -4407,7 +4436,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
   /*
    * DOTS Signal Channel Structure
    */
-
   sx:structure dots-signal {
     description
       "Main structure for DOTS signal message.
@@ -4418,14 +4446,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
       description
         "Can be a mitigation, a configuration, or a redirect
          message.";
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 79]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
       case mitigation-scope {
         description
           "Mitigation scope of a mitigation message.";
@@ -4454,6 +4474,14 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
              from its peer.";
         }
       }
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 80]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
     }
   }
 }
@@ -4474,14 +4502,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
    The CBOR key values are divided into two types: comprehension-
    required and comprehension-optional.  DOTS agents can safely ignore
    comprehension-optional values they don't understand, but they cannot
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 80]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
    successfully process a request if it contains comprehension-required
    values that are not understood.  The 4.00 response SHOULD include a
    diagnostic payload describing the unknown comprehension-required CBOR
@@ -4510,6 +4530,14 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
    | target-prefix       | leaf-list    | 6    | 4 array     | Array  |
    |                     +--------------+------+-------------+--------+
    |                     | inet:ip-     |      | 3 text      | String |
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 81]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
    |                     | prefix       |      | string      |        |
    +---------------------+--------------+------+-------------+--------+
    | target-port-range   | list         | 7    | 4 array     | Array  |
@@ -4530,14 +4558,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
    |                     | name         |      | string      |        |
    +---------------------+--------------+------+-------------+--------+
    | target-uri          | leaf-list    | 12   | 4 array     | Array  |
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 81]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
    |                     +--------------+------+-------------+--------+
    |                     | inet:uri     |      | 3 text      | String |
    |                     |              |      | string      |        |
@@ -4547,7 +4567,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
    |                     | string       |      | 3 text      | String |
    |                     |              |      | string      |        |
    +---------------------+--------------+------+-------------+--------+
-   | lifetime            | int32        | 14   | 0 unsigned  | Number |
+   | lifetime            | union        | 14   | 0 unsigned  | Number |
    |                     |              |      +-------------+--------+
    |                     |              |      | 1 negative  | Number |
    +---------------------+--------------+------+-------------+--------+
@@ -4566,6 +4586,14 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
    +---------------------+--------------+------+-------------+--------+
    | conflict-scope      | container    | 21   | 5 map       | Object |
    +---------------------+--------------+------+-------------+--------+
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 82]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
    | acl-list            | list         | 22   | 4 array     | Array  |
    +---------------------+--------------+------+-------------+--------+
    | acl-name            | leafref      | 23   | 3 text      | String |
@@ -4586,14 +4614,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
    +---------------------+--------------+------+-------------+--------+
    | pps-dropped         | yang:gauge64 | 28   | 0 unsigned  | String |
    +---------------------+--------------+------+-------------+--------+
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 82]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
    | attack-status       | enumeration  | 29   | 0 unsigned  | String |
    +---------------------+--------------+------+-------------+--------+
    | ietf-dots-signal-   | container    | 30   | 5 map       | Object |
@@ -4622,6 +4642,14 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
    +---------------------+--------------+------+-------------+--------+
    | max-value-decimal   | decimal64    | 41   | 6 tag 4     | String |
    |                     |              |      | [-2,        |        |
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 83]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
    |                     |              |      | integer]    |        |
    +---------------------+--------------+------+-------------+--------+
    | min-value-decimal   | decimal64    | 42   | 6 tag 4     | String |
@@ -4642,14 +4670,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
    | channel:redirected- |              |      |             |        |
    | signal              |              |      |             |        |
    +---------------------+--------------+------+-------------+--------+
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 83]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
    | alt-server          | string       | 47   | 3 text      | String |
    |                     |              |      | string      |        |
    +---------------------+--------------+------+-------------+--------+
@@ -4678,6 +4698,14 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
    This section defines the (D)TLS protocol profile of DOTS signal
    channel over (D)TLS and DOTS data channel over TLS.
 
+
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 84]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
    There are known attacks on (D)TLS, such as man-in-the-middle and
    protocol downgrade attacks.  These are general attacks on (D)TLS and,
    as such, they are not specific to DOTS over (D)TLS; refer to the
@@ -4698,14 +4726,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
    certificates SHOULD support the DNS-ID and SRV-ID identifier types.
    DOTS servers SHOULD prefer the use of DNS-ID and SRV-ID over CN-ID
    identifier types in certificate requests (as described in Section 2.3
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 84]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
    of [RFC6125]), and the wildcard character '*' SHOULD NOT be included
    in the presented identifier.  DOTS doesn't use URI-IDs for server
    identity verification.
@@ -4735,6 +4755,13 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
    Implementations compliant with this profile MUST implement all of the
    following items:
 
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 85]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
    o  DTLS record replay detection (Section 3.3 of [RFC6347]) or an
       equivalent mechanism to protect against replay attacks.
 
@@ -4753,15 +4780,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
    o  TLS False Start [RFC7918], which reduces round-trips by allowing
       the TLS client's second flight of messages (ChangeCipherSpec) to
       also contain the DOTS signal.  TLS False Start is formally defined
-
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 85]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
-
       for use with TLS, but the same technique is applicable to DTLS as
       well.
 
@@ -4793,6 +4811,13 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
       has previously communicated with that DOTS server, which is very
       likely with the DOTS signal channel.
 
+
+
+Boucadair, et al.        Expires March 29, 2021                [Page 86]
+
+Internet-Draft        DOTS Signal Channel Protocol        September 2020
+
+
    The DOTS client has to establish a (D)TLS session with the DOTS
    server during 'idle' time and share a PSK.
 
@@ -4809,14 +4834,6 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
    accepts 0-RTT, it MUST implement one of these mechanisms to prevent
    replay at the TLS layer.  A DOTS server can reject 0-RTT by sending a
    TLS HelloRetryRequest.
-
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 86]
-
-Internet-Draft        DOTS Signal Channel Protocol        September 2020
-
 
    The DOTS signal channel messages sent as early data by the DOTS
    client are idempotent requests.  As a reminder, the Message ID
@@ -4852,24 +4869,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Boucadair, et al.        Expires March 28, 2021                [Page 87]
+Boucadair, et al.        Expires March 29, 2021                [Page 87]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -4925,7 +4925,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 88]
+Boucadair, et al.        Expires March 29, 2021                [Page 88]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -4981,7 +4981,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 89]
+Boucadair, et al.        Expires March 29, 2021                [Page 89]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5037,7 +5037,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 90]
+Boucadair, et al.        Expires March 29, 2021                [Page 90]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5093,7 +5093,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 91]
+Boucadair, et al.        Expires March 29, 2021                [Page 91]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5149,7 +5149,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 92]
+Boucadair, et al.        Expires March 29, 2021                [Page 92]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5205,7 +5205,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 93]
+Boucadair, et al.        Expires March 29, 2021                [Page 93]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5261,7 +5261,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 94]
+Boucadair, et al.        Expires March 29, 2021                [Page 94]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5317,7 +5317,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 95]
+Boucadair, et al.        Expires March 29, 2021                [Page 95]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5373,7 +5373,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 96]
+Boucadair, et al.        Expires March 29, 2021                [Page 96]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5429,7 +5429,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 97]
+Boucadair, et al.        Expires March 29, 2021                [Page 97]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5485,7 +5485,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 98]
+Boucadair, et al.        Expires March 29, 2021                [Page 98]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5541,7 +5541,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021                [Page 99]
+Boucadair, et al.        Expires March 29, 2021                [Page 99]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5597,7 +5597,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 100]
+Boucadair, et al.        Expires March 29, 2021               [Page 100]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5653,7 +5653,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 101]
+Boucadair, et al.        Expires March 29, 2021               [Page 101]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5709,7 +5709,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 102]
+Boucadair, et al.        Expires March 29, 2021               [Page 102]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5765,7 +5765,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 103]
+Boucadair, et al.        Expires March 29, 2021               [Page 103]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5821,7 +5821,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 104]
+Boucadair, et al.        Expires March 29, 2021               [Page 104]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5877,7 +5877,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 105]
+Boucadair, et al.        Expires March 29, 2021               [Page 105]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5933,7 +5933,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 106]
+Boucadair, et al.        Expires March 29, 2021               [Page 106]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -5989,7 +5989,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 107]
+Boucadair, et al.        Expires March 29, 2021               [Page 107]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -6045,7 +6045,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 108]
+Boucadair, et al.        Expires March 29, 2021               [Page 108]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -6101,7 +6101,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 109]
+Boucadair, et al.        Expires March 29, 2021               [Page 109]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -6157,7 +6157,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 110]
+Boucadair, et al.        Expires March 29, 2021               [Page 110]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -6213,7 +6213,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 111]
+Boucadair, et al.        Expires March 29, 2021               [Page 111]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -6269,7 +6269,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 112]
+Boucadair, et al.        Expires March 29, 2021               [Page 112]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -6325,7 +6325,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 113]
+Boucadair, et al.        Expires March 29, 2021               [Page 113]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -6381,7 +6381,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 114]
+Boucadair, et al.        Expires March 29, 2021               [Page 114]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -6437,7 +6437,7 @@ Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 115]
+Boucadair, et al.        Expires March 29, 2021               [Page 115]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -6493,7 +6493,7 @@ Appendix A.  Summary of Changes From RFC8782
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 116]
+Boucadair, et al.        Expires March 29, 2021               [Page 116]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -6549,7 +6549,7 @@ C.1.  Acknowledgements from RFC8782
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 117]
+Boucadair, et al.        Expires March 29, 2021               [Page 117]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -6605,7 +6605,7 @@ D.1.  Authors of RFC8782
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 118]
+Boucadair, et al.        Expires March 29, 2021               [Page 118]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -6661,7 +6661,7 @@ D.2.  Contributors to RFC8782
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 119]
+Boucadair, et al.        Expires March 29, 2021               [Page 119]
 
 Internet-Draft        DOTS Signal Channel Protocol        September 2020
 
@@ -6717,4 +6717,4 @@ Authors' Addresses
 
 
 
-Boucadair, et al.        Expires March 28, 2021               [Page 120]
+Boucadair, et al.        Expires March 29, 2021               [Page 120]

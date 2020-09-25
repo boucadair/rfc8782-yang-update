@@ -2819,7 +2819,7 @@
        |     +-- target-fqdn*                  inet:domain-name
        |     +-- target-uri*                   inet:uri
        |     +-- alias-name*                   string
-       |     +-- lifetime?                     int32
+       |     +-- lifetime?                     union
        |     +-- trigger-mitigation?           boolean
        |     +-- (direction)?
        |        +--:(server-to-client-only)
@@ -2937,8 +2937,6 @@
        |        +-- alt-server-record*   inet:ip-address
        +--:(heartbeat)
           +-- peer-hb-status             boolean
-
-
 ]]></artwork>
           </figure></t>
       </section>
@@ -2984,7 +2982,7 @@ module iana-dots-signal-channel {
 
   revision 2020-09-24 {
     description
-      "Second revision.";
+      "Updated the prefix used for the module.";
     reference
       "RFC XXXX: Distributed Denial-of-Service Open Threat
                  Signaling (DOTS) Signal Channel Specification";
@@ -3171,7 +3169,7 @@ module ietf-dots-signal-channel {
   import iana-dots-signal-channel {
     prefix iana-dots-signal;
     reference
-      "RFC 8782: Distributed Denial-of-Service Open Threat Signaling
+      "RFC XXXX: Distributed Denial-of-Service Open Threat Signaling
                  (DOTS) Signal Channel Specification";
   }
   import ietf-yang-structure-ext {
@@ -3252,7 +3250,12 @@ module ietf-dots-signal-channel {
           "An alias name that points to a resource.";
       }
       leaf lifetime {
-        type int32;
+        type union {
+          type uint32;
+          type int32 {
+            range "-1";
+          }
+        }
         units "seconds";
         default "3600";
         description
@@ -3262,7 +3265,14 @@ module ietf-dots-signal-channel {
            invalid value.
 
            A lifetime of negative one (-1) indicates indefinite
-           lifetime for the mitigation request.";
+           lifetime for the mitigation request.
+
+           Lifetime is mandatory in a mitigation request.
+
+           The DOTS server must always indicate the actual lifetime
+           in the response to an accepted mitigation request and the
+           remaining lifetime in status messages sent to the
+           DOTS client.";
       }
       leaf trigger-mitigation {
         type boolean;
@@ -3292,13 +3302,20 @@ module ietf-dots-signal-channel {
             type uint64;
             description
               "Mitigation start time is represented in seconds
-               relative to 1970-01-01T00:00:00Z in UTC time.";
+               relative to 1970-01-01T00:00:00Z in UTC time.
+
+               This is a mandatory attribute when an attack mitigation
+               is active. It must not be returned for a
+               mitigation with 'status' code set to 8.";
           }
           leaf status {
             type iana-dots-signal:status;
             description
               "Indicates the status of a mitigation request.
-               It must be included in responses only.";
+               It must be included in responses only.
+
+               This is a mandatory attribute if a mitigation
+               request is accepted and processed by the server.";
           }
           container conflict-information {
             description
@@ -3419,7 +3436,10 @@ module ietf-dots-signal-channel {
             type iana-dots-signal:attack-status;
             description
               "Indicates the status of an attack as seen by the
-               DOTS client.";
+               DOTS client.
+
+               Ths is is a mandatory attribute when a client
+               performs an efficacy update.";
           }
         }
       }
@@ -3686,7 +3706,6 @@ module ietf-dots-signal-channel {
   /*
    * DOTS Signal Channel Structure
    */
-
   sx:structure dots-signal {
     description
       "Main structure for DOTS signal message.
@@ -3806,7 +3825,7 @@ module ietf-dots-signal-channel {
 |                     | string       |      | 3 text      | String |
 |                     |              |      | string      |        |
 +---------------------+--------------+------+-------------+--------+
-| lifetime            | int32        | 14   | 0 unsigned  | Number |
+| lifetime            | union        | 14   | 0 unsigned  | Number |
 |                     |              |      +-------------+--------+
 |                     |              |      | 1 negative  | Number |
 +---------------------+--------------+------+-------------+--------+
