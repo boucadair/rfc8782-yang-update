@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-dots-rfc8782-bis-01" ipr="trust200902"
+<rfc category="std" docName="draft-ietf-dots-rfc8782-bis-02" ipr="trust200902"
      obsoletes="8782">
   <front>
     <title abbrev="DOTS Signal Channel Protocol">Distributed Denial-of-Service
@@ -229,8 +229,8 @@
       target="RFC8783"></xref> that defines a configuration and a bulk data
       exchange mechanism supporting the DOTS signal channel.</t>
 
-      <t>The main changes to <xref target="RFC8782"></xref> are listed in
-      <xref target="changes"></xref>.</t>
+      <t>Backward compatibility (including upgrade) considerations are
+      discussed in <xref target="back"></xref>. </t>
     </section>
 
     <section anchor="notation" title="Terminology">
@@ -420,6 +420,32 @@
           gateway will need to update the DOTS messages based upon the local
           translator's binding table.</t>
         </list></t>
+
+      <section anchor="back" title="Backward Compatibility Considerations">
+        <t>The main changes to <xref target="RFC8782"></xref> are listed in
+        <xref target="changes"></xref>. These modifications are made with the
+        constraint to avoid changes to the mapping table defined in Table 5 of
+        <xref target="RFC8782"></xref> (see also <xref
+        target="mapping"></xref>). For both legacy and implementations that
+        follow the present specification, a DOTS signal channel attribute will
+        thus have the same CBOR key value and CBOR major type. The only
+        upgrade that is required to <xref target="RFC8782"></xref>
+        implementations is to handle the CBOR key value range "128-255" as
+        comprehension-optional instead of comprehension-required. Note that
+        this range is anticipated to be used by the DOTS telemetry <xref
+        target="I-D.ietf-dots-telemetry"></xref> in which the following means
+        are supported to avoid that a DOTS signal channel message enriched
+        with telemetry data will exacerbate message failure: (1) DOTS agents
+        use dedicated (new) path suffixes (Section 5 of <xref
+        target="I-D.ietf-dots-telemetry"></xref>) and (2) a DOTS server won't
+        include telemetry attributes in its responses unless it is explicitly
+        told to do so by a DOTS client (Section 6.1.2 of <xref
+        target="I-D.ietf-dots-telemetry"></xref>). </t>
+
+        <t>Future DOTS extensions that request a CBOR value in the range
+        "128-255" must support means similar to the aforementioned DOTS
+        telemetry ones. </t>
+      </section>
     </section>
 
     <section anchor="sig"
@@ -4029,7 +4055,7 @@ module ietf-dots-signal-channel {
       </section>
 
       <section anchor="DTLS" title="(D)TLS 1.3 Considerations">
-        <t>TLS 1.3 provides critical latency improvements for connection
+        <t>TLS 1.3 provides useful latency improvements for connection
         establishment over TLS 1.2. The DTLS 1.3 protocol <xref
         target="I-D.ietf-tls-dtls13"></xref> is based upon the TLS 1.3
         protocol and provides equivalent security guarantees. (D)TLS 1.3
@@ -5337,11 +5363,7 @@ NEW:
           target="I-D.ietf-dots-telemetry"></xref>.</t>
         </list></t>
 
-      <t>These modifications are made with the constraint to avoid changes to
-      the mapping table defined in Table 5 (<xref target="mapping"></xref>). A
-      DOTS signal channel attribute that may be present in both requests and
-      responses will thus have the same CBOR key value and CBOR major
-      type.</t>
+      <t></t>
     </section>
 
     <section anchor="motiv" title="CUID Generation">
@@ -5369,7 +5391,8 @@ NEW:
       <t>Many thanks to Martin Bj&ouml;rklund for the suggestion to use
       RFC8791.</t>
 
-      <t>Thanks to Ebben Aries for the yangdoctors review. </t>
+      <t>Thanks to Ebben Aries for the yangdoctors review and Dan Romascanu
+      for the opsdir review.</t>
 
       <section title="Acknowledgements from RFC8782">
         <t>Thanks to Christian Jacquenet, Roland Dobbins, Roman Danyliw,
