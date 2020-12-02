@@ -230,7 +230,7 @@
       exchange mechanism supporting the DOTS signal channel.</t>
 
       <t>Backward compatibility (including upgrade) considerations are
-      discussed in <xref target="back"></xref>. </t>
+      discussed in <xref target="back"></xref>.</t>
     </section>
 
     <section anchor="notation" title="Terminology">
@@ -440,11 +440,11 @@
         target="I-D.ietf-dots-telemetry"></xref>) and (2) a DOTS server won't
         include telemetry attributes in its responses unless it is explicitly
         told to do so by a DOTS client (Section 6.1.2 of <xref
-        target="I-D.ietf-dots-telemetry"></xref>). </t>
+        target="I-D.ietf-dots-telemetry"></xref>).</t>
 
         <t>Future DOTS extensions that request a CBOR value in the range
         "128-255" must support means similar to the aforementioned DOTS
-        telemetry ones. </t>
+        telemetry ones.</t>
       </section>
     </section>
 
@@ -2959,7 +2959,7 @@
        +--:(redirected-signal)
        |  +-- (direction)?
        |     +--:(server-to-client-only)
-       |        +-- alt-server           string
+       |        +-- alt-server           inet:domain-name
        |        +-- alt-server-record*   inet:ip-address
        +--:(heartbeat)
           +-- peer-hb-status             boolean
@@ -3715,7 +3715,7 @@ module ietf-dots-signal-channel {
           "These data nodes appear only in a mitigation message
            sent from the server to the client.";
         leaf alt-server {
-          type string;
+          type inet:domain-name;
           mandatory true;
           description
             "FQDN of an alternate server.";
@@ -3938,8 +3938,8 @@ module ietf-dots-signal-channel {
 | channel:redirected- |              |      |             |        |
 | signal              |              |      |             |        |
 +---------------------+--------------+------+-------------+--------+
-| alt-server          | string       | 47   | 3 text      | String |
-|                     |              |      | string      |        |
+| alt-server          | inet:domain- | 47   | 3 text      | String |
+|                     | name         |      | string      |        |
 +---------------------+--------------+------+-------------+--------+
 | alt-server-record   | leaf-list    | 48   | 4 array     | Array  |
 |                     +--------------+------+-------------+--------+
@@ -4638,7 +4638,7 @@ NEW:
    +---------------------+------------+-----+----------+---------------+
    | attack-status       | 29         | 0   | IESG     | [RFCXXXX]     |
    +---------------------+------------+-----+----------+---------------+
-   | ietf-dots-signal-   | 30         | 5   | IESG     | [RFCXXXX]     |
+   |ietf-dots-signal-    | 30         | 5   | IESG     | [RFCXXXX]     |
    |channel:signal-config|            |     |          |               |
    +---------------------+------------+-----+----------+---------------+
    | sid                 | 31         | 0   | IESG     | [RFCXXXX]     |
@@ -5070,11 +5070,12 @@ NEW:
       uses the Hop-Limit Option.</t>
 
       <t>When FQDNs are used as targets, the DOTS server MUST rely upon DNS
-      privacy-enabling protocols (e.g., DNS over TLS [RFC7858] or DNS over
-      HTTPS (DoH) [RFC8484]) to prevent eavesdroppers from possibly
+      privacy-enabling protocols (e.g., DNS over TLS <xref
+      target="RFC7858"></xref> or DNS over HTTPS (DoH) <xref
+      target="RFC8484"></xref>) to prevent eavesdroppers from possibly
       identifying the target resources protected by the DDoS mitigation
       service to ensure the target FQDN resolution is authentic (e.g., DNSSEC
-      [RFC4034]).</t>
+      <xref target="RFC4034"></xref>).</t>
 
       <t>CoAP-specific security considerations are discussed in Section 11 of
       <xref target="RFC7252"></xref>, while CBOR-related security
