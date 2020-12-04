@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-dots-rfc8782-bis-02" ipr="trust200902"
+<rfc category="std" docName="draft-ietf-dots-rfc8782-bis-04" ipr="trust200902"
      obsoletes="8782">
   <front>
     <title abbrev="DOTS Signal Channel Protocol">Distributed Denial-of-Service
@@ -3732,6 +3732,7 @@ module ietf-dots-signal-channel {
   /*
    * DOTS Signal Channel Structure
    */
+
   sx:structure dots-signal {
     description
       "Main structure for DOTS signal message.
@@ -4398,7 +4399,7 @@ Note that:
    Encoding considerations: binary
 
    Security considerations: See the Security Considerations section of
-   [RFCXXXx].
+   [RFCXXXX].
 
    Interoperability considerations: N/A
 
@@ -4466,7 +4467,7 @@ Note that:
             <artwork><![CDATA[   *  Tag: 271
    *  Data Item: DDoS Open Threat Signaling (DOTS) signal channel object
    *  Semantics: DDoS Open Threat Signaling (DOTS) signal channel
-      object, as defined in [RFXXXX]
+      object, as defined in [RFCXXX]
    *  Reference: [RFCXXXX]]]></artwork>
           </figure></t>
 
