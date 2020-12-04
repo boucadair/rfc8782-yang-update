@@ -102,7 +102,7 @@ Table of Contents
      5.2.  IANA DOTS Signal Channel YANG Module  . . . . . . . . . .  64
      5.3.  IETF DOTS Signal Channel YANG Module  . . . . . . . . . .  68
    6.  YANG/JSON Mapping Parameters to CBOR  . . . . . . . . . . . .  81
-   7.  (D)TLS Protocol Profile and Performance Considerations  . . .  84
+   7.  (D)TLS Protocol Profile and Performance Considerations  . . .  85
      7.1.  (D)TLS Protocol Profile . . . . . . . . . . . . . . . . .  85
      7.2.  (D)TLS 1.3 Considerations . . . . . . . . . . . . . . . .  86
      7.3.  DTLS MTU and Fragmentation  . . . . . . . . . . . . . . .  88
@@ -3778,30 +3778,30 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
    This version obsoletes the version described in Section 5.3 of
    [RFC8782].
 
-<CODE BEGINS> file "ietf-dots-signal-channel@2020-09-24.yang"
-module ietf-dots-signal-channel {
-  yang-version 1.1;
-  namespace "urn:ietf:params:xml:ns:yang:ietf-dots-signal-channel";
-  prefix dots-signal;
+ <CODE BEGINS> file "ietf-dots-signal-channel@2020-09-24.yang"
+ module ietf-dots-signal-channel {
+   yang-version 1.1;
+   namespace "urn:ietf:params:xml:ns:yang:ietf-dots-signal-channel";
+   prefix dots-signal;
 
-  import ietf-inet-types {
-    prefix inet;
-    reference
-      "Section 4 of RFC 6991";
-  }
-  import ietf-yang-types {
-    prefix yang;
-    reference
-      "Section 3 of RFC 6991";
-  }
-  import ietf-dots-data-channel {
-    prefix data-channel;
-    reference
-      "RFC 8783: Distributed Denial-of-Service Open Threat Signaling
-                 (DOTS) Data Channel Specification";
-  }
-  import iana-dots-signal-channel {
-    prefix iana-dots-signal;
+   import ietf-inet-types {
+     prefix inet;
+     reference
+       "Section 4 of RFC 6991";
+   }
+   import ietf-yang-types {
+     prefix yang;
+     reference
+       "Section 3 of RFC 6991";
+   }
+   import ietf-dots-data-channel {
+     prefix data-channel;
+     reference
+       "RFC 8783: Distributed Denial-of-Service Open Threat Signaling
+                  (DOTS) Data Channel Specification";
+   }
+   import iana-dots-signal-channel {
+     prefix iana-dots-signal;
 
 
 
@@ -3810,54 +3810,54 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 68]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-    reference
-      "RFC XXXX: Distributed Denial-of-Service Open Threat Signaling
-                 (DOTS) Signal Channel Specification";
-  }
-  import ietf-yang-structure-ext {
-    prefix sx;
-    reference
-      "RFC 8791: YANG Data Structure Extensions";
-  }
+     reference
+       "RFC XXXX: Distributed Denial-of-Service Open Threat Signaling
+                  (DOTS) Signal Channel Specification";
+   }
+   import ietf-yang-structure-ext {
+     prefix sx;
+     reference
+       "RFC 8791: YANG Data Structure Extensions";
+   }
 
-  organization
-    "IETF DDoS Open Threat Signaling (DOTS) Working Group";
-  contact
-    "WG Web:   <https://datatracker.ietf.org/wg/dots/>
-     WG List:  <mailto:dots@ietf.org>
+   organization
+     "IETF DDoS Open Threat Signaling (DOTS) Working Group";
+   contact
+     "WG Web:   <https://datatracker.ietf.org/wg/dots/>
+      WG List:  <mailto:dots@ietf.org>
 
-     Editor:  Mohamed Boucadair
-              <mailto:mohamed.boucadair@orange.com>
+      Editor:  Mohamed Boucadair
+               <mailto:mohamed.boucadair@orange.com>
 
-     Editor:  Jon Shallow
-              <mailto:supjps-ietf@jpshallow.com>
+      Editor:  Jon Shallow
+               <mailto:supjps-ietf@jpshallow.com>
 
-     Author:  Konda, Tirumaleswar Reddy.K
-              <mailto:TirumaleswarReddy_Konda@McAfee.com>
+      Author:  Konda, Tirumaleswar Reddy.K
+               <mailto:TirumaleswarReddy_Konda@McAfee.com>
 
-     Author:  Prashanth Patil
-              <mailto:praspati@cisco.com>
+      Author:  Prashanth Patil
+               <mailto:praspati@cisco.com>
 
-     Author:  Andrew Mortensen
-              <mailto:amortensen@arbor.net>
+      Author:  Andrew Mortensen
+               <mailto:amortensen@arbor.net>
 
-     Author:  Nik Teague
-              <mailto:nteague@ironmountain.co.uk>";
-  description
-    "This module contains YANG definition for the signaling
-     messages exchanged between a DOTS client and a DOTS server.
+      Author:  Nik Teague
+               <mailto:nteague@ironmountain.co.uk>";
+   description
+     "This module contains YANG definition for the signaling
+      messages exchanged between a DOTS client and a DOTS server.
 
-     Copyright (c) 2020 IETF Trust and the persons identified as
-     authors of the code.  All rights reserved.
+      Copyright (c) 2020 IETF Trust and the persons identified as
+      authors of the code.  All rights reserved.
 
-     Redistribution and use in source and binary forms, with or
-     without modification, is permitted pursuant to, and subject
-     to the license terms contained in, the Simplified BSD License
-     set forth in Section 4.c of the IETF Trust's Legal Provisions
-     Relating to IETF Documents
-     (http://trustee.ietf.org/license-info).
+      Redistribution and use in source and binary forms, with or
+      without modification, is permitted pursuant to, and subject
+      to the license terms contained in, the Simplified BSD License
+      set forth in Section 4.c of the IETF Trust's Legal Provisions
+      Relating to IETF Documents
+      (http://trustee.ietf.org/license-info).
 
-     This version of this YANG module is part of RFC XXXX; see
+      This version of this YANG module is part of RFC XXXX; see
 
 
 
@@ -3866,53 +3866,53 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 69]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-     the RFC itself for full legal notices.";
+      the RFC itself for full legal notices.";
 
-  revision 2020-09-24 {
-    description
-      "Updated revision to comply with RFC8791.";
-    reference
-      "RFC XXXX: Distributed Denial-of-Service Open Threat
-                 Signaling (DOTS) Signal Channel Specification";
-  }
-  revision 2020-05-28 {
-    description
-      "Initial revision.";
-    reference
-      "RFC 8782: Distributed Denial-of-Service Open Threat
-                 Signaling (DOTS) Signal Channel Specification";
-  }
+   revision 2020-09-24 {
+     description
+       "Updated revision to comply with RFC8791.";
+     reference
+       "RFC XXXX: Distributed Denial-of-Service Open Threat
+                  Signaling (DOTS) Signal Channel Specification";
+   }
+   revision 2020-05-28 {
+     description
+       "Initial revision.";
+     reference
+       "RFC 8782: Distributed Denial-of-Service Open Threat
+                  Signaling (DOTS) Signal Channel Specification";
+   }
 
-  /*
-   * Groupings
-   */
+   /*
+    * Groupings
+    */
 
-  grouping mitigation-scope {
-    description
-      "Specifies the scope of the mitigation request.";
-    list scope {
-      description
-        "The scope of the request.";
-      uses data-channel:target;
-      leaf-list alias-name {
-        type string;
-        description
-          "An alias name that points to a resource.";
-      }
-      leaf lifetime {
-        type union {
-          type uint32;
-          type int32 {
-            range "-1";
-          }
-        }
-        units "seconds";
-        default "3600";
-        description
-          "Indicates the lifetime of the mitigation request.
+   grouping mitigation-scope {
+     description
+       "Specifies the scope of the mitigation request.";
+     list scope {
+       description
+         "The scope of the request.";
+       uses data-channel:target;
+       leaf-list alias-name {
+         type string;
+         description
+           "An alias name that points to a resource.";
+       }
+       leaf lifetime {
+         type union {
+           type uint32;
+           type int32 {
+             range "-1";
+           }
+         }
+         units "seconds";
+         default "3600";
+         description
+           "Indicates the lifetime of the mitigation request.
 
-           A lifetime of '0' in a mitigation request is an
-           invalid value.
+            A lifetime of '0' in a mitigation request is an
+            invalid value.
 
 
 
@@ -3922,54 +3922,54 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 70]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-           A lifetime of negative one (-1) indicates indefinite
-           lifetime for the mitigation request.
+            A lifetime of negative one (-1) indicates indefinite
+            lifetime for the mitigation request.
 
-           Lifetime is mandatory in a mitigation request.
+            Lifetime is mandatory in a mitigation request.
 
-           The DOTS server must always indicate the actual lifetime
-           in the response to an accepted mitigation request and the
-           remaining lifetime in status messages sent to the
-           DOTS client.";
-      }
-      leaf trigger-mitigation {
-        type boolean;
-        default "true";
-        description
-          "If set to 'false', DDoS mitigation will not be
-           triggered unless the DOTS signal channel
-           session is lost.";
-      }
-      choice direction {
-        description
-          "Indicates the communication direction in which the
-           data nodes can be included.";
-        case server-to-client-only {
-          description
-            "These data nodes appear only in a mitigation message
-             sent from the server to the client.";
-          leaf mid {
-            type uint32;
-            description
-              "Mitigation request identifier.
+            The DOTS server must always indicate the actual lifetime
+            in the response to an accepted mitigation request and the
+            remaining lifetime in status messages sent to the
+            DOTS client.";
+       }
+       leaf trigger-mitigation {
+         type boolean;
+         default "true";
+         description
+           "If set to 'false', DDoS mitigation will not be
+            triggered unless the DOTS signal channel
+            session is lost.";
+       }
+       choice direction {
+         description
+           "Indicates the communication direction in which the
+            data nodes can be included.";
+         case server-to-client-only {
+           description
+             "These data nodes appear only in a mitigation message
+              sent from the server to the client.";
+           leaf mid {
+             type uint32;
+             description
+               "Mitigation request identifier.
 
-               This identifier must be unique for each mitigation
-               request bound to the DOTS client.";
-          }
-          leaf mitigation-start {
-            type uint64;
-            description
-              "Mitigation start time is represented in seconds
-               relative to 1970-01-01T00:00:00Z in UTC time.
+                This identifier must be unique for each mitigation
+                request bound to the DOTS client.";
+           }
+           leaf mitigation-start {
+             type uint64;
+             description
+               "Mitigation start time is represented in seconds
+                relative to 1970-01-01T00:00:00Z in UTC time.
 
-               This is a mandatory attribute when an attack mitigation
-               is active. It must not be returned for a
-               mitigation with 'status' code set to 8.";
-          }
-          leaf status {
-            type iana-dots-signal:status;
-            description
-              "Indicates the status of a mitigation request.
+                This is a mandatory attribute when an attack mitigation
+                is active. It must not be returned for a
+                mitigation with 'status' code set to 8.";
+           }
+           leaf status {
+             type iana-dots-signal:status;
+             description
+               "Indicates the status of a mitigation request.
 
 
 
@@ -3978,54 +3978,54 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 71]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-               It must be included in responses only.
+                It must be included in responses only.
 
-               This is a mandatory attribute if a mitigation
-               request is accepted and processed by the server.";
-          }
-          container conflict-information {
-            description
-              "Indicates that a conflict is detected.
-               Must only be used for responses.";
-            leaf conflict-status {
-              type iana-dots-signal:conflict-status;
-              description
-                "Indicates the conflict status.";
-            }
-            leaf conflict-cause {
-              type iana-dots-signal:conflict-cause;
-              description
-                "Indicates the cause of the conflict.";
-            }
-            leaf retry-timer {
-              type uint32;
-              units "seconds";
-              description
-                "The DOTS client must not resend the
-                 same request that has a conflict before the expiry of
-                 this timer.";
-            }
-            container conflict-scope {
-              description
-                "Provides more information about the conflict scope.";
-              uses data-channel:target {
-                when "/dots-signal/scope/conflict-information/"
-                   + "conflict-cause = 'overlapping-targets'";
-              }
-              leaf-list alias-name {
-                when "../../conflict-cause = 'overlapping-targets'";
-                type string;
-                description
-                  "Conflicting alias-name.";
-              }
-              list acl-list {
-                when "../../conflict-cause ="
-                   + " 'conflict-with-acceptlist'";
-                key "acl-name";
-                description
-                  "List of conflicting ACLs as defined in the DOTS data
-                   channel.  These ACLs are uniquely defined by
-                   cuid and acl-name.";
+                This is a mandatory attribute if a mitigation
+                request is accepted and processed by the server.";
+           }
+           container conflict-information {
+             description
+               "Indicates that a conflict is detected.
+                Must only be used for responses.";
+             leaf conflict-status {
+               type iana-dots-signal:conflict-status;
+               description
+                 "Indicates the conflict status.";
+             }
+             leaf conflict-cause {
+               type iana-dots-signal:conflict-cause;
+               description
+                 "Indicates the cause of the conflict.";
+             }
+             leaf retry-timer {
+               type uint32;
+               units "seconds";
+               description
+                 "The DOTS client must not resend the
+                  same request that has a conflict before the expiry of
+                  this timer.";
+             }
+             container conflict-scope {
+               description
+                 "Provides more information about the conflict scope.";
+               uses data-channel:target {
+                 when "/dots-signal/scope/conflict-information/"
+                    + "conflict-cause = 'overlapping-targets'";
+               }
+               leaf-list alias-name {
+                 when "../../conflict-cause = 'overlapping-targets'";
+                 type string;
+                 description
+                   "Conflicting alias-name.";
+               }
+               list acl-list {
+                 when "../../conflict-cause ="
+                    + " 'conflict-with-acceptlist'";
+                 key "acl-name";
+                 description
+                   "List of conflicting ACLs as defined in the DOTS data
+                    channel.  These ACLs are uniquely defined by
+                    cuid and acl-name.";
 
 
 
@@ -4034,54 +4034,54 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 72]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-                leaf acl-name {
-                  type leafref {
-                    path "/data-channel:dots-data/data-channel:dots-client/"
-                       + "data-channel:acls/data-channel:acl/data-channel:name";
-                  }
-                  description
-                    "Reference to the conflicting ACL name bound to
-                     a DOTS client.";
-                }
-                leaf acl-type {
-                  type leafref {
-                    path "/data-channel:dots-data/data-channel:dots-client/"
-                       + "data-channel:acls/data-channel:acl/data-channel:type";
-                  }
-                  description
-                    "Reference to the conflicting ACL type bound to
-                     a DOTS client.";
-                }
-              }
-              leaf mid {
-                when "../../conflict-cause = 'overlapping-targets'";
-                type uint32;
-                description
-                  "Reference to the conflicting 'mid' bound to
-                   the same DOTS client.";
-              }
-            }
-          }
-          leaf bytes-dropped {
-            type yang:zero-based-counter64;
-            units "bytes";
-            description
-              "The total dropped byte count for the mitigation
-               request since the attack mitigation was triggered.
-               The count wraps around when it reaches the maximum value
-               of counter64 for dropped bytes.";
-          }
-          leaf bps-dropped {
-            type yang:gauge64;
-            description
-              "The average number of dropped bits per second for
-               the mitigation request since the attack
-               mitigation was triggered.  This should be over
-               five-minute intervals (that is, measuring bytes
-               into five-minute buckets and then averaging these
-               buckets over the time since the mitigation was
-               triggered).";
-          }
+                 leaf acl-name {
+                   type leafref {
+                     path "/data-channel:dots-data"
+                        + "/data-channel:dots-client/data-channel:acls"
+                        + "/data-channel:acl/data-channel:name";
+                   }
+                   description
+                     "Reference to the conflicting ACL name bound to
+                      a DOTS client.";
+                 }
+                 leaf acl-type {
+                   type leafref {
+                     path "/data-channel:dots-data"
+                        + "/data-channel:dots-client/data-channel:acls"
+                        + "/data-channel:acl/data-channel:type";
+                   }
+                   description
+                     "Reference to the conflicting ACL type bound to
+                      a DOTS client.";
+                 }
+               }
+               leaf mid {
+                 when "../../conflict-cause = 'overlapping-targets'";
+                 type uint32;
+                 description
+                   "Reference to the conflicting 'mid' bound to
+                    the same DOTS client.";
+               }
+             }
+           }
+           leaf bytes-dropped {
+             type yang:zero-based-counter64;
+             units "bytes";
+             description
+               "The total dropped byte count for the mitigation
+                request since the attack mitigation was triggered.
+                The count wraps around when it reaches the maximum value
+                of counter64 for dropped bytes.";
+           }
+           leaf bps-dropped {
+             type yang:gauge64;
+             description
+               "The average number of dropped bits per second for
+                the mitigation request since the attack
+                mitigation was triggered.  This should be over
+                five-minute intervals (that is, measuring bytes
+                into five-minute buckets and then averaging these
+                buckets over the time since the mitigation was
 
 
 
@@ -4090,54 +4090,54 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 73]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-          leaf pkts-dropped {
-            type yang:zero-based-counter64;
-            description
-              "The total number of dropped packet count for the
-               mitigation request since the attack mitigation was
-               triggered.  The count wraps around when it reaches
-               the maximum value of counter64 for dropped packets.";
-          }
-          leaf pps-dropped {
-            type yang:gauge64;
-            description
-              "The average number of dropped packets per second
-               for the mitigation request since the attack
-               mitigation was triggered.  This should be over
-               five-minute intervals (that is, measuring packets
-               into five-minute buckets and then averaging these
-               buckets over the time since the mitigation was
-               triggered).";
-          }
-        }
-        case client-to-server-only {
-          description
-            "These data nodes appear only in a mitigation message
-             sent from the client to the server.";
-          leaf attack-status {
-            type iana-dots-signal:attack-status;
-            description
-              "Indicates the status of an attack as seen by the
-               DOTS client.
+                triggered).";
+           }
+           leaf pkts-dropped {
+             type yang:zero-based-counter64;
+             description
+               "The total number of dropped packet count for the
+                mitigation request since the attack mitigation was
+                triggered.  The count wraps around when it reaches
+                the maximum value of counter64 for dropped packets.";
+           }
+           leaf pps-dropped {
+             type yang:gauge64;
+             description
+               "The average number of dropped packets per second
+                for the mitigation request since the attack
+                mitigation was triggered.  This should be over
+                five-minute intervals (that is, measuring packets
+                into five-minute buckets and then averaging these
+                buckets over the time since the mitigation was
+                triggered).";
+           }
+         }
+         case client-to-server-only {
+           description
+             "These data nodes appear only in a mitigation message
+              sent from the client to the server.";
+           leaf attack-status {
+             type iana-dots-signal:attack-status;
+             description
+               "Indicates the status of an attack as seen by the
+                DOTS client.
 
-               Ths is is a mandatory attribute when a client
-               performs an efficacy update.";
-          }
-        }
-      }
-    }
-  }
+                Ths is is a mandatory attribute when a client
+                performs an efficacy update.";
+           }
+         }
+       }
+     }
+   }
 
-  grouping config-parameters {
-    description
-      "Subset of DOTS signal channel session configuration.";
-    container heartbeat-interval {
-      description
-        "DOTS agents regularly send heartbeats to each other
-         after mutual authentication is successfully
-         completed in order to keep the DOTS signal channel
-         open.";
-      choice direction {
+   grouping config-parameters {
+     description
+       "Subset of DOTS signal channel session configuration.";
+     container heartbeat-interval {
+       description
+         "DOTS agents regularly send heartbeats to each other
+          after mutual authentication is successfully
+          completed in order to keep the DOTS signal channel
 
 
 
@@ -4146,54 +4146,54 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 74]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-        description
-          "Indicates the communication direction in which the
-           data nodes can be included.";
-        case server-to-client-only {
-          description
-            "These data nodes appear only in a mitigation message
-             sent from the server to the client.";
-          leaf max-value {
-            type uint16;
-            units "seconds";
-            description
-              "Maximum acceptable heartbeat-interval value.";
-          }
-          leaf min-value {
-            type uint16;
-            units "seconds";
-            description
-              "Minimum acceptable heartbeat-interval value.";
-          }
-        }
-      }
-      leaf current-value {
-        type uint16;
-        units "seconds";
-        default "30";
-        description
-          "Current heartbeat-interval value.
+          open.";
+       choice direction {
+         description
+           "Indicates the communication direction in which the
+            data nodes can be included.";
+         case server-to-client-only {
+           description
+             "These data nodes appear only in a mitigation message
+              sent from the server to the client.";
+           leaf max-value {
+             type uint16;
+             units "seconds";
+             description
+               "Maximum acceptable heartbeat-interval value.";
+           }
+           leaf min-value {
+             type uint16;
+             units "seconds";
+             description
+               "Minimum acceptable heartbeat-interval value.";
+           }
+         }
+       }
+       leaf current-value {
+         type uint16;
+         units "seconds";
+         default "30";
+         description
+           "Current heartbeat-interval value.
 
-           '0' means that heartbeat mechanism is deactivated.";
-      }
-    }
-    container missing-hb-allowed {
-      description
-        "Maximum number of missing heartbeats allowed.";
-      choice direction {
-        description
-          "Indicates the communication direction in which the
-           data nodes can be included.";
-        case server-to-client-only {
-          description
-            "These data nodes appear only in a mitigation message
-             sent from the server to the client.";
-          leaf max-value {
-            type uint16;
-            description
-              "Maximum acceptable missing-hb-allowed value.";
-          }
-          leaf min-value {
+            '0' means that heartbeat mechanism is deactivated.";
+       }
+     }
+     container missing-hb-allowed {
+       description
+         "Maximum number of missing heartbeats allowed.";
+       choice direction {
+         description
+           "Indicates the communication direction in which the
+            data nodes can be included.";
+         case server-to-client-only {
+           description
+             "These data nodes appear only in a mitigation message
+              sent from the server to the client.";
+           leaf max-value {
+             type uint16;
+             description
+               "Maximum acceptable missing-hb-allowed value.";
 
 
 
@@ -4202,54 +4202,54 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 75]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-            type uint16;
-            description
-              "Minimum acceptable missing-hb-allowed value.";
-          }
-        }
-      }
-      leaf current-value {
-        type uint16;
-        default "15";
-        description
-          "Current missing-hb-allowed value.";
-      }
-    }
-    container probing-rate {
-      description
-        "The limit for sending Non-confirmable messages with
-         no response.";
-      choice direction {
-        description
-          "Indicates the communication direction in which the
-           data nodes can be included.";
-        case server-to-client-only {
-          description
-            "These data nodes appear only in a mitigation message
-             sent from the server to the client.";
-          leaf max-value {
-            type uint16;
-            units "byte/second";
-            description
-              "Maximum acceptable probing-rate value.";
-          }
-          leaf min-value {
-            type uint16;
-            units "byte/second";
-            description
-              "Minimum acceptable probing-rate value.";
-          }
-        }
-      }
-      leaf current-value {
-        type uint16;
-        units "byte/second";
-        default "5";
-        description
-          "Current probing-rate value.";
-      }
-    }
-    container max-retransmit {
+           }
+           leaf min-value {
+             type uint16;
+             description
+               "Minimum acceptable missing-hb-allowed value.";
+           }
+         }
+       }
+       leaf current-value {
+         type uint16;
+         default "15";
+         description
+           "Current missing-hb-allowed value.";
+       }
+     }
+     container probing-rate {
+       description
+         "The limit for sending Non-confirmable messages with
+          no response.";
+       choice direction {
+         description
+           "Indicates the communication direction in which the
+            data nodes can be included.";
+         case server-to-client-only {
+           description
+             "These data nodes appear only in a mitigation message
+              sent from the server to the client.";
+           leaf max-value {
+             type uint16;
+             units "byte/second";
+             description
+               "Maximum acceptable probing-rate value.";
+           }
+           leaf min-value {
+             type uint16;
+             units "byte/second";
+             description
+               "Minimum acceptable probing-rate value.";
+           }
+         }
+       }
+       leaf current-value {
+         type uint16;
+         units "byte/second";
+         default "5";
+         description
+           "Current probing-rate value.";
+       }
 
 
 
@@ -4258,54 +4258,54 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 76]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-      description
-        "Maximum number of retransmissions of a Confirmable
-         message.";
-      choice direction {
-        description
-          "Indicates the communication direction in which the
-           data nodes can be included.";
-        case server-to-client-only {
-          description
-            "These data nodes appear only in a mitigation message
-             sent from the server to the client.";
-          leaf max-value {
-            type uint16;
-            description
-              "Maximum acceptable max-retransmit value.";
-          }
-          leaf min-value {
-            type uint16;
-            description
-              "Minimum acceptable max-retransmit value.";
-          }
-        }
-      }
-      leaf current-value {
-        type uint16;
-        default "3";
-        description
-          "Current max-retransmit value.";
-      }
-    }
-    container ack-timeout {
-      description
-        "Initial retransmission timeout value.";
-      choice direction {
-        description
-          "Indicates the communication direction in which the
-           data nodes can be included.";
-        case server-to-client-only {
-          description
-            "These data nodes appear only in a mitigation message
-             sent from the server to the client.";
-          leaf max-value-decimal {
-            type decimal64 {
-              fraction-digits 2;
-            }
-            units "seconds";
-            description
-              "Maximum ack-timeout value.";
+     }
+     container max-retransmit {
+       description
+         "Maximum number of retransmissions of a Confirmable
+          message.";
+       choice direction {
+         description
+           "Indicates the communication direction in which the
+            data nodes can be included.";
+         case server-to-client-only {
+           description
+             "These data nodes appear only in a mitigation message
+              sent from the server to the client.";
+           leaf max-value {
+             type uint16;
+             description
+               "Maximum acceptable max-retransmit value.";
+           }
+           leaf min-value {
+             type uint16;
+             description
+               "Minimum acceptable max-retransmit value.";
+           }
+         }
+       }
+       leaf current-value {
+         type uint16;
+         default "3";
+         description
+           "Current max-retransmit value.";
+       }
+     }
+     container ack-timeout {
+       description
+         "Initial retransmission timeout value.";
+       choice direction {
+         description
+           "Indicates the communication direction in which the
+            data nodes can be included.";
+         case server-to-client-only {
+           description
+             "These data nodes appear only in a mitigation message
+              sent from the server to the client.";
+           leaf max-value-decimal {
+             type decimal64 {
+               fraction-digits 2;
+             }
+             units "seconds";
 
 
 
@@ -4314,54 +4314,54 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 77]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-          }
-          leaf min-value-decimal {
-            type decimal64 {
-              fraction-digits 2;
-            }
-            units "seconds";
-            description
-              "Minimum ack-timeout value.";
-          }
-        }
-      }
-      leaf current-value-decimal {
-        type decimal64 {
-          fraction-digits 2;
-        }
-        units "seconds";
-        default "2";
-        description
-          "Current ack-timeout value.";
-      }
-    }
-    container ack-random-factor {
-      description
-        "Random factor used to influence the timing of
-         retransmissions.";
-      choice direction {
-        description
-          "Indicates the communication direction in which the
-           data nodes can be included.";
-        case server-to-client-only {
-          description
-            "These data nodes appear only in a mitigation message
-             sent from the server to the client.";
-          leaf max-value-decimal {
-            type decimal64 {
-              fraction-digits 2;
-            }
-            description
-              "Maximum acceptable ack-random-factor value.";
-          }
-          leaf min-value-decimal {
-            type decimal64 {
-              fraction-digits 2;
-            }
-            description
-              "Minimum acceptable ack-random-factor value.";
-          }
-        }
+             description
+               "Maximum ack-timeout value.";
+           }
+           leaf min-value-decimal {
+             type decimal64 {
+               fraction-digits 2;
+             }
+             units "seconds";
+             description
+               "Minimum ack-timeout value.";
+           }
+         }
+       }
+       leaf current-value-decimal {
+         type decimal64 {
+           fraction-digits 2;
+         }
+         units "seconds";
+         default "2";
+         description
+           "Current ack-timeout value.";
+       }
+     }
+     container ack-random-factor {
+       description
+         "Random factor used to influence the timing of
+          retransmissions.";
+       choice direction {
+         description
+           "Indicates the communication direction in which the
+            data nodes can be included.";
+         case server-to-client-only {
+           description
+             "These data nodes appear only in a mitigation message
+              sent from the server to the client.";
+           leaf max-value-decimal {
+             type decimal64 {
+               fraction-digits 2;
+             }
+             description
+               "Maximum acceptable ack-random-factor value.";
+           }
+           leaf min-value-decimal {
+             type decimal64 {
+               fraction-digits 2;
+             }
+             description
+               "Minimum acceptable ack-random-factor value.";
 
 
 
@@ -4370,54 +4370,54 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 78]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-      }
-      leaf current-value-decimal {
-        type decimal64 {
-          fraction-digits 2;
-        }
-        default "1.5";
-        description
-          "Current ack-random-factor value.";
-      }
-    }
-  }
+           }
+         }
+       }
+       leaf current-value-decimal {
+         type decimal64 {
+           fraction-digits 2;
+         }
+         default "1.5";
+         description
+           "Current ack-random-factor value.";
+       }
+     }
+   }
 
-  grouping signal-config {
-    description
-      "DOTS signal channel session configuration.";
-    container mitigating-config {
-      description
-        "Configuration parameters to use when a mitigation
-         is active.";
-      uses config-parameters;
-    }
-    container idle-config {
-      description
-        "Configuration parameters to use when no mitigation
-         is active.";
-      uses config-parameters;
-    }
-  }
+   grouping signal-config {
+     description
+       "DOTS signal channel session configuration.";
+     container mitigating-config {
+       description
+         "Configuration parameters to use when a mitigation
+          is active.";
+       uses config-parameters;
+     }
+     container idle-config {
+       description
+         "Configuration parameters to use when no mitigation
+          is active.";
+       uses config-parameters;
+     }
+   }
 
-  grouping redirected-signal {
-    description
-      "Grouping for the redirected signaling.";
-    choice direction {
-      description
-        "Indicates the communication direction in which the
-         data nodes can be included.";
-      case server-to-client-only {
-        description
-          "These data nodes appear only in a mitigation message
-           sent from the server to the client.";
-        leaf alt-server {
-          type inet:domain-name;
-          mandatory true;
-          description
-            "FQDN of an alternate server.";
-        }
-        leaf-list alt-server-record {
-          type inet:ip-address;
+   grouping redirected-signal {
+     description
+       "Grouping for the redirected signaling.";
+     choice direction {
+       description
+         "Indicates the communication direction in which the
+          data nodes can be included.";
+       case server-to-client-only {
+         description
+           "These data nodes appear only in a mitigation message
+            sent from the server to the client.";
+         leaf alt-server {
+           type inet:domain-name;
+           mandatory true;
+           description
+             "FQDN of an alternate server.";
+         }
 
 
 
@@ -4426,54 +4426,54 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 79]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-          description
-            "List of records for the alternate server.";
-        }
-      }
-    }
-  }
+         leaf-list alt-server-record {
+           type inet:ip-address;
+           description
+             "List of records for the alternate server.";
+         }
+       }
+     }
+   }
 
-  /*
-   * DOTS Signal Channel Structure
-   */
+   /*
+    * DOTS Signal Channel Structure
+    */
 
-  sx:structure dots-signal {
-    description
-      "Main structure for DOTS signal message.
+   sx:structure dots-signal {
+     description
+       "Main structure for DOTS signal message.
 
-       A DOTS signal message can be a mitigation, a configuration,
-       or a redirected signal message.";
-    choice message-type {
-      description
-        "Can be a mitigation, a configuration, or a redirect
-         message.";
-      case mitigation-scope {
-        description
-          "Mitigation scope of a mitigation message.";
-        uses mitigation-scope;
-      }
-      case signal-config {
-        description
-          "Configuration message.";
-        uses signal-config;
-      }
-      case redirected-signal {
-        description
-          "Redirected signaling.";
-        uses redirected-signal;
-      }
-      case heartbeat {
-        description
-          "DOTS heartbeats.";
-        leaf peer-hb-status {
-          type boolean;
-          mandatory true;
-          description
-            "Indicates whether a DOTS agent receives heartbeats
-             from its peer.  The value is set to 'true' if the
-             DOTS agent is receiving heartbeat messages
-             from its peer.";
-        }
+        A DOTS signal message can be a mitigation, a configuration,
+        or a redirected signal message.";
+     choice message-type {
+       description
+         "Can be a mitigation, a configuration, or a redirect
+          message.";
+       case mitigation-scope {
+         description
+           "Mitigation scope of a mitigation message.";
+         uses mitigation-scope;
+       }
+       case signal-config {
+         description
+           "Configuration message.";
+         uses signal-config;
+       }
+       case redirected-signal {
+         description
+           "Redirected signaling.";
+         uses redirected-signal;
+       }
+       case heartbeat {
+         description
+           "DOTS heartbeats.";
+         leaf peer-hb-status {
+           type boolean;
+           mandatory true;
+           description
+             "Indicates whether a DOTS agent receives heartbeats
+              from its peer.  The value is set to 'true' if the
+              DOTS agent is receiving heartbeat messages
 
 
 
@@ -4482,11 +4482,13 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 80]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-      }
-    }
-  }
-}
-<CODE ENDS>
+              from its peer.";
+         }
+       }
+     }
+   }
+ }
+ <CODE ENDS>
 
 6.  YANG/JSON Mapping Parameters to CBOR
 
@@ -4528,8 +4530,6 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
    +---------------------+--------------+------+-------------+--------+
    | mid                 | uint32       | 5    | 0 unsigned  | Number |
    +---------------------+--------------+------+-------------+--------+
-   | target-prefix       | leaf-list    | 6    | 4 array     | Array  |
-   |                     +--------------+------+-------------+--------+
 
 
 
@@ -4538,6 +4538,8 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 81]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
+   | target-prefix       | leaf-list    | 6    | 4 array     | Array  |
+   |                     +--------------+------+-------------+--------+
    |                     | inet:ip-     |      | 3 text      | String |
    |                     | prefix       |      | string      |        |
    +---------------------+--------------+------+-------------+--------+
@@ -4584,8 +4586,6 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
    | conflict-cause      | enumeration  | 19   | 0 unsigned  | String |
    +---------------------+--------------+------+-------------+--------+
    | retry-timer         | uint32       | 20   | 0 unsigned  | String |
-   +---------------------+--------------+------+-------------+--------+
-   | conflict-scope      | container    | 21   | 5 map       | Object |
 
 
 
@@ -4594,6 +4594,8 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 82]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
+   +---------------------+--------------+------+-------------+--------+
+   | conflict-scope      | container    | 21   | 5 map       | Object |
    +---------------------+--------------+------+-------------+--------+
    | acl-list            | list         | 22   | 4 array     | Array  |
    +---------------------+--------------+------+-------------+--------+
@@ -4640,8 +4642,6 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
    | ack-timeout         | container    | 39   | 5 map       | Object |
    +---------------------+--------------+------+-------------+--------+
    | ack-random-factor   | container    | 40   | 5 map       | Object |
-   +---------------------+--------------+------+-------------+--------+
-   | max-value-decimal   | decimal64    | 41   | 6 tag 4     | String |
 
 
 
@@ -4650,6 +4650,8 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 83]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
+   +---------------------+--------------+------+-------------+--------+
+   | max-value-decimal   | decimal64    | 41   | 6 tag 4     | String |
    |                     |              |      | [-2,        |        |
    |                     |              |      | integer]    |        |
    +---------------------+--------------+------+-------------+--------+
@@ -4692,8 +4694,6 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
         Table 5: CBOR Key Values Used in DOTS Signal Channel Messages &
                         Their Mappings to JSON and YANG
 
-7.  (D)TLS Protocol Profile and Performance Considerations
-
 
 
 
@@ -4705,6 +4705,8 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 84]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
+
+7.  (D)TLS Protocol Profile and Performance Considerations
 
 7.1.  (D)TLS Protocol Profile
 
@@ -4752,8 +4754,6 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
    mechanism for a client to tell a (D)TLS server the name of the server
    it wants to contact.  This is a useful extension for hosting
    environments where multiple virtual servers are reachable over a
-   single IP address.  The DOTS client may or may not know if it is
-   interacting with a DOTS server in a virtual server hosting
 
 
 
@@ -4762,6 +4762,8 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 85]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
+   single IP address.  The DOTS client may or may not know if it is
+   interacting with a DOTS server in a virtual server hosting
    environment, so the DOTS client SHOULD include the DOTS server FQDN
    in the SNI extension.
 
@@ -4808,8 +4810,6 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
    o  A full handshake mode in which a DOTS client can send a DOTS
       mitigation request message after one round trip and the DOTS
-      server immediately responds with a DOTS mitigation response.  This
-      assumes no packet loss is experienced.
 
 
 
@@ -4817,6 +4817,9 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 86]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
+
+      server immediately responds with a DOTS mitigation response.  This
+      assumes no packet loss is experienced.
 
    o  0-RTT mode in which the DOTS client can authenticate itself and
       send DOTS mitigation request messages in the first message, thus
@@ -4862,9 +4865,6 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
    Likewise, the 'sid' value is monotonically increased by the DOTS
    client for each configuration request (Section 4.5.2); attackers
    replaying configuration requests with lower numeric 'sid' values will
-   be rejected by the DOTS server if it maintains a higher numeric 'sid'
-   value for this DOTS client.
-
 
 
 
@@ -4873,6 +4873,9 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 87]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
+
+   be rejected by the DOTS server if it maintains a higher numeric 'sid'
+   value for this DOTS client.
 
    Owing to the aforementioned protections, all DOTS signal channel
    requests are safe to transmit in TLS 1.3 as early data.  Refer to
@@ -4919,9 +4922,6 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
    The DOTS client must consider the amount of record expansion expected
    by the DTLS processing when calculating the size of the CoAP message
-   that fits within the PMTU.  PMTU MUST be greater than or equal to
-   [CoAP message size + DTLS 1.2 overhead of 13 octets + authentication
-   overhead of the negotiated DTLS cipher suite + block padding]
 
 
 
@@ -4930,6 +4930,9 @@ Boucadair, et al.         Expires June 6, 2021                 [Page 88]
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
+   that fits within the PMTU.  PMTU MUST be greater than or equal to
+   [CoAP message size + DTLS 1.2 overhead of 13 octets + authentication
+   overhead of the negotiated DTLS cipher suite + block padding]
    (Section 4.1.1.1 of [RFC6347]).  If the total request size exceeds
    the PMTU, then the DOTS client MUST split the DOTS signal into
    separate messages; for example, the list of addresses in the 'target-
@@ -4964,9 +4967,6 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
    [RFC5280] certificate profile.  If a DOTS client does not support TLS
    client certificate authentication, it must support client
    authentication based on pre-shared key or raw public key.
-
-
-
 
 
 
