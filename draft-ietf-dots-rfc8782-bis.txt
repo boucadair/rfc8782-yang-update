@@ -6,9 +6,9 @@ DOTS                                                   M. Boucadair, Ed.
 Internet-Draft                                                    Orange
 Obsoletes: 8782 (if approved)                                 J. Shallow
 Intended status: Standards Track
-Expires: June 6, 2021                                         T. Reddy.K
+Expires: June 11, 2021                                        T. Reddy.K
                                                                   McAfee
-                                                        December 3, 2020
+                                                        December 8, 2020
 
 
    Distributed Denial-of-Service Open Threat Signaling (DOTS) Signal
@@ -44,7 +44,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on June 6, 2021.
+   This Internet-Draft will expire on June 11, 2021.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Boucadair, et al.         Expires June 6, 2021                  [Page 1]
+Boucadair, et al.         Expires June 11, 2021                 [Page 1]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Boucadair, et al.         Expires June 6, 2021                  [Page 2]
+Boucadair, et al.         Expires June 11, 2021                 [Page 2]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -165,7 +165,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                  [Page 3]
+Boucadair, et al.         Expires June 11, 2021                 [Page 3]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -221,7 +221,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                  [Page 4]
+Boucadair, et al.         Expires June 11, 2021                 [Page 4]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -277,7 +277,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                  [Page 5]
+Boucadair, et al.         Expires June 11, 2021                 [Page 5]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -333,7 +333,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                  [Page 6]
+Boucadair, et al.         Expires June 11, 2021                 [Page 6]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -389,7 +389,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                  [Page 7]
+Boucadair, et al.         Expires June 11, 2021                 [Page 7]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -405,7 +405,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
    client domain.
 
    Messages exchanged between DOTS agents are serialized using Concise
-   Binary Object Representation (CBOR) [RFC7049], a binary encoding
+   Binary Object Representation (CBOR) [RFC8949], a binary encoding
    scheme designed for small code and message size.  CBOR-encoded
    payloads are used to carry signal channel-specific payload messages
    that convey request parameters and response information such as
@@ -445,7 +445,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                  [Page 8]
+Boucadair, et al.         Expires June 11, 2021                 [Page 8]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -501,7 +501,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                  [Page 9]
+Boucadair, et al.         Expires June 11, 2021                 [Page 9]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -557,7 +557,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 10]
+Boucadair, et al.         Expires June 11, 2021                [Page 10]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -613,7 +613,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 11]
+Boucadair, et al.         Expires June 11, 2021                [Page 11]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -669,7 +669,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 12]
+Boucadair, et al.         Expires June 11, 2021                [Page 12]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -725,7 +725,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 13]
+Boucadair, et al.         Expires June 11, 2021                [Page 13]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -781,7 +781,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 14]
+Boucadair, et al.         Expires June 11, 2021                [Page 14]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -837,7 +837,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 15]
+Boucadair, et al.         Expires June 11, 2021                [Page 15]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -893,7 +893,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 16]
+Boucadair, et al.         Expires June 11, 2021                [Page 16]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -949,7 +949,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 17]
+Boucadair, et al.         Expires June 11, 2021                [Page 17]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1005,7 +1005,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 18]
+Boucadair, et al.         Expires June 11, 2021                [Page 18]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1061,7 +1061,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 19]
+Boucadair, et al.         Expires June 11, 2021                [Page 19]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1117,7 +1117,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 20]
+Boucadair, et al.         Expires June 11, 2021                [Page 20]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1173,7 +1173,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 21]
+Boucadair, et al.         Expires June 11, 2021                [Page 21]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1229,7 +1229,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 22]
+Boucadair, et al.         Expires June 11, 2021                [Page 22]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1285,7 +1285,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 23]
+Boucadair, et al.         Expires June 11, 2021                [Page 23]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1341,7 +1341,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 24]
+Boucadair, et al.         Expires June 11, 2021                [Page 24]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1397,7 +1397,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 25]
+Boucadair, et al.         Expires June 11, 2021                [Page 25]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1453,7 +1453,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 26]
+Boucadair, et al.         Expires June 11, 2021                [Page 26]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1509,7 +1509,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 27]
+Boucadair, et al.         Expires June 11, 2021                [Page 27]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1565,7 +1565,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 28]
+Boucadair, et al.         Expires June 11, 2021                [Page 28]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1621,7 +1621,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 29]
+Boucadair, et al.         Expires June 11, 2021                [Page 29]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1677,7 +1677,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 30]
+Boucadair, et al.         Expires June 11, 2021                [Page 30]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1733,7 +1733,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 31]
+Boucadair, et al.         Expires June 11, 2021                [Page 31]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1784,17 +1784,17 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
    The mitigation status parameters are described below:
 
    mitigation-start:  Mitigation start time is expressed in seconds
-      relative to 1970-01-01T00:00Z in UTC time (Section 2.4.1 of
+      relative to 1970-01-01T00:00Z in UTC time (Section 3.4.1 of
 
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 32]
+Boucadair, et al.         Expires June 11, 2021                [Page 32]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
-      [RFC7049]).  The CBOR encoding is modified so that the leading tag
+      [RFC8949]).  The CBOR encoding is modified so that the leading tag
       1 (epoch-based date/time) MUST be omitted.
 
       This is a mandatory attribute when an attack mitigation is active.
@@ -1845,7 +1845,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 33]
+Boucadair, et al.         Expires June 11, 2021                [Page 33]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1901,7 +1901,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 34]
+Boucadair, et al.         Expires June 11, 2021                [Page 34]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -1957,7 +1957,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 35]
+Boucadair, et al.         Expires June 11, 2021                [Page 35]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2013,7 +2013,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 36]
+Boucadair, et al.         Expires June 11, 2021                [Page 36]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2069,7 +2069,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 37]
+Boucadair, et al.         Expires June 11, 2021                [Page 37]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2125,7 +2125,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 38]
+Boucadair, et al.         Expires June 11, 2021                [Page 38]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2181,7 +2181,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 39]
+Boucadair, et al.         Expires June 11, 2021                [Page 39]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2237,7 +2237,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 40]
+Boucadair, et al.         Expires June 11, 2021                [Page 40]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2293,7 +2293,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 41]
+Boucadair, et al.         Expires June 11, 2021                [Page 41]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2349,7 +2349,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 42]
+Boucadair, et al.         Expires June 11, 2021                [Page 42]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2405,7 +2405,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 43]
+Boucadair, et al.         Expires June 11, 2021                [Page 43]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2461,7 +2461,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 44]
+Boucadair, et al.         Expires June 11, 2021                [Page 44]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2517,7 +2517,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 45]
+Boucadair, et al.         Expires June 11, 2021                [Page 45]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2573,7 +2573,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 46]
+Boucadair, et al.         Expires June 11, 2021                [Page 46]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2629,7 +2629,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 47]
+Boucadair, et al.         Expires June 11, 2021                [Page 47]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2685,7 +2685,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 48]
+Boucadair, et al.         Expires June 11, 2021                [Page 48]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2741,7 +2741,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 49]
+Boucadair, et al.         Expires June 11, 2021                [Page 49]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2797,7 +2797,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 50]
+Boucadair, et al.         Expires June 11, 2021                [Page 50]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2853,7 +2853,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 51]
+Boucadair, et al.         Expires June 11, 2021                [Page 51]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2909,7 +2909,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 52]
+Boucadair, et al.         Expires June 11, 2021                [Page 52]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -2965,7 +2965,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 53]
+Boucadair, et al.         Expires June 11, 2021                [Page 53]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3021,7 +3021,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 54]
+Boucadair, et al.         Expires June 11, 2021                [Page 54]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3077,7 +3077,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 55]
+Boucadair, et al.         Expires June 11, 2021                [Page 55]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3133,7 +3133,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 56]
+Boucadair, et al.         Expires June 11, 2021                [Page 56]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3189,7 +3189,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 57]
+Boucadair, et al.         Expires June 11, 2021                [Page 57]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3245,7 +3245,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 58]
+Boucadair, et al.         Expires June 11, 2021                [Page 58]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3301,7 +3301,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 59]
+Boucadair, et al.         Expires June 11, 2021                [Page 59]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3357,7 +3357,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 60]
+Boucadair, et al.         Expires June 11, 2021                [Page 60]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3413,7 +3413,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 61]
+Boucadair, et al.         Expires June 11, 2021                [Page 61]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3469,7 +3469,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 62]
+Boucadair, et al.         Expires June 11, 2021                [Page 62]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3525,7 +3525,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 63]
+Boucadair, et al.         Expires June 11, 2021                [Page 63]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3581,7 +3581,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 64]
+Boucadair, et al.         Expires June 11, 2021                [Page 64]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3637,7 +3637,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 65]
+Boucadair, et al.         Expires June 11, 2021                [Page 65]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3693,7 +3693,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 66]
+Boucadair, et al.         Expires June 11, 2021                [Page 66]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3749,7 +3749,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 67]
+Boucadair, et al.         Expires June 11, 2021                [Page 67]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3805,7 +3805,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 68]
+Boucadair, et al.         Expires June 11, 2021                [Page 68]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3861,7 +3861,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 69]
+Boucadair, et al.         Expires June 11, 2021                [Page 69]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3917,7 +3917,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 70]
+Boucadair, et al.         Expires June 11, 2021                [Page 70]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -3973,7 +3973,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 71]
+Boucadair, et al.         Expires June 11, 2021                [Page 71]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4029,7 +4029,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 72]
+Boucadair, et al.         Expires June 11, 2021                [Page 72]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4085,7 +4085,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 73]
+Boucadair, et al.         Expires June 11, 2021                [Page 73]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4141,7 +4141,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 74]
+Boucadair, et al.         Expires June 11, 2021                [Page 74]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4197,7 +4197,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 75]
+Boucadair, et al.         Expires June 11, 2021                [Page 75]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4253,7 +4253,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 76]
+Boucadair, et al.         Expires June 11, 2021                [Page 76]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4309,7 +4309,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 77]
+Boucadair, et al.         Expires June 11, 2021                [Page 77]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4365,7 +4365,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 78]
+Boucadair, et al.         Expires June 11, 2021                [Page 78]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4421,7 +4421,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 79]
+Boucadair, et al.         Expires June 11, 2021                [Page 79]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4477,7 +4477,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 80]
+Boucadair, et al.         Expires June 11, 2021                [Page 80]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4533,7 +4533,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 81]
+Boucadair, et al.         Expires June 11, 2021                [Page 81]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4589,7 +4589,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 82]
+Boucadair, et al.         Expires June 11, 2021                [Page 82]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4645,7 +4645,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 83]
+Boucadair, et al.         Expires June 11, 2021                [Page 83]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4701,7 +4701,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 84]
+Boucadair, et al.         Expires June 11, 2021                [Page 84]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4757,7 +4757,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 85]
+Boucadair, et al.         Expires June 11, 2021                [Page 85]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4813,7 +4813,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 86]
+Boucadair, et al.         Expires June 11, 2021                [Page 86]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4869,7 +4869,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 87]
+Boucadair, et al.         Expires June 11, 2021                [Page 87]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4925,7 +4925,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 88]
+Boucadair, et al.         Expires June 11, 2021                [Page 88]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -4981,7 +4981,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 89]
+Boucadair, et al.         Expires June 11, 2021                [Page 89]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5037,7 +5037,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 90]
+Boucadair, et al.         Expires June 11, 2021                [Page 90]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5093,7 +5093,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 91]
+Boucadair, et al.         Expires June 11, 2021                [Page 91]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5149,7 +5149,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 92]
+Boucadair, et al.         Expires June 11, 2021                [Page 92]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5205,7 +5205,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 93]
+Boucadair, et al.         Expires June 11, 2021                [Page 93]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5261,7 +5261,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 94]
+Boucadair, et al.         Expires June 11, 2021                [Page 94]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5287,7 +5287,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
    *  Tag: 271
    *  Data Item: DDoS Open Threat Signaling (DOTS) signal channel object
    *  Semantics: DDoS Open Threat Signaling (DOTS) signal channel
-      object, as defined in [RFCXXX]
+      object, as defined in [RFCXXXX]
    *  Reference: [RFCXXXX]
 
 10.6.  DOTS Signal Channel Protocol Registry
@@ -5317,7 +5317,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 95]
+Boucadair, et al.         Expires June 11, 2021                [Page 95]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5373,7 +5373,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 96]
+Boucadair, et al.         Expires June 11, 2021                [Page 96]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5429,7 +5429,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 97]
+Boucadair, et al.         Expires June 11, 2021                [Page 97]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5485,7 +5485,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 98]
+Boucadair, et al.         Expires June 11, 2021                [Page 98]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5541,7 +5541,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                 [Page 99]
+Boucadair, et al.         Expires June 11, 2021                [Page 99]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5597,7 +5597,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 100]
+Boucadair, et al.         Expires June 11, 2021               [Page 100]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5653,7 +5653,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 101]
+Boucadair, et al.         Expires June 11, 2021               [Page 101]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5709,7 +5709,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 102]
+Boucadair, et al.         Expires June 11, 2021               [Page 102]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5765,7 +5765,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 103]
+Boucadair, et al.         Expires June 11, 2021               [Page 103]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5821,7 +5821,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 104]
+Boucadair, et al.         Expires June 11, 2021               [Page 104]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5877,7 +5877,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 105]
+Boucadair, et al.         Expires June 11, 2021               [Page 105]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5933,7 +5933,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 106]
+Boucadair, et al.         Expires June 11, 2021               [Page 106]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -5980,7 +5980,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
    CoAP-specific security considerations are discussed in Section 11 of
    [RFC7252], while CBOR-related security considerations are discussed
-   in Section 8 of [RFC7049].
+   in Section 10 of [RFC8949].
 
    This document defines YANG data structures that are meant to be used
    as an abstract representation of DOTS signal channel messages.  As
@@ -5989,7 +5989,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 107]
+Boucadair, et al.         Expires June 11, 2021               [Page 107]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -6045,7 +6045,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 108]
+Boucadair, et al.         Expires June 11, 2021               [Page 108]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -6081,10 +6081,6 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
               RFC 6991, DOI 10.17487/RFC6991, July 2013,
               <https://www.rfc-editor.org/info/rfc6991>.
 
-   [RFC7049]  Bormann, C. and P. Hoffman, "Concise Binary Object
-              Representation (CBOR)", RFC 7049, DOI 10.17487/RFC7049,
-              October 2013, <https://www.rfc-editor.org/info/rfc7049>.
-
    [RFC7250]  Wouters, P., Ed., Tschofenig, H., Ed., Gilmore, J.,
               Weiler, S., and T. Kivinen, "Using Raw Public Keys in
               Transport Layer Security (TLS) and Datagram Transport
@@ -6096,21 +6092,19 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
               DOI 10.17487/RFC7252, June 2014,
               <https://www.rfc-editor.org/info/rfc7252>.
 
-
-
-
-
-
-Boucadair, et al.         Expires June 6, 2021                [Page 109]
-
-Internet-Draft        DOTS Signal Channel Protocol         December 2020
-
-
    [RFC7525]  Sheffer, Y., Holz, R., and P. Saint-Andre,
               "Recommendations for Secure Use of Transport Layer
               Security (TLS) and Datagram Transport Layer Security
               (DTLS)", BCP 195, RFC 7525, DOI 10.17487/RFC7525, May
               2015, <https://www.rfc-editor.org/info/rfc7525>.
+
+
+
+
+Boucadair, et al.         Expires June 11, 2021               [Page 109]
+
+Internet-Draft        DOTS Signal Channel Protocol         December 2020
+
 
    [RFC7641]  Hartke, K., "Observing Resources in the Constrained
               Application Protocol (CoAP)", RFC 7641,
@@ -6154,18 +6148,19 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
               DOI 10.17487/RFC8200, July 2017,
               <https://www.rfc-editor.org/info/rfc8200>.
 
-
-
-
-Boucadair, et al.         Expires June 6, 2021                [Page 110]
-
-Internet-Draft        DOTS Signal Channel Protocol         December 2020
-
-
    [RFC8305]  Schinazi, D. and T. Pauly, "Happy Eyeballs Version 2:
               Better Connectivity Using Concurrency", RFC 8305,
               DOI 10.17487/RFC8305, December 2017,
               <https://www.rfc-editor.org/info/rfc8305>.
+
+
+
+
+
+Boucadair, et al.         Expires June 11, 2021               [Page 110]
+
+Internet-Draft        DOTS Signal Channel Protocol         December 2020
+
 
    [RFC8323]  Bormann, C., Lemay, S., Tschofenig, H., Hartke, K.,
               Silverajan, B., and B. Raymor, Ed., "CoAP (Constrained
@@ -6195,6 +6190,11 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
               Structure Extensions", RFC 8791, DOI 10.17487/RFC8791,
               June 2020, <https://www.rfc-editor.org/info/rfc8791>.
 
+   [RFC8949]  Bormann, C. and P. Hoffman, "Concise Binary Object
+              Representation (CBOR)", STD 94, RFC 8949,
+              DOI 10.17487/RFC8949, December 2020,
+              <https://www.rfc-editor.org/info/rfc8949>.
+
 12.2.  Informative References
 
    [I-D.boucadair-dots-earlydata]
@@ -6213,7 +6213,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 111]
+Boucadair, et al.         Expires June 11, 2021               [Page 111]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -6238,8 +6238,8 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
    [I-D.ietf-dots-telemetry]
               Boucadair, M., Reddy.K, T., Doron, E., chenmeiling, c.,
               and J. Shallow, "Distributed Denial-of-Service Open Threat
-              Signaling (DOTS) Telemetry", draft-ietf-dots-telemetry-14
-              (work in progress), November 2020.
+              Signaling (DOTS) Telemetry", draft-ietf-dots-telemetry-15
+              (work in progress), December 2020.
 
    [I-D.ietf-dots-use-cases]
               Dobbins, R., Migault, D., Moskowitz, R., Teague, N., Xia,
@@ -6269,7 +6269,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 112]
+Boucadair, et al.         Expires June 11, 2021               [Page 112]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -6325,7 +6325,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 113]
+Boucadair, et al.         Expires June 11, 2021               [Page 113]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -6381,7 +6381,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 114]
+Boucadair, et al.         Expires June 11, 2021               [Page 114]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -6437,7 +6437,7 @@ Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 115]
+Boucadair, et al.         Expires June 11, 2021               [Page 115]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -6493,7 +6493,7 @@ Appendix A.  Summary of Changes From RFC8782
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 116]
+Boucadair, et al.         Expires June 11, 2021               [Page 116]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -6526,6 +6526,8 @@ Appendix C.  Acknowledgements
 
    Many thanks to Martin Bjoerklund for the suggestion to use RFC8791.
 
+   Thanks to Valery Smyslov for the comments, guidance, and support.
+
    Thanks to Ebben Aries for the yangdoctors review and Dan Romascanu
    for the opsdir review.
 
@@ -6544,15 +6546,15 @@ C.1.  Acknowledgements from RFC8782
    Thanks to the core WG for the recommendations on Hop-Limit and
    redirect signaling.
 
-   Special thanks to Benjamin Kaduk for the detailed AD review.
 
 
 
-
-Boucadair, et al.         Expires June 6, 2021                [Page 117]
+Boucadair, et al.         Expires June 11, 2021               [Page 117]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
+
+   Special thanks to Benjamin Kaduk for the detailed AD review.
 
    Thanks to Alexey Melnikov, Adam Roach, Suresh Krishnan, Mirja
    Kuehlewind, and Alissa Cooper for the review.
@@ -6603,9 +6605,7 @@ D.1.  Authors of RFC8782
 
 
 
-
-
-Boucadair, et al.         Expires June 6, 2021                [Page 118]
+Boucadair, et al.         Expires June 11, 2021               [Page 118]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -6661,7 +6661,7 @@ D.2.  Contributors to RFC8782
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 119]
+Boucadair, et al.         Expires June 11, 2021               [Page 119]
 
 Internet-Draft        DOTS Signal Channel Protocol         December 2020
 
@@ -6717,4 +6717,4 @@ Authors' Addresses
 
 
 
-Boucadair, et al.         Expires June 6, 2021                [Page 120]
+Boucadair, et al.         Expires June 11, 2021               [Page 120]

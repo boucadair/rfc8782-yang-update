@@ -353,7 +353,7 @@
       domain.</t>
 
       <t>Messages exchanged between DOTS agents are serialized using Concise
-      Binary Object Representation (CBOR) <xref target="RFC7049"></xref>, a
+      Binary Object Representation (CBOR) <xref target="RFC8949"></xref>, a
       binary encoding scheme designed for small code and message size.
       CBOR-encoded payloads are used to carry signal channel-specific payload
       messages that convey request parameters and response information such as
@@ -1521,7 +1521,7 @@
           <t><list style="hanging">
               <t hangText="mitigation-start:">Mitigation start time is
               expressed in seconds relative to 1970-01-01T00:00Z in UTC time
-              (Section 2.4.1 of <xref target="RFC7049"></xref>). The CBOR
+              (Section 3.4.1 of <xref target="RFC8949"></xref>). The CBOR
               encoding is modified so that the leading tag 1 (epoch-based
               date/time) MUST be omitted.<vspace blankLines="1" />This is a
               mandatory attribute when an attack mitigation is active.
@@ -4469,7 +4469,7 @@ Note that:
             <artwork><![CDATA[   *  Tag: 271
    *  Data Item: DDoS Open Threat Signaling (DOTS) signal channel object
    *  Semantics: DDoS Open Threat Signaling (DOTS) signal channel
-      object, as defined in [RFCXXX]
+      object, as defined in [RFCXXXX]
    *  Reference: [RFCXXXX]]]></artwork>
           </figure></t>
 
@@ -5082,8 +5082,8 @@ NEW:
 
       <t>CoAP-specific security considerations are discussed in Section 11 of
       <xref target="RFC7252"></xref>, while CBOR-related security
-      considerations are discussed in Section 8 of <xref
-      target="RFC7049"></xref>.</t>
+      considerations are discussed in Section 10 of <xref
+      target="RFC8949"></xref>.</t>
 
       <t>This document defines YANG data structures that are meant to be used
       as an abstract representation of DOTS signal channel messages. As such,
@@ -5134,7 +5134,7 @@ NEW:
 
       <?rfc include="reference.RFC.8085"?>
 
-      <?rfc include="reference.RFC.7049"?>
+      <?rfc include="reference.RFC.8949"?>
 
       <?rfc include="reference.RFC.8446"?>
 
@@ -5394,6 +5394,8 @@ NEW:
     <section anchor="ack" title="Acknowledgements">
       <t>Many thanks to Martin Bj&ouml;rklund for the suggestion to use
       RFC8791.</t>
+
+      <t>Thanks to Valery Smyslov for the comments, guidance, and support.</t>
 
       <t>Thanks to Ebben Aries for the yangdoctors review and Dan Romascanu
       for the opsdir review.</t>
