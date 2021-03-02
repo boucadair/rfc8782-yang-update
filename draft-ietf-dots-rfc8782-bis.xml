@@ -434,9 +434,9 @@
         comprehension-optional instead of comprehension-required. Note that
         this range is anticipated to be used by the DOTS telemetry <xref
         target="I-D.ietf-dots-telemetry"></xref> in which the following means
-        are supported to avoid that a DOTS signal channel message enriched
-        with telemetry data will exacerbate message failure: (1) DOTS agents
-        use dedicated (new) path suffixes (Section 5 of <xref
+        are used to prevent message processing failure of a DOTS signal
+        channel message enriched with telemetry data: (1) DOTS agents use
+        dedicated (new) path suffixes (Section 5 of <xref
         target="I-D.ietf-dots-telemetry"></xref>) and (2) a DOTS server won't
         include telemetry attributes in its responses unless it is explicitly
         told to do so by a DOTS client (Section 6.1.2 of <xref
@@ -3231,7 +3231,7 @@ module ietf-dots-signal-channel {
     "This module contains YANG definition for the signaling
      messages exchanged between a DOTS client and a DOTS server.
 
-     Copyright (c) 2020 IETF Trust and the persons identified as
+     Copyright (c) 2021 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
@@ -3345,8 +3345,7 @@ module ietf-dots-signal-channel {
           }
           container conflict-information {
             description
-              "Indicates that a conflict is detected.
-               Must only be used for responses.";
+              "Indicates that a conflict is detected.";
             leaf conflict-status {
               type iana-dots-signal:conflict-status;
               description
@@ -3740,7 +3739,7 @@ module ietf-dots-signal-channel {
       "Main structure for DOTS signal message.
 
        A DOTS signal message can be a mitigation, a configuration,
-       or a redirected signal message.";
+       a redirected, or a heartbeat signal message.";
     choice message-type {
       description
         "Can be a mitigation, a configuration, or a redirect
@@ -4269,7 +4268,7 @@ Note that:
       validation of the provided data by the DOTS server.</t>
 
       <t>The following list of common CoAP errors that are implemented by DOTS
-      servers. This list is not exhaustive, other errors defined by CoAP and
+      servers. This list is not exhaustive; other errors defined by CoAP and
       associated RFCs may be applicable. <list style="symbols">
           <t>4.00 (Bad Request) is returned by the DOTS server when the DOTS
           client has sent a request that violates the DOTS protocol (<xref
@@ -4305,7 +4304,7 @@ Note that:
           target="RFC7959"></xref>.</t>
 
           <t>4.15 (Unsupported Content-Format) is returned by the DOTS server
-          when the Content-Format used in the request is not formatted as
+          when the Content-Format is used but the request is not formatted as
           "application/dots+cbor" (<xref target="sig"></xref>).</t>
 
           <t>4.22 (Unprocessable Entity) is returned by the DOTS server when
