@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-dots-rfc8782-bis-04" ipr="trust200902"
+<rfc category="std" docName="draft-ietf-dots-rfc8782-bis-06" ipr="trust200902"
      obsoletes="8782">
   <front>
     <title abbrev="DOTS Signal Channel Protocol">Distributed Denial-of-Service
@@ -290,12 +290,12 @@
 
       <t>In some cases, a DOTS client and server may have a mutual agreement
       to use a specific port number, such as by explicit configuration or
-      dynamic discovery <xref target="I-D.ietf-dots-server-discovery"></xref>.
-      Absent such mutual agreement, the DOTS signal channel MUST run over port
-      number 4646 as defined in <xref target="port"></xref>, for both UDP and
-      TCP. In order to use a distinct port number (as opposed to 4646), DOTS
-      clients and servers SHOULD support a configurable parameter to supply
-      the port number to use.<figure>
+      dynamic discovery <xref target="RFC8973"></xref>. Absent such mutual
+      agreement, the DOTS signal channel MUST run over port number 4646 as
+      defined in <xref target="port"></xref>, for both UDP and TCP. In order
+      to use a distinct port number (as opposed to 4646), DOTS clients and
+      servers SHOULD support a configurable parameter to supply the port
+      number to use.<figure>
           <artwork><![CDATA[      |  Note: The rationale for not using the default port number 5684
       |  ((D)TLS CoAP) is to avoid the discovery of services and
       |  resources discussed in [RFC7252] and allow for differentiated
@@ -454,8 +454,8 @@
         <t>This document assumes that DOTS clients are provisioned with the
         reachability information of their DOTS server(s) using any of a
         variety of means (e.g., local configuration or dynamic means such as
-        DHCP <xref target="I-D.ietf-dots-server-discovery"></xref>). The
-        description of such means is out of scope of this document.</t>
+        DHCP <xref target="RFC8973"></xref>). The description of such means is
+        out of scope of this document.</t>
 
         <t>Likewise, it is out of the scope of this document to specify the
         behavior to be followed by a DOTS client in order to send DOTS
@@ -2652,8 +2652,7 @@
         it has already communicated within the last five (5) minutes, it MUST
         ignore the redirection and try to contact other DOTS servers listed in
         the local configuration or discovered using dynamic means such as DHCP
-        or SRV procedures <xref
-        target="I-D.ietf-dots-server-discovery"></xref>. It is RECOMMENDED
+        or SRV procedures <xref target="RFC8973"></xref>. It is RECOMMENDED
         that DOTS clients support the means to alert administrators about
         redirect loops.</t>
       </section>
@@ -2993,13 +2992,13 @@ module iana-dots-signal-channel {
     "This module contains a collection of YANG data types defined
      by IANA and used for DOTS signal channel protocol.
 
-     Copyright (c) 2020 IETF Trust and the persons identified as
+     Copyright (c) 2021 IETF Trust and the persons identified as
      authors of the code.  All rights reserved.
 
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
      to the license terms contained in, the Simplified BSD License
-     set forth in Section 4.c of the IETF Trust's Legal Provisions
+     set forth in Section 4 of the IETF Trust's Legal Provisions
      Relating to IETF Documents
      (http://trustee.ietf.org/license-info).
 
@@ -3170,7 +3169,7 @@ module iana-dots-signal-channel {
         <xref target="RFC8782"></xref>.</t>
 
         <t><figure align="center">
-            <artwork align="center"><![CDATA[<CODE BEGINS> file "ietf-dots-signal-channel@2020-09-24.yang"
+            <artwork align="center"><![CDATA[<CODE BEGINS> file "ietf-dots-signal-channel@2021-03-02.yang"
 module ietf-dots-signal-channel {
   yang-version 1.1;
   namespace "urn:ietf:params:xml:ns:yang:ietf-dots-signal-channel";
@@ -3237,14 +3236,14 @@ module ietf-dots-signal-channel {
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
      to the license terms contained in, the Simplified BSD License
-     set forth in Section 4.c of the IETF Trust's Legal Provisions
+     set forth in Section 4 of the IETF Trust's Legal Provisions
      Relating to IETF Documents
      (http://trustee.ietf.org/license-info).
 
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2020-09-24 {
+  revision 2021-03-02 {
     description
       "Updated revision to comply with RFC8791.";
     reference
@@ -4158,9 +4157,8 @@ Note that:
         greater as specified in <xref target="RFC8200"></xref>. If IPv4
         support on legacy or otherwise unusual networks is a consideration and
         the PMTU is unknown, DOTS implementations MAY assume a PMTU of 576
-        bytes for IPv4 datagrams, as every IPv4 host must be capable of
-        receiving a packet whose length is equal to 576 bytes as discussed in
-        <xref target="RFC0791"></xref> and <xref target="RFC1122"></xref>.</t>
+        bytes for IPv4 datagrams (see Section 3.3.3 of <xref
+        target="RFC1122"></xref>).</t>
 
         <t>The DOTS client must consider the amount of record expansion
         expected by the DTLS processing when calculating the size of the CoAP
@@ -4269,60 +4267,64 @@ Note that:
 
       <t>The following list of common CoAP errors that are implemented by DOTS
       servers. This list is not exhaustive; other errors defined by CoAP and
-      associated RFCs may be applicable. <list style="symbols">
-          <t>4.00 (Bad Request) is returned by the DOTS server when the DOTS
-          client has sent a request that violates the DOTS protocol (<xref
-          target="sig"></xref>).</t>
+      associated RFCs may be applicable. <list style="hanging">
+          <t hangText="4.00 (Bad Request)">is returned by the DOTS server when
+          the DOTS client has sent a request that violates the DOTS protocol
+          (<xref target="sig"></xref>).</t>
 
-          <t>4.01 (Unauthorized) is returned by the DOTS server when the DOTS
-          client is not authorized to access the DOTS server (<xref
-          target="sig"></xref>).</t>
+          <t hangText="4.01 (Unauthorized) ">is returned by the DOTS server
+          when the DOTS client is not authorized to access the DOTS server
+          (<xref target="sig"></xref>).</t>
 
-          <t>4.02 (Bad Option) is returned by the DOTS server when one or more
-          CoAP options are unknown or malformed by the CoAP layer <xref
+          <t hangText="4.02 (Bad Option)">is returned by the DOTS server when
+          one or more CoAP options are unknown or malformed by the CoAP layer
+          <xref target="RFC7252"></xref>.</t>
+
+          <t hangText="4.04 (Not Found)">is returned by the DOTS server when
+          the DOTS client is requesting a 'mid' or 'sid' that is not valid
+          (<xref target="sig"></xref>).</t>
+
+          <t hangText="4.05 (Method Not Allowed)">is returned by the DOTS
+          server when the DOTS client is requesting a resource by a method
+          (e.g., GET) that is not supported by the DOTS server <xref
           target="RFC7252"></xref>.</t>
 
-          <t>4.04 (Not Found) is returned by the DOTS server when the DOTS
-          client is requesting a 'mid' or 'sid' that is not valid (<xref
-          target="sig"></xref>).</t>
+          <t hangText="4.08 (Request Entity Incomplete)">is returned by the
+          DOTS server if one or multiple blocks of a block transfer request is
+          missing <xref target="RFC7959"></xref>.</t>
 
-          <t>4.05 (Method Not Allowed) is returned by the DOTS server when the
-          DOTS client is requesting a resource by a method (e.g., GET) that is
-          not supported by the DOTS server <xref target="RFC7252"></xref>.</t>
+          <t hangText="4.09 (Conflict)">is returned by the DOTS server if the
+          DOTS server detects that a request conflicts with a previous
+          request. The response body is formatted using
+          "application/dots+cbor", and contains the "conflict-clause" (<xref
+          target="m_req"></xref>).</t>
 
-          <t>4.08 (Request Entity Incomplete) is returned by the DOTS server
-          if one or multiple blocks of a block transfer request is missing
-          <xref target="RFC7959"></xref>.</t>
-
-          <t>4.09 (Conflict) is returned by the DOTS server if the DOTS server
-          detects that a request conflicts with a previous request. The
-          response body is formatted using "application/dots+cbor", and
-          contains the "conflict-clause" (<xref target="m_req"></xref>).</t>
-
-          <t>4.13 (Request Entity Too Large) may be returned by the DOTS
-          server during a block transfer request <xref
+          <t hangText="4.13 (Request Entity Too Large)">may be returned by the
+          DOTS server during a block transfer request <xref
           target="RFC7959"></xref>.</t>
 
-          <t>4.15 (Unsupported Content-Format) is returned by the DOTS server
-          when the Content-Format is used but the request is not formatted as
-          "application/dots+cbor" (<xref target="sig"></xref>).</t>
+          <t hangText="4.15 (Unsupported Content-Format)">is returned by the
+          DOTS server when the Content-Format is used but the request is not
+          formatted as "application/dots+cbor" (<xref
+          target="sig"></xref>).</t>
 
-          <t>4.22 (Unprocessable Entity) is returned by the DOTS server when
-          one or more session configuration parameters are not valid (<xref
-          target="sigconfig"></xref>).</t>
+          <t hangText="4.22 (Unprocessable Entity)">is returned by the DOTS
+          server when one or more session configuration parameters are not
+          valid (<xref target="sigconfig"></xref>).</t>
 
-          <t>5.03 (Service Unavailable) is returned by the DOTS server if the
-          DOTS server is unable to handle the request (<xref
+          <t hangText="5.03 (Service Unavailable)">is returned by the DOTS
+          server if the DOTS server is unable to handle the request (<xref
           target="sig"></xref>). An example is the DOTS server needs to
           redirect the DOTS client to use an alternate DOTS server (<xref
           target="redirect"></xref>). The response body is formatted using
           "application/dots+cbor", and contains how to handle the 5.03
           Response Code.</t>
 
-          <t>5.08 (Hop Limit Reached) is returned by the DOTS server if there
-          is a data path loop through upstream DOTS gateways. The response
-          body is formatted using plain text and contains a list of servers
-          that are in the data path loop <xref target="RFC8768"></xref>.</t>
+          <t hangText="5.08 (Hop Limit Reached)">is returned by the DOTS
+          server if there is a data path loop through upstream DOTS gateways.
+          The response body is formatted using plain text and contains a list
+          of servers that are in the data path loop <xref
+          target="RFC8768"></xref>.</t>
         </list></t>
 
       <t></t>
@@ -5272,7 +5274,7 @@ NEW:
 
       <?rfc include="reference.I-D.ietf-tls-dtls13"?>
 
-      <?rfc include='reference.I-D.ietf-dots-server-discovery'?>
+      <?rfc include='reference.RFC.8973'?>
 
       <?rfc include='reference.RFC.6887'?>
 
@@ -5396,8 +5398,10 @@ NEW:
 
       <t>Thanks to Valery Smyslov for the comments, guidance, and support.</t>
 
-      <t>Thanks to Ebben Aries for the yangdoctors review and Dan Romascanu
-      for the opsdir review.</t>
+      <t>Thanks to Ebben Aries for the yangdoctors review, Dan Romascanu for
+      the opsdir review, and Michael Tuexen for the tsv-art review.</t>
+
+      <t>Thanks to Benjamin Kaduk for the AD review.</t>
 
       <section title="Acknowledgements from RFC8782">
         <t>Thanks to Christian Jacquenet, Roland Dobbins, Roman Danyliw,
