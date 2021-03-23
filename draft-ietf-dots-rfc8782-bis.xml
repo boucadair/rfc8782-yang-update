@@ -1192,8 +1192,8 @@
             <t hangText="status:"><list style="hanging">
                 <t hangText="conflict-information:">Indicates that a
                 mitigation request is conflicting with another mitigation
-                request. This optional attribute has the following structure:
-                <list style="hanging">
+                request. This attribute has the following structure: <list
+                    style="hanging">
                     <t hangText="conflict-cause:">Indicates the cause of the
                     conflict. The following values are defined:<list
                         style="format %d:">
@@ -1255,8 +1255,8 @@
             <t hangText="status:"><list style="hanging">
                 <t hangText="conflict-information:">Indicates that a
                 mitigation request is conflicting with another mitigation
-                request(s) from other DOTS client(s). This optional attribute
-                has the following structure: <list style="hanging">
+                request(s) from other DOTS client(s). This attribute has the
+                following structure: <list style="hanging">
                     <t hangText="conflict-status:">Indicates the status of a
                     conflicting mitigation request. The following values are
                     defined:<list style="format %d:">
@@ -2412,14 +2412,18 @@
           request. Note that 'heartbeat-interval', 'missing-hb-allowed',
           'probing-rate', 'max-retransmit', 'ack-timeout', and
           'ack-random-factor', if present, do not need to be provided for both
-          'mitigating-config', and 'idle-config' in a PUT request.</t>
+          'mitigating-config', and 'idle-config' in a PUT request. A request
+          does not need to include both 'mitigating-config' and 'idle-config'
+          attributes. </t>
 
           <t>The PUT request with a higher numeric 'sid' value overrides the
           DOTS signal channel session configuration data installed by a PUT
-          request with a lower numeric 'sid' value. To avoid maintaining a
-          long list of 'sid' requests from a DOTS client, the lower numeric
-          'sid' MUST be automatically deleted and no longer available at the
-          DOTS server.</t>
+          request with a lower numeric 'sid' value. That is, the configuration
+          parameters that are included in the PUT request with a higher
+          numeric 'sid' value will be used instead of the DOTS server's
+          defaults. To avoid maintaining a long list of 'sid' requests from a
+          DOTS client, the lower numeric 'sid' MUST be automatically deleted
+          and no longer available at the DOTS server.</t>
 
           <t><xref target="Figure14"></xref> shows a PUT request example to
           convey the configuration parameters for the DOTS signal channel. In
