@@ -177,6 +177,19 @@
       the features defined in Section 2.4 of <xref
       target="RFC8612"></xref>.</t>
 
+      <t>In typical deployments, the DOTS client belongs to a different
+      administrative domain than the DOTS server. For example, the DOTS client
+      is embedded in a firewall protecting services owned and operated by a
+      customer, while the DOTS server is owned and operated by a different
+      administrative entity (service provider, typically) providing DDoS
+      mitigation services. The latter might or might not provide connectivity
+      services to the network hosting the DOTS client.</t>
+
+      <t>The DOTS server may (not) be co-located with the DOTS mitigator. In
+      typical deployments, the DOTS server belongs to the same administrative
+      domain as the mitigator. The DOTS client can communicate directly with a
+      DOTS server or indirectly via a DOTS gateway.</t>
+
       <t>An example of a network diagram that illustrates a deployment of DOTS
       agents is shown in <xref target="fig1"></xref>. In this example, a DOTS
       server is operating on the access network. A DOTS client is located on
@@ -205,18 +218,7 @@
 |           |   |              |    |          |    |             |
 +-----------+   +--------------+    \__________/    +-------------+
 ]]></artwork>
-        </figure>In typical deployments, the DOTS client belongs to a
-      different administrative domain than the DOTS server. For example, the
-      DOTS client is embedded in a firewall protecting services owned and
-      operated by a customer, while the DOTS server is owned and operated by a
-      different administrative entity (service provider, typically) providing
-      DDoS mitigation services. The latter might or might not provide
-      connectivity services to the network hosting the DOTS client.</t>
-
-      <t>The DOTS server may (not) be co-located with the DOTS mitigator. In
-      typical deployments, the DOTS server belongs to the same administrative
-      domain as the mitigator. The DOTS client can communicate directly with a
-      DOTS server or indirectly via a DOTS gateway.</t>
+        </figure></t>
 
       <t>This document adheres to the DOTS architecture <xref
       target="RFC8811"></xref>. The requirements for DOTS signal channel
@@ -247,7 +249,7 @@
       protocol alone.</t>
 
       <t>The reader should be familiar with the terms defined in <xref
-      target="RFC8612"></xref>.</t>
+      target="RFC8612"></xref> and <xref target="RFC7252"></xref>.</t>
 
       <t>The meaning of the symbols in YANG tree diagrams are defined in <xref
       target="RFC8340"></xref> and <xref target="RFC8791"></xref>.</t>
@@ -292,10 +294,11 @@
       to use a specific port number, such as by explicit configuration or
       dynamic discovery <xref target="RFC8973"></xref>. Absent such mutual
       agreement, the DOTS signal channel MUST run over port number 4646 as
-      defined in <xref target="port"></xref>, for both UDP and TCP. In order
-      to use a distinct port number (as opposed to 4646), DOTS clients and
-      servers SHOULD support a configurable parameter to supply the port
-      number to use.<figure>
+      defined in <xref target="port"></xref>, for both UDP and TCP (that is,
+      the DOTS server listens on port number 4646). In order to use a distinct
+      port number (as opposed to 4646), DOTS clients and servers SHOULD
+      support a configurable parameter to supply the port number to
+      use.<figure>
           <artwork><![CDATA[      |  Note: The rationale for not using the default port number 5684
       |  ((D)TLS CoAP) is to avoid the discovery of services and
       |  resources discussed in [RFC7252] and allow for differentiated
@@ -342,7 +345,7 @@
       rely on the signal channel session loss to trigger mitigation for
       preconfigured mitigation requests (if any).</t>
 
-      <t>DOTS signaling can happen with DTLS over UDP and TLS over TCP.
+      <t>DOTS signaling can happen use DTLS over UDP and TLS over TCP.
       Likewise, DOTS requests may be sent using IPv4 or IPv6 transfer
       capabilities. A Happy Eyeballs procedure for the DOTS signal channel is
       specified in <xref target="HE"></xref>.</t>
@@ -387,16 +390,17 @@
       <xref target="RFC7252"></xref>). The diagnostic payload may contain
       additional information to aid troubleshooting.</t>
 
-      <t>In deployments where multiple DOTS clients are enabled in a network
-      (owned and operated by the same entity), the DOTS server may detect
-      conflicting mitigation requests from these clients. This document does
-      not aim to specify a comprehensive list of conditions under which a DOTS
-      server will characterize two mitigation requests from distinct DOTS
-      clients as conflicting, nor does it recommend a DOTS server behavior for
-      processing conflicting mitigation requests. Those considerations are
-      implementation and deployment specific. Nevertheless, this document
-      specifies the mechanisms to notify DOTS clients when conflicts occur,
-      including the conflict cause (<xref target="m_req"></xref>).</t>
+      <t>In deployments where multiple DOTS clients are enabled in a single
+      network and administrative domain (called, DOTS client domain), the DOTS
+      server may detect conflicting mitigation requests from these clients.
+      This document does not aim to specify a comprehensive list of conditions
+      under which a DOTS server will characterize two mitigation requests from
+      distinct DOTS clients as conflicting, nor does it recommend a DOTS
+      server behavior for processing conflicting mitigation requests. Those
+      considerations are implementation and deployment specific. Nevertheless,
+      this document specifies the mechanisms to notify DOTS clients when
+      conflicts occur, including the conflict cause (<xref
+      target="m_req"></xref>).</t>
 
       <t>In deployments where one or more translators (e.g., Traditional NAT
       <xref target="RFC3022"></xref>, CGN <xref target="RFC6888"></xref>,
@@ -411,10 +415,11 @@
       considered: <list style="symbols">
           <t hangText="*">Port Control Protocol (PCP) <xref
           target="RFC6887"></xref> or Session Traversal Utilities for NAT
-          (STUN) <xref target="RFC8489"></xref> may be used to retrieve the
-          external addresses/prefixes and/or port numbers. Information
-          retrieved by means of PCP or STUN will be used to feed the DOTS
-          signal channel messages that will be sent to a DOTS server.</t>
+          (STUN) <xref target="RFC8489"></xref> may be used by the client to
+          retrieve the external addresses/prefixes and/or port numbers.
+          Information retrieved by means of PCP or STUN will be used to feed
+          the DOTS signal channel messages that will be sent to a DOTS
+          server.</t>
 
           <t>A DOTS gateway may be co-located with the translator. The DOTS
           gateway will need to update the DOTS messages based upon the local
@@ -606,10 +611,10 @@
             carry mitigation efficacy updates to the DOTS server (<xref
             target="put"></xref>).</t>
 
-            <t hangText="GET:">DOTS clients may use the GET method to
-            subscribe to DOTS server status messages or to retrieve the list
-            of its mitigations maintained by a DOTS server (<xref
-            target="get"></xref>).</t>
+            <t hangText="GET:">DOTS clients may use the GET method to retrieve
+            the list of its mitigations maintained by a DOTS server (<xref
+            target="get"></xref>) or to receive asynchronous DOTS server
+            status messages (<xref target="obs"></xref>).</t>
 
             <t hangText="DELETE:">DOTS clients use the DELETE method to
             withdraw a request for mitigation from a DOTS server (<xref
@@ -642,21 +647,22 @@
         <xref format="counter" target="as"></xref>.</t>
 
         <section anchor="post" title="Request Mitigation">
-          <t>When a DOTS client requires mitigation for some reason, the DOTS
-          client uses the CoAP PUT method to send a mitigation request to its
-          DOTS server(s) (Figures <xref format="counter"
-          target="Figure1"></xref> and <xref format="counter"
-          target="Figure1c"></xref>).</t>
+          <section title="Buidling Mitigation Requests">
+            <t>When a DOTS client requires mitigation for some reason, the
+            DOTS client uses the CoAP PUT method to send a mitigation request
+            to its DOTS server(s) (Figures <xref format="counter"
+            target="Figure1"></xref> and <xref format="counter"
+            target="Figure1c"></xref>).</t>
 
-          <t>If a DOTS client is entitled to solicit the DOTS service, the
-          DOTS server enables mitigation on behalf of the DOTS client by
-          communicating the DOTS client's request to a mitigator (which may be
-          co-located with the DOTS server) and relaying the feedback of the
-          thus-selected mitigator to the requesting DOTS client.</t>
+            <t>If a DOTS client is entitled to solicit the DOTS service, the
+            DOTS server enables mitigation on behalf of the DOTS client by
+            communicating the DOTS client's request to a mitigator (which may
+            be co-located with the DOTS server) and relaying the feedback of
+            the thus-selected mitigator to the requesting DOTS client.</t>
 
-          <t><figure anchor="Figure1"
-              title="PUT to Convey DOTS Mitigation Requests">
-              <artwork align="left"><![CDATA[  Header: PUT (Code=0.03)
+            <t><figure anchor="Figure1"
+                title="PUT to Convey DOTS Mitigation Requests">
+                <artwork align="left"><![CDATA[  Header: PUT (Code=0.03)
   Uri-Path: ".well-known"
   Uri-Path: "dots"
   Uri-Path: "mitigate"
@@ -668,86 +674,87 @@
     ...
   }
 ]]></artwork>
-            </figure></t>
+              </figure></t>
 
-          <t>The order of the Uri-Path options is important as it defines the
-          CoAP resource. In particular, 'mid' MUST follow 'cuid'.</t>
+            <t>The order of the Uri-Path options is important as it defines
+            the CoAP resource. In particular, 'mid' MUST follow 'cuid'.</t>
 
-          <t>The additional Uri-Path parameters to those defined in <xref
-          target="uri-path"></xref> are as follows:</t>
+            <t>The additional Uri-Path parameters to those defined in <xref
+            target="uri-path"></xref> are as follows:</t>
 
-          <t><list hangIndent="6" style="hanging">
-              <t hangText="cuid:">Stands for Client Unique Identifier. A
-              globally unique identifier that is meant to prevent collisions
-              among DOTS clients, especially those from the same domain. It
-              MUST be generated by DOTS clients.<vspace blankLines="1" />For
-              the reasons discussed in Appendix A, implementations SHOULD set
-              'cuid' using the following procedure: first, the DOTS client
-              inputs one of the following into the SHA-256 [RFC6234]
-              cryptographic hash: the DER-encoded ASN.1 representation of the
-              Subject Public Key Info (SPKI) of its X.509 certificate
-              [RFC5280], its raw public key [RFC7250], the "Pre-Shared Key
-              (PSK) identity" it uses in the TLS 1.2 ClientKeyExchange
-              message, or the "identity" it uses in the "pre_shared_key" TLS
-              1.3 extension. Then, the output of the cryptographic hash
-              algorithm is truncated to 16 bytes; truncation is done by
-              stripping off the final 16 bytes. The truncated output is
-              base64url encoded (Section 5 of [RFC4648]) with the trailing "="
-              removed from the encoding, and the resulting value used as the
-              'cuid'. <vspace blankLines="1" />The 'cuid' is intended to be
-              stable when communicating with a given DOTS server, i.e., the
-              'cuid' used by a DOTS client SHOULD NOT change over time.
-              Distinct 'cuid' values MAY be used by a single DOTS client per
-              DOTS server. <vspace blankLines="1" />If a DOTS client has to
-              change its 'cuid' for some reason, it MUST NOT do so when
-              mitigations are still active for the old 'cuid'. The 'cuid'
-              SHOULD be 22 characters to avoid DOTS signal message
-              fragmentation over UDP. Furthermore, if that DOTS client created
-              aliases and filtering entries at the DOTS server by means of the
-              DOTS data channel, it MUST delete all the entries bound to the
-              old 'cuid' and reinstall them using the new 'cuid'.<vspace
-              blankLines="1" />DOTS servers MUST return 4.09 (Conflict) error
-              code to a DOTS peer to notify that the 'cuid' is already in use
-              by another DOTS client. Upon receipt of that error code, a new
-              'cuid' MUST be generated by the DOTS peer (e.g., using <xref
-              target="RFC4122"></xref>). <vspace
-              blankLines="1" />Client-domain DOTS gateways MUST handle 'cuid'
-              collision directly and it is RECOMMENDED that 'cuid' collision
-              is handled directly by server-domain DOTS gateways.<vspace
-              blankLines="1" />DOTS gateways MAY rewrite the 'cuid' used by
-              peer DOTS clients. Triggers for such rewriting are out of scope.
-              <vspace blankLines="1" />This is a mandatory Uri-Path
-              parameter.</t>
+            <t><list hangIndent="6" style="hanging">
+                <t hangText="cuid:">Stands for Client Unique Identifier. A
+                globally unique identifier that is meant to prevent collisions
+                among DOTS clients, especially those from the same domain. It
+                MUST be generated by DOTS clients.<vspace blankLines="1" />For
+                the reasons discussed in Appendix A, implementations SHOULD
+                set 'cuid' using the following procedure: first, the DOTS
+                client inputs one of the following into the SHA-256 [RFC6234]
+                cryptographic hash: the DER-encoded ASN.1 representation of
+                the Subject Public Key Info (SPKI) of its X.509 certificate
+                [RFC5280], its raw public key [RFC7250], the "Pre-Shared Key
+                (PSK) identity" it uses in the TLS 1.2 ClientKeyExchange
+                message, or the "identity" it uses in the "pre_shared_key" TLS
+                1.3 extension. Then, the output of the cryptographic hash
+                algorithm is truncated to 16 bytes; truncation is done by
+                stripping off the final 16 bytes. The truncated output is
+                base64url encoded (Section 5 of [RFC4648]) with the two
+                trailing "=" removed from the encoding, and the resulting
+                value used as the 'cuid'. <vspace blankLines="1" />The 'cuid'
+                is intended to be stable when communicating with a given DOTS
+                server, i.e., the 'cuid' used by a DOTS client SHOULD NOT
+                change over time. Distinct 'cuid' values MAY be used by a
+                single DOTS client per DOTS server. <vspace
+                blankLines="1" />If a DOTS client has to change its 'cuid' for
+                some reason, it MUST NOT do so when mitigations are still
+                active for the old 'cuid'. The 'cuid' SHOULD be 22 characters
+                to avoid DOTS signal message fragmentation over UDP.
+                Furthermore, if that DOTS client created aliases and filtering
+                entries at the DOTS server by means of the DOTS data channel,
+                it MUST delete all the entries bound to the old 'cuid' and
+                reinstall them using the new 'cuid'.<vspace
+                blankLines="1" />DOTS servers MUST return 4.09 (Conflict)
+                error code to a DOTS peer to notify that the 'cuid' is already
+                in use by another DOTS client. Upon receipt of that error
+                code, a new 'cuid' MUST be generated by the DOTS peer (e.g.,
+                using <xref target="RFC4122"></xref>). <vspace
+                blankLines="1" />Client-domain DOTS gateways MUST handle
+                'cuid' collision directly and it is RECOMMENDED that 'cuid'
+                collision is handled directly by server-domain DOTS
+                gateways.<vspace blankLines="1" />DOTS gateways MAY rewrite
+                the 'cuid' used by peer DOTS clients. Triggers for such
+                rewriting are out of scope. <vspace blankLines="1" />This is a
+                mandatory Uri-Path parameter.</t>
 
-              <t hangText="mid:">Identifier for the mitigation request
-              represented with an integer. This identifier MUST be unique for
-              each mitigation request bound to the DOTS client, i.e., the
-              'mid' parameter value in the mitigation request needs to be
-              unique (per 'cuid' and DOTS server) relative to the 'mid'
-              parameter values of active mitigation requests conveyed from the
-              DOTS client to the DOTS server.<vspace blankLines="1" />In order
-              to handle out-of-order delivery of mitigation requests, 'mid'
-              values MUST increase monotonically. <vspace blankLines="1" />If
-              the 'mid' value has reached 3/4 of (2^(32) - 1) (i.e.,
-              3221225471) and no attack is detected, the DOTS client MUST
-              reset 'mid' to 0 to handle 'mid' rollover. If the DOTS client
-              maintains mitigation requests with preconfigured scopes, it MUST
-              recreate them with the 'mid' restarting at 0.<vspace
-              blankLines="1" />This identifier MUST be generated by the DOTS
-              client.<vspace blankLines="1" />This is a mandatory Uri-Path
-              parameter.</t>
-            </list></t>
+                <t hangText="mid:">Identifier for the mitigation request
+                represented with an integer. This identifier MUST be unique
+                for each mitigation request bound to the DOTS client, i.e.,
+                the 'mid' parameter value in the mitigation request needs to
+                be unique (per 'cuid' and DOTS server) relative to the 'mid'
+                parameter values of active mitigation requests conveyed from
+                the DOTS client to the DOTS server.<vspace blankLines="1" />In
+                order to handle out-of-order delivery of mitigation requests,
+                'mid' values MUST increase monotonically. <vspace
+                blankLines="1" />If the 'mid' value has reached 3/4 of (2^(32)
+                - 1) (i.e., 3221225471) and no attack is detected, the DOTS
+                client MUST reset 'mid' to 0 to handle 'mid' rollover. If the
+                DOTS client maintains mitigation requests with preconfigured
+                scopes, it MUST recreate them with the 'mid' restarting at
+                0.<vspace blankLines="1" />This identifier MUST be generated
+                by the DOTS client.<vspace blankLines="1" />This is a
+                mandatory Uri-Path parameter.</t>
+              </list></t>
 
-          <t>'cuid' and 'mid' MUST NOT appear in the PUT request message body
-          (<xref target="Figure1c"></xref>). The schema in <xref
-          target="Figure1c"></xref> uses the types defined in <xref
-          target="mapping"></xref>. Note that this figure (and other similar
-          figures depicting a schema) are non-normative sketches of the
-          structure of the message.</t>
+            <t>'cuid' and 'mid' MUST NOT appear in the PUT request message
+            body (<xref target="Figure1c"></xref>). The schema in <xref
+            target="Figure1c"></xref> uses the types defined in <xref
+            target="mapping"></xref>. Note that this figure (and other similar
+            figures depicting a schema) are non-normative sketches of the
+            structure of the message.</t>
 
-          <t><figure anchor="Figure1c"
-              title="PUT to Convey DOTS Mitigation Requests (Message Body Schema)">
-              <artwork align="left"><![CDATA[  {
+            <t><figure anchor="Figure1c"
+                title="PUT to Convey DOTS Mitigation Requests (Message Body Schema)">
+                <artwork align="left"><![CDATA[  {
     "ietf-dots-signal-channel:mitigation-scope": {
       "scope": [
         {
@@ -779,230 +786,152 @@
     }
   }
 ]]></artwork>
-            </figure></t>
+              </figure></t>
 
-          <t>The parameters in the CBOR body (<xref target="Figure1c"></xref>)
-          of the PUT request are described below:</t>
+            <t>The parameters in the CBOR body (<xref
+            target="Figure1c"></xref>) of the PUT request are described
+            below:</t>
 
-          <t><list style="hanging">
-              <t hangText="target-prefix:">A list of prefixes identifying
-              resources under attack. Prefixes are represented using Classless
-              Inter-Domain Routing (CIDR) notation <xref
-              target="RFC4632"></xref>. <vspace blankLines="1" />As a
-              reminder, the prefix length must be less than or equal to 32 for
-              IPv4 and 128 for IPv6.<vspace blankLines="1" />The prefix list
-              MUST NOT include broadcast, loopback, or multicast addresses.
-              These addresses are considered to be invalid values. In
-              addition, the DOTS server MUST validate that target prefixes are
-              within the scope of the DOTS client domain. Other validation
-              checks may be supported by DOTS servers.<vspace
-              blankLines="1" />This is an optional attribute.</t>
+            <t><list style="hanging">
+                <t hangText="target-prefix:">A list of prefixes identifying
+                resources under attack. Prefixes are represented using
+                Classless Inter-Domain Routing (CIDR) notation <xref
+                target="RFC4632"></xref>. <vspace blankLines="1" />As a
+                reminder, the prefix length must be less than or equal to 32
+                for IPv4 and 128 for IPv6.<vspace blankLines="1" />The prefix
+                list MUST NOT include broadcast, loopback, or multicast
+                addresses. These addresses are considered to be invalid
+                values. In addition, the DOTS server MUST validate that target
+                prefixes are within the scope of the DOTS client domain. Other
+                validation checks may be supported by DOTS servers.<vspace
+                blankLines="1" />This is an optional attribute.</t>
 
-              <t hangText="target-port-range:">A list of port numbers bound to
-              resources under attack. <vspace blankLines="1" />A port range is
-              defined by two bounds, a lower port number ('lower-port') and an
-              upper port number ('upper-port'). When only 'lower-port' is
-              present, it represents a single port number.<vspace
-              blankLines="1" />For TCP, UDP, Stream Control Transmission
-              Protocol (SCTP) <xref target="RFC4960"></xref>, or Datagram
-              Congestion Control Protocol (DCCP) <xref
-              target="RFC4340"></xref>, a range of ports can be, for example,
-              0-1023, 1024-65535, or 1024-49151. <vspace blankLines="1" />This
-              is an optional attribute.</t>
+                <t hangText="target-port-range:">A list of port numbers bound
+                to resources under attack. <vspace blankLines="1" />A port
+                range is defined by two bounds, a lower port number
+                ('lower-port') and an upper port number ('upper-port'). When
+                only 'lower-port' is present, it represents a single port
+                number.<vspace blankLines="1" />For TCP, UDP, Stream Control
+                Transmission Protocol (SCTP) <xref target="RFC4960"></xref>,
+                or Datagram Congestion Control Protocol (DCCP) <xref
+                target="RFC4340"></xref>, a range of ports can be, for
+                example, 0-1023, 1024-65535, or 1024-49151. <vspace
+                blankLines="1" />This is an optional attribute.</t>
 
-              <t hangText="target-protocol:">A list of protocols involved in
-              an attack. Values are taken from the IANA protocol registry
-              <xref target="IANA-Proto"></xref>. <vspace blankLines="1" />If
-              'target-protocol' is not specified, then the request applies to
-              any protocol. <vspace blankLines="1" />This is an optional
-              attribute.</t>
+                <t hangText="target-protocol:">A list of protocols involved in
+                an attack. Values are taken from the IANA protocol registry
+                <xref target="IANA-Proto"></xref>. <vspace blankLines="1" />If
+                'target-protocol' is not specified, then the request applies
+                to any protocol. <vspace blankLines="1" />This is an optional
+                attribute.</t>
 
-              <t hangText="target-fqdn:">A list of Fully Qualified Domain
-              Names (FQDNs) identifying resources under attack <xref
-              target="RFC8499"></xref>.<vspace blankLines="1" />How a name is
-              passed to an underlying name resolution library is
-              implementation and deployment specific. Nevertheless, once the
-              name is resolved into one or multiple IP addresses, DOTS servers
-              MUST apply the same validation checks as those for
-              'target-prefix'.<vspace blankLines="1" />The use of FQDNs may be
-              suboptimal because:<list style="symbols">
-                  <t>It induces both an extra load and increased delays on the
-                  DOTS server to handle and manage DNS resolution
-                  requests.</t>
+                <t hangText="target-fqdn:">A list of Fully Qualified Domain
+                Names (FQDNs) identifying resources under attack <xref
+                target="RFC8499"></xref>.<vspace blankLines="1" />How a name
+                is passed to an underlying name resolution library is
+                implementation and deployment specific. Nevertheless, once the
+                name is resolved into one or multiple IP addresses, DOTS
+                servers MUST apply the same validation checks as those for
+                'target-prefix'.<vspace blankLines="1" />The use of FQDNs may
+                be suboptimal because:<list style="symbols">
+                    <t>It induces both an extra load and increased delays on
+                    the DOTS server to handle and manage DNS resolution
+                    requests.</t>
 
-                  <t>It does not guarantee that the DOTS server will resolve a
-                  name to the same IP addresses that the DOTS client does.</t>
-                </list><vspace blankLines="1" />This is an optional
-              attribute.</t>
+                    <t>It does not guarantee that the DOTS server will resolve
+                    a name to the same IP addresses that the DOTS client
+                    does.</t>
+                  </list><vspace blankLines="1" />This is an optional
+                attribute.</t>
 
-              <t hangText="target-uri:">A list of URIs <xref
-              target="RFC3986"></xref> identifying resources under attack.
-              <vspace blankLines="1" />The same validation checks used for
-              'target-fqdn' MUST be followed by DOTS servers to validate a
-              target URI. <vspace blankLines="1" />This is an optional
-              attribute.</t>
+                <t hangText="target-uri:">A list of URIs <xref
+                target="RFC3986"></xref> identifying resources under attack.
+                <vspace blankLines="1" />The same validation checks used for
+                'target-fqdn' MUST be followed by DOTS servers to validate a
+                target URI. <vspace blankLines="1" />This is an optional
+                attribute.</t>
 
-              <t hangText="alias-name:">A list of aliases of resources for
-              which the mitigation is requested. Aliases can be created using
-              the DOTS data channel (Section 6.1 of <xref
-              target="RFC8783"></xref>), direct configuration, or other means.
-              <vspace blankLines="1" />An alias is used in subsequent signal
-              channel exchanges to refer more efficiently to the resources
-              under attack.<vspace blankLines="1" />This is an optional
-              attribute.</t>
+                <t hangText="alias-name:">A list of aliases of resources for
+                which the mitigation is requested. Aliases can be created
+                using the DOTS data channel (Section 6.1 of <xref
+                target="RFC8783"></xref>), direct configuration, or other
+                means. <vspace blankLines="1" />An alias is used in subsequent
+                signal channel exchanges to refer more efficiently to the
+                resources under attack.<vspace blankLines="1" />This is an
+                optional attribute.</t>
 
-              <t hangText="lifetime:">Lifetime of the mitigation request in
-              seconds. The RECOMMENDED lifetime of a mitigation request is
-              3600 seconds: this value was chosen to be long enough so that
-              refreshing is not typically a burden on the DOTS client, while
-              still making the request expire in a timely manner when the
-              client has unexpectedly quit. DOTS clients MUST include this
-              parameter in their mitigation requests. Upon the expiry of this
-              lifetime, and if the request is not refreshed, the mitigation
-              request is removed. The request can be refreshed by sending the
-              same request again. <vspace blankLines="1" />A lifetime of '0'
-              in a mitigation request is an invalid value. <vspace
-              blankLines="1" />A lifetime of negative one (-1) indicates
-              indefinite lifetime for the mitigation request. The DOTS server
-              MAY refuse an indefinite lifetime, for policy reasons; the
-              granted lifetime value is returned in the response. DOTS clients
-              MUST be prepared to not be granted mitigations with indefinite
-              lifetimes.<vspace blankLines="1" />The DOTS server MUST always
-              indicate the actual lifetime in the response and the remaining
-              lifetime in status messages sent to the DOTS client. <vspace
-              blankLines="1" />This is a mandatory attribute.</t>
+                <t hangText="lifetime:">Lifetime of the mitigation request in
+                seconds. The RECOMMENDED lifetime of a mitigation request is
+                3600 seconds: this value was chosen to be long enough so that
+                refreshing is not typically a burden on the DOTS client, while
+                still making the request expire in a timely manner when the
+                client has unexpectedly quit. DOTS clients MUST include this
+                parameter in their mitigation requests. Upon the expiry of
+                this lifetime, and if the request is not refreshed, the
+                mitigation request is removed. The request can be refreshed by
+                sending the same request again. <vspace blankLines="1" />A
+                lifetime of '0' in a mitigation request is an invalid value.
+                <vspace blankLines="1" />A lifetime of negative one (-1)
+                indicates indefinite lifetime for the mitigation request. The
+                DOTS server MAY refuse an indefinite lifetime, for policy
+                reasons; the granted lifetime value is returned in the
+                response. DOTS clients MUST be prepared to not be granted
+                mitigations with indefinite lifetimes.<vspace
+                blankLines="1" />The DOTS server MUST always indicate the
+                actual lifetime in the response and the remaining lifetime in
+                status messages sent to the DOTS client. <vspace
+                blankLines="1" />This is a mandatory attribute.</t>
 
-              <t hangText="trigger-mitigation:">If the parameter value is set
-              to 'false', DDoS mitigation will not be triggered for the
-              mitigation request unless the DOTS signal channel session is
-              lost. <vspace blankLines="1" />If the DOTS client ceases to
-              respond to heartbeat messages, the DOTS server can detect that
-              the DOTS signal channel session is lost. More details are
-              discussed in <xref target="hb"></xref>.<vspace
-              blankLines="1" />The default value of the parameter is 'true'
-              (that is, the mitigation starts immediately). If
-              'trigger-mitigation' is not present in a request, this is
-              equivalent to receiving a request with 'trigger-mitigation' set
-              to 'true'. <vspace blankLines="1" />This is an optional
-              attribute.</t>
-            </list></t>
+                <t hangText="trigger-mitigation:">If the parameter value is
+                set to 'false', DDoS mitigation will not be triggered for the
+                mitigation request unless the DOTS signal channel session is
+                lost. <vspace blankLines="1" />If the DOTS client ceases to
+                respond to heartbeat messages, the DOTS server can detect that
+                the DOTS signal channel session is lost. More details are
+                discussed in <xref target="hb"></xref>.<vspace
+                blankLines="1" />The default value of the parameter is 'true'
+                (that is, the mitigation starts immediately). If
+                'trigger-mitigation' is not present in a request, this is
+                equivalent to receiving a request with 'trigger-mitigation'
+                set to 'true'. <vspace blankLines="1" />This is an optional
+                attribute.</t>
+              </list></t>
 
-          <t>In deployments where server-domain DOTS gateways are enabled,
-          identity information about the origin source client domain ('cdid')
-          SHOULD be propagated to the DOTS server. That information is meant
-          to assist the DOTS server in enforcing some policies such as
-          grouping DOTS clients that belong to the same DOTS domain, limiting
-          the number of DOTS requests, and identifying the mitigation scope.
-          These policies can be enforced per client, per client domain, or
-          both. Also, the identity information may be used for auditing and
-          debugging purposes.</t>
+            <t>Because of the complexity of handling partial failure cases,
+            this specification does not allow the inclusion of multiple
+            mitigation requests in the same PUT request. Concretely, a DOTS
+            client MUST NOT include multiple entries in the 'scope' array of
+            the same PUT request.</t>
 
-          <t><xref target="Figure1a"></xref> shows an example of a request
-          relayed by a server-domain DOTS gateway.</t>
+            <t>FQDN and URI mitigation scopes may be thought of as a form of
+            scope alias, in which the addresses associated with the domain
+            name or URI (as resolved by the DOTS server) represent the scope
+            of the mitigation. Particularly, the IP addresses to which the
+            host subcomponent of authority component of a URI resolves
+            represent the 'target-prefix', the URI scheme represents the
+            'target-protocol', the port subcomponent of authority component of
+            a URI represents the 'target-port-range'. If the optional port
+            information is not present in the authority component, the default
+            port defined for the URI scheme represents the 'target-port'.</t>
 
-          <t><figure anchor="Figure1a"
-              title="PUT for DOTS Mitigation Request as Relayed by a DOTS Gateway">
-              <artwork align="left"><![CDATA[  Header: PUT (Code=0.03)
-  Uri-Path: ".well-known"
-  Uri-Path: "dots"
-  Uri-Path: "mitigate"
-  Uri-Path: "cdid=7eeaf349529eb55ed50113"
-  Uri-Path: "cuid=dz6pHjaADkaFTbjr0JGBpw"
-  Uri-Path: "mid=123"
-  Content-Format: "application/dots+cbor"
+            <t>In the PUT request, at least one of the attributes
+            'target-prefix', 'target-fqdn','target-uri', or 'alias-name' MUST
+            be present.</t>
 
-  {
-    ...
-  }
-]]></artwork>
-            </figure></t>
+            <t>Attributes and Uri-Path parameters with empty values MUST NOT
+            be present in a request as an empty value will render the entire
+            request invalid.</t>
 
-          <t>A server-domain DOTS gateway SHOULD add the following Uri-Path
-          parameter:</t>
+            <t><xref target="Figure2"></xref> shows a PUT request example to
+            signal that servers 2001:db8:6401::1 and 2001:db8:6401::2 are
+            receiving attack traffic on TCP port numbers 80, 8080, and 443.
+            The presence of 'cdid' indicates that a server-domain DOTS gateway
+            has modified the initial PUT request sent by the DOTS client. Note
+            that 'cdid' MUST NOT appear in the PUT request message body.</t>
 
-          <t><list hangIndent="6" style="hanging">
-              <t hangText="cdid:">Stands for Client Domain Identifier. The
-              'cdid' is conveyed by a server-domain DOTS gateway to propagate
-              the source domain identity from the gateway's client-facing side
-              to the gateway's server-facing side, and from the gateway's
-              server-facing side to the DOTS server. 'cdid' may be used by the
-              final DOTS server for policy enforcement purposes (e.g., enforce
-              a quota on filtering rules). These policies are deployment
-              specific.<vspace blankLines="1" />Server-domain DOTS gateways
-              SHOULD support a configuration option to instruct whether 'cdid'
-              parameter is to be inserted. <vspace blankLines="1" />In order
-              to accommodate deployments that require enforcing per- client
-              policies, per-client domain policies, or a combination thereof,
-              server-domain DOTS gateways instructed to insert the 'cdid'
-              parameter MUST supply the SPKI hash of the DOTS client X.509
-              certificate, the DOTS client raw public key, or the hash of the
-              "PSK identity" in the 'cdid', following the same rules for
-              generating the hash conveyed in 'cuid', which is then used by
-              the ultimate DOTS server to determine the corresponding client's
-              domain. The 'cdid' generated by a server-domain gateway is
-              likely to be the same as the 'cuid' except the case in which the
-              DOTS message was relayed by a client-domain DOTS gateway or the
-              'cuid' was generated from a rogue DOTS client.<vspace
-              blankLines="1" />If a DOTS client is provisioned, for example,
-              with distinct certificates as a function of the peer
-              server-domain DOTS gateway, distinct 'cdid' values may be
-              supplied by a server-domain DOTS gateway. The ultimate DOTS
-              server MUST treat those 'cdid' values as equivalent. <vspace
-              blankLines="1" />The 'cdid' attribute MUST NOT be generated and
-              included by DOTS clients. <vspace blankLines="1" />DOTS servers
-              MUST ignore 'cdid' attributes that are directly supplied by
-              source DOTS clients or client-domain DOTS gateways. This implies
-              that first server-domain DOTS gateways MUST strip 'cdid'
-              attributes supplied by DOTS clients. DOTS servers SHOULD support
-              a configuration parameter to identify DOTS gateways that are
-              trusted to supply 'cdid' attributes.<vspace
-              blankLines="1" />Only single-valued 'cdid' are defined in this
-              document. That is, only the first on-path server-domain DOTS
-              gateway can insert a 'cdid' value. This specification does not
-              allow multiple server-domain DOTS gateways, whenever involved in
-              the path, to insert a 'cdid' value for each server-domain
-              gateway. <vspace blankLines="1" />This is an optional Uri-Path.
-              When present, 'cdid' MUST be positioned before 'cuid'.</t>
-            </list></t>
-
-          <t>A DOTS gateway SHOULD add the CoAP Hop-Limit Option <xref
-          target="RFC8768"></xref>.</t>
-
-          <t>Because of the complexity of handling partial failure cases, this
-          specification does not allow the inclusion of multiple mitigation
-          requests in the same PUT request. Concretely, a DOTS client MUST NOT
-          include multiple entries in the 'scope' array of the same PUT
-          request.</t>
-
-          <t>FQDN and URI mitigation scopes may be thought of as a form of
-          scope alias, in which the addresses associated with the domain name
-          or URI (as resolved by the DOTS server) represent the scope of the
-          mitigation. Particularly, the IP addresses to which the host
-          subcomponent of authority component of a URI resolves represent the
-          'target-prefix', the URI scheme represents the 'target-protocol',
-          the port subcomponent of authority component of a URI represents the
-          'target-port-range'. If the optional port information is not present
-          in the authority component, the default port defined for the URI
-          scheme represents the 'target-port'.</t>
-
-          <t>In the PUT request, at least one of the attributes
-          'target-prefix', 'target-fqdn','target-uri', or 'alias-name' MUST be
-          present.</t>
-
-          <t>Attributes and Uri-Path parameters with empty values MUST NOT be
-          present in a request as an empty value will render the entire
-          request invalid.</t>
-
-          <t><xref target="Figure2"></xref> shows a PUT request example to
-          signal that servers 2001:db8:6401::1 and 2001:db8:6401::2 are
-          receiving attack traffic on TCP port numbers 80, 8080, and 443. The
-          presence of 'cdid' indicates that a server-domain DOTS gateway has
-          modified the initial PUT request sent by the DOTS client. Note that
-          'cdid' MUST NOT appear in the PUT request message body.</t>
-
-          <t><figure anchor="Figure2"
-              title="PUT for DOTS Mitigation Request (An Example)">
-              <artwork align="left"><![CDATA[  Header: PUT (Code=0.03)
+            <t><figure anchor="Figure2"
+                title="PUT for DOTS Mitigation Request (An Example)">
+                <artwork align="left"><![CDATA[  Header: PUT (Code=0.03)
   Uri-Path: ".well-known"
   Uri-Path: "dots"
   Uri-Path: "mitigate"
@@ -1039,14 +968,14 @@
     }
   }
 ]]></artwork>
-            </figure></t>
+              </figure></t>
 
-          <t>The corresponding CBOR encoding format for the payload is shown
-          in <xref target="Figure2a"></xref>.</t>
+            <t>The corresponding CBOR encoding format for the payload is shown
+            in <xref target="Figure2a"></xref>.</t>
 
-          <t><figure anchor="Figure2a"
-              title="PUT for DOTS Mitigation Request (CBOR)">
-              <artwork align="left"><![CDATA[   A1                                      # map(1)
+            <t><figure anchor="Figure2a"
+                title="PUT for DOTS Mitigation Request (CBOR)">
+                <artwork align="left"><![CDATA[   A1                                      # map(1)
       01                                   # unsigned(1)
       A1                                   # map(1)
          02                                # unsigned(2)
@@ -1075,51 +1004,140 @@
                0E                          # unsigned(14)
                19 0E10                     # unsigned(3600)
 ]]></artwork>
-            </figure></t>
+              </figure></t>
 
-          <t>In both DOTS signal and data channel sessions, the DOTS client
-          MUST authenticate itself to the DOTS server (<xref
-          target="mutauth"></xref>). The DOTS server MAY use the algorithm
-          presented in Section 7 of <xref target="RFC7589"></xref> to derive
-          the DOTS client identity or username from the client certificate.
-          The DOTS client identity allows the DOTS server to accept mitigation
-          requests with scopes that the DOTS client is authorized to
-          manage.</t>
+            <t>In both DOTS signal and data channel sessions, the DOTS client
+            MUST authenticate itself to the DOTS server (<xref
+            target="mutauth"></xref>). The DOTS server MAY use the algorithm
+            presented in Section 7 of <xref target="RFC7589"></xref> to derive
+            the DOTS client identity or username from the client certificate.
+            The DOTS client identity allows the DOTS server to accept
+            mitigation requests with scopes that the DOTS client is authorized
+            to manage.</t>
+          </section>
 
-          <t>The DOTS server couples the DOTS signal and data channel sessions
-          using the DOTS client identity and optionally the 'cdid' parameter
-          value, so the DOTS server can validate whether the aliases conveyed
-          in the mitigation request were indeed created by the same DOTS
-          client using the DOTS data channel session. If the aliases were not
-          created by the DOTS client, the DOTS server MUST return 4.00 (Bad
-          Request) in the response.</t>
+          <section title="Server-domain DOTS Gateways">
+            <t>In deployments where server-domain DOTS gateways are enabled,
+            identity information about the origin source client domain
+            ('cdid') SHOULD be propagated to the DOTS server. That information
+            is meant to assist the DOTS server in enforcing some policies such
+            as grouping DOTS clients that belong to the same DOTS domain,
+            limiting the number of DOTS requests, and identifying the
+            mitigation scope. These policies can be enforced per client, per
+            client domain, or both. Also, the identity information may be used
+            for auditing and debugging purposes.</t>
 
-          <t>The DOTS server couples the DOTS signal channel sessions using
-          the DOTS client identity and optionally the 'cdid' parameter value,
-          and the DOTS server uses 'mid' and 'cuid' Uri-Path parameter values
-          to detect duplicate mitigation requests. If the mitigation request
-          contains the 'alias-name' and other parameters identifying the
-          target resources (such as 'target-prefix', 'target-port-range',
-          'target-fqdn', or 'target-uri'), the DOTS server appends the
-          parameter values in 'alias-name' with the corresponding parameter
-          values in 'target-prefix', 'target-port-range', 'target-fqdn', or
-          'target-uri'.</t>
+            <t><xref target="Figure1a"></xref> shows an example of a request
+            relayed by a server-domain DOTS gateway.</t>
 
-          <t>The DOTS server indicates the result of processing the PUT
-          request using CoAP Response Codes. CoAP 2.xx codes are success. CoAP
-          4.xx codes are some sort of invalid requests (client errors). COAP
-          5.xx codes are returned if the DOTS server is in an error state or
-          is currently unavailable to provide mitigation in response to the
-          mitigation request from the DOTS client.</t>
+            <t><figure anchor="Figure1a"
+                title="PUT for DOTS Mitigation Request as Relayed by a DOTS Gateway">
+                <artwork align="left"><![CDATA[  Header: PUT (Code=0.03)
+  Uri-Path: ".well-known"
+  Uri-Path: "dots"
+  Uri-Path: "mitigate"
+  Uri-Path: "cdid=7eeaf349529eb55ed50113"
+  Uri-Path: "cuid=dz6pHjaADkaFTbjr0JGBpw"
+  Uri-Path: "mid=123"
+  Content-Format: "application/dots+cbor"
 
-          <t><xref target="put_response"></xref> shows an example response to
-          a PUT request that is successfully processed by a DOTS server (i.e.,
-          CoAP 2.xx Response Codes). This version of the specification forbids
-          'cuid' and 'cdid' (if used) to be returned in a response message
-          body.</t>
+  {
+    ...
+  }
+]]></artwork>
+              </figure></t>
 
-          <t><figure anchor="put_response" title="2.xx Response Body">
-              <artwork align="left"><![CDATA[{
+            <t>A server-domain DOTS gateway SHOULD add the following Uri-Path
+            parameter:</t>
+
+            <t><list hangIndent="6" style="hanging">
+                <t hangText="cdid:">Stands for Client Domain Identifier. The
+                'cdid' is conveyed by a server-domain DOTS gateway to
+                propagate the source domain identity from the gateway's
+                client-facing side to the gateway's server-facing side, and
+                from the gateway's server-facing side to the DOTS server.
+                'cdid' may be used by the final DOTS server for policy
+                enforcement purposes (e.g., enforce a quota on filtering
+                rules). These policies are deployment specific.<vspace
+                blankLines="1" />Server-domain DOTS gateways SHOULD support a
+                configuration option to instruct whether 'cdid' parameter is
+                to be inserted. <vspace blankLines="1" />In order to
+                accommodate deployments that require enforcing per- client
+                policies, per-client domain policies, or a combination
+                thereof, server-domain DOTS gateways instructed to insert the
+                'cdid' parameter MUST supply the SPKI hash of the DOTS client
+                X.509 certificate, the DOTS client raw public key, or the hash
+                of the "PSK identity" in the 'cdid', following the same rules
+                for generating the hash conveyed in 'cuid', which is then used
+                by the ultimate DOTS server to determine the corresponding
+                client's domain. The 'cdid' generated by a server-domain
+                gateway is likely to be the same as the 'cuid' except the case
+                in which the DOTS message was relayed by a client-domain DOTS
+                gateway or the 'cuid' was generated by a rogue DOTS
+                client.<vspace blankLines="1" />If a DOTS client is
+                provisioned, for example, with distinct certificates to use to
+                peer with distinct server-domain DOTS gateways that peer to
+                the same DOTS server, distinct 'cdid' values may be supplied
+                by the server-domain DOTS gateways to the server. The ultimate
+                DOTS server MUST treat those 'cdid' values as equivalent.
+                <vspace blankLines="1" />The 'cdid' attribute MUST NOT be
+                generated and included by DOTS clients. <vspace
+                blankLines="1" />DOTS servers MUST ignore 'cdid' attributes
+                that are directly supplied by source DOTS clients or
+                client-domain DOTS gateways. This implies that first
+                server-domain DOTS gateways MUST strip 'cdid' attributes
+                supplied by DOTS clients. DOTS servers SHOULD support a
+                configuration parameter to identify DOTS gateways that are
+                trusted to supply 'cdid' attributes.<vspace
+                blankLines="1" />Only single-valued 'cdid' are defined in this
+                document. That is, only the first on-path server-domain DOTS
+                gateway can insert a 'cdid' value. This specification does not
+                allow multiple server-domain DOTS gateways, whenever involved
+                in the path, to insert a 'cdid' value for each server-domain
+                gateway. <vspace blankLines="1" />This is an optional
+                Uri-Path. When present, 'cdid' MUST be positioned before
+                'cuid'.</t>
+              </list></t>
+
+            <t>A DOTS gateway SHOULD add the CoAP Hop-Limit Option <xref
+            target="RFC8768"></xref>.</t>
+          </section>
+
+          <section title="Processing Mitigation Requests">
+            <t>The DOTS server couples the DOTS signal and data channel
+            sessions using the DOTS client identity and optionally the 'cdid'
+            parameter value, so the DOTS server can validate whether the
+            aliases conveyed in the mitigation request were indeed created by
+            the same DOTS client using the DOTS data channel session. If the
+            aliases were not created by the DOTS client, the DOTS server MUST
+            return 4.00 (Bad Request) in the response.</t>
+
+            <t>The DOTS server couples the DOTS signal channel sessions using
+            the DOTS client identity and optionally the 'cdid' parameter
+            value, and the DOTS server uses 'mid' and 'cuid' Uri-Path
+            parameter values to detect duplicate mitigation requests. If the
+            mitigation request contains the 'alias-name' and other parameters
+            identifying the target resources (such as 'target-prefix',
+            'target-port-range', 'target-fqdn', or 'target-uri'), the DOTS
+            server appends the parameter values in 'alias-name' with the
+            corresponding parameter values in 'target-prefix',
+            'target-port-range', 'target-fqdn', or 'target-uri'.</t>
+
+            <t>The DOTS server indicates the result of processing the PUT
+            request using CoAP Response Codes. CoAP 2.xx codes are success.
+            CoAP 4.xx codes are some sort of invalid requests (client errors).
+            COAP 5.xx codes are returned if the DOTS server is in an error
+            state or is currently unavailable to provide mitigation in
+            response to the mitigation request from the DOTS client.</t>
+
+            <t><xref target="put_response"></xref> shows an example response
+            to a PUT request that is successfully processed by a DOTS server
+            (i.e., CoAP 2.xx Response Codes). This version of the
+            specification forbids 'cuid' and 'cdid' (if used) to be returned
+            in a response message body.</t>
+
+            <t><figure anchor="put_response" title="2.xx Response Body">
+                <artwork align="left"><![CDATA[{
   "ietf-dots-signal-channel:mitigation-scope": {
      "scope": [
         {
@@ -1129,184 +1147,187 @@
       ]
    }
 }]]></artwork>
-            </figure></t>
+              </figure></t>
 
-          <t>If the request is missing a mandatory attribute, does not include
-          'cuid' or 'mid' Uri-Path options, includes multiple 'scope'
-          parameters, or contains invalid or unknown parameters, the DOTS
-          server MUST reply with 4.00 (Bad Request). DOTS agents can safely
-          ignore comprehension-optional parameters they don't understand
-          (<xref target="format"></xref>).</t>
+            <t>If the request is missing a mandatory attribute, does not
+            include 'cuid' or 'mid' Uri-Path options, includes multiple
+            'scope' parameters, or contains invalid or unknown parameters, the
+            DOTS server MUST reply with 4.00 (Bad Request). DOTS agents can
+            safely ignore comprehension-optional parameters they don't
+            understand (<xref target="format"></xref>).</t>
 
-          <t>A DOTS server that receives a mitigation request with a
-          'lifetime' set to '0' MUST reply with a 4.00 (Bad Request).</t>
+            <t>A DOTS server that receives a mitigation request with a
+            'lifetime' set to '0' MUST reply with a 4.00 (Bad Request).</t>
 
-          <t>If the DOTS server does not find the 'mid' parameter value
-          conveyed in the PUT request in its configuration data, it MAY accept
-          the mitigation request by sending back a 2.01 (Created) response to
-          the DOTS client; the DOTS server will consequently try to mitigate
-          the attack. A DOTS server could reject mitigation requests when it
-          is near capacity or needs to rate-limit a particular client, for
-          example.</t>
+            <t>If the DOTS server does not find the 'mid' parameter value
+            conveyed in the PUT request in its configuration data, it MAY
+            accept the mitigation request by sending back a 2.01 (Created)
+            response to the DOTS client; the DOTS server will consequently try
+            to mitigate the attack. A DOTS server MAY reject mitigation
+            requests when it is near capacity or needs to rate-limit a
+            particular client, for example.</t>
 
-          <t>The relative order of two mitigation requests with the same
-          'trigger- mitigation' type from a DOTS client is determined by
-          comparing their respective 'mid' values. If two mitigation requests
-          with the same 'trigger-mitigation' type have overlapping mitigation
-          scopes, the mitigation request with the highest numeric 'mid' value
-          will override the other mitigation request. Two mitigation requests
-          from a DOTS client have overlapping scopes if there is a common IP
-          address, IP prefix, FQDN, URI, or alias. To avoid maintaining a long
-          list of overlapping mitigation requests (i.e., requests with the
-          same 'trigger-mitigation' type and overlapping scopes) from a DOTS
-          client and to avoid error-prone provisioning of mitigation requests
-          from a DOTS client, the overlapped lower numeric 'mid' MUST be
-          automatically deleted and no longer available at the DOTS server.
-          For example, if the DOTS server receives a mitigation request that
-          overlaps with an existing mitigation with a higher numeric 'mid',
-          the DOTS server rejects the request by returning 4.09 (Conflict) to
-          the DOTS client. The response includes enough information for a DOTS
-          client to recognize the source of the conflict as described below in
-          the 'conflict-information' subtree with only the relevant nodes
-          listed:</t>
+            <t>The relative order of two mitigation requests with the same
+            'trigger- mitigation' type from a DOTS client is determined by
+            comparing their respective 'mid' values. If two mitigation
+            requests with the same 'trigger-mitigation' type have overlapping
+            mitigation scopes, the mitigation request with the highest numeric
+            'mid' value will override the other mitigation request. Two
+            mitigation requests from a DOTS client have overlapping scopes if
+            there is a common IP address, IP prefix, FQDN, URI, or alias. To
+            avoid maintaining a long list of overlapping mitigation requests
+            (i.e., requests with the same 'trigger-mitigation' type and
+            overlapping scopes) from a DOTS client and to avoid error-prone
+            provisioning of mitigation requests from a DOTS client, the
+            overlapped lower numeric 'mid' MUST be automatically deleted and
+            no longer available at the DOTS server. For example, if the DOTS
+            server receives a mitigation request that overlaps with an
+            existing mitigation with a higher numeric 'mid', the DOTS server
+            rejects the request by returning 4.09 (Conflict) to the DOTS
+            client. The response MUST include enough information for a DOTS
+            client to recognize the source of the conflict as described below
+            in the 'conflict-information' subtree with only the relevant nodes
+            listed:</t>
 
-          <t hangText="status:"><list style="hanging">
-              <t hangText="conflict-information:">Indicates that a mitigation
-              request is conflicting with another mitigation request. This
-              optional attribute has the following structure: <list
-                  style="hanging">
-                  <t hangText="conflict-cause:">Indicates the cause of the
-                  conflict. The following values are defined:<list
-                      style="format %d:">
-                      <t>Overlapping targets. 'conflict-scope' provides more
-                      details about the conflicting target clauses.</t>
-                    </list></t>
+            <t hangText="status:"><list style="hanging">
+                <t hangText="conflict-information:">Indicates that a
+                mitigation request is conflicting with another mitigation
+                request. This optional attribute has the following structure:
+                <list style="hanging">
+                    <t hangText="conflict-cause:">Indicates the cause of the
+                    conflict. The following values are defined:<list
+                        style="format %d:">
+                        <t>Overlapping targets. 'conflict-scope' provides more
+                        details about the conflicting target clauses.</t>
+                      </list></t>
 
-                  <t hangText="conflict-scope:">Characterizes the exact
-                  conflict scope. It may include a list of IP addresses, a
-                  list of prefixes, a list of port numbers, a list of target
-                  protocols, a list of FQDNs, a list of URIs, a list of
-                  aliases, or a 'mid'.</t>
-                </list></t>
-            </list></t>
+                    <t hangText="conflict-scope:">Characterizes the exact
+                    conflict scope. It may include a list of IP addresses, a
+                    list of prefixes, a list of port numbers, a list of target
+                    protocols, a list of FQDNs, a list of URIs, a list of
+                    aliases, or a 'mid'.</t>
+                  </list></t>
+              </list></t>
 
-          <t>If the DOTS server receives a mitigation request that overlaps
-          with an active mitigation request, but both have distinct 'trigger-
-          mitigation' types, the DOTS server SHOULD deactivate (absent
-          explicit policy/configuration otherwise) the mitigation request with
-          'trigger- mitigation' set to 'false'. Particularly, if the
-          mitigation request with 'trigger-mitigation' set to 'false' is
-          active, the DOTS server withdraws the mitigation request (i.e.,
-          status code is set to '7' as defined in Table 3) and transitions the
-          status of the mitigation request to '8'.</t>
+            <t>If the DOTS server receives a mitigation request that overlaps
+            with an active mitigation request, but both have distinct
+            'trigger- mitigation' types, the DOTS server SHOULD deactivate
+            (absent explicit policy/configuration otherwise) the mitigation
+            request with 'trigger- mitigation' set to 'false'. Particularly,
+            if the mitigation request with 'trigger-mitigation' set to 'false'
+            is active, the DOTS server withdraws the mitigation request (i.e.,
+            status code is set to '7' as defined in Table 3) and transitions
+            the status of the mitigation request to '8'.</t>
 
-          <t>Upon DOTS signal channel session loss with a peer DOTS client,
-          the DOTS server SHOULD withdraw (absent explicit
-          policy/configuration otherwise) any active mitigation requests that
-          overlap with mitigation requests having 'trigger-mitigation' set to
-          'false' from that DOTS client, as the loss of the session implicitly
-          activates these preconfigured mitigation requests, and they take
-          precedence. Note that the active-but-terminating period is not
-          observed for mitigations withdrawn at the initiative of the DOTS
-          server.</t>
+            <t>Upon DOTS signal channel session loss with a peer DOTS client,
+            the DOTS server SHOULD withdraw (absent explicit
+            policy/configuration otherwise) any active mitigation requests
+            that overlap with mitigation requests having 'trigger-mitigation'
+            set to 'false' from that DOTS client, as the loss of the session
+            implicitly activates these preconfigured mitigation requests, and
+            they take precedence. Note that the active-but-terminating period
+            is not observed for mitigations withdrawn at the initiative of the
+            DOTS server.</t>
 
-          <t>DOTS clients may adopt various strategies for setting the scopes
-          of immediate and preconfigured mitigation requests to avoid
-          potential conflicts. For example, a DOTS client may tweak
-          preconfigured scopes so that the scope of any overlapping immediate
-          mitigation request will be a subset of the preconfigured scopes.
-          Also, if an immediate mitigation request overlaps with any of the
-          preconfigured scopes, the DOTS client sets the scope of the
-          overlapping immediate mitigation request to be a subset of the
-          preconfigured scopes, so as to get a broad mitigation when the DOTS
-          signal channel collapses and to maximize the chance of recovery.</t>
+            <t>DOTS clients may adopt various strategies for setting the
+            scopes of immediate and preconfigured mitigation requests to avoid
+            potential conflicts. For example, a DOTS client may tweak
+            preconfigured scopes so that the scope of any overlapping
+            immediate mitigation request will be a subset of the preconfigured
+            scopes. Also, if an immediate mitigation request overlaps with any
+            of the preconfigured scopes, the DOTS client sets the scope of the
+            overlapping immediate mitigation request to be a subset of the
+            preconfigured scopes, so as to get a broad mitigation when the
+            DOTS signal channel collapses and to maximize the chance of
+            recovery.</t>
 
-          <t>If the request conflicts with an existing mitigation request from
-          a different DOTS client, the DOTS server may return 2.01 (Created)
-          or 4.09 (Conflict) to the requesting DOTS client. If the DOTS server
-          decides to maintain the new mitigation request, the DOTS server
-          returns 2.01 (Created) to the requesting DOTS client. If the DOTS
-          server decides to reject the new mitigation request, the DOTS server
-          returns 4.09 (Conflict) to the requesting DOTS client. For both 2.01
-          (Created) and 4.09 (Conflict) responses, the response includes
-          enough information for a DOTS client to recognize the source of the
-          conflict as described below:</t>
+            <t>If the request conflicts with an existing mitigation request
+            from a different DOTS client, the DOTS server may return 2.01
+            (Created) or 4.09 (Conflict) to the requesting DOTS client. If the
+            DOTS server decides to maintain the new mitigation request, the
+            DOTS server returns 2.01 (Created) to the requesting DOTS client.
+            If the DOTS server decides to reject the new mitigation request,
+            the DOTS server returns 4.09 (Conflict) to the requesting DOTS
+            client. For both 2.01 (Created) and 4.09 (Conflict) responses, the
+            response MUST include enough information for a DOTS client to
+            recognize the source of the conflict as described below:</t>
 
-          <t hangText="status:"><list style="hanging">
-              <t hangText="conflict-information:">Indicates that a mitigation
-              request is conflicting with another mitigation request(s) from
-              other DOTS client(s). This optional attribute has the following
-              structure: <list style="hanging">
-                  <t hangText="conflict-status:">Indicates the status of a
-                  conflicting mitigation request. The following values are
-                  defined:<list style="format %d:">
-                      <t>DOTS server has detected conflicting mitigation
-                      requests from different DOTS clients. This mitigation
-                      request is currently inactive until the conflicts are
-                      resolved. Another mitigation request is active.</t>
+            <t hangText="status:"><list style="hanging">
+                <t hangText="conflict-information:">Indicates that a
+                mitigation request is conflicting with another mitigation
+                request(s) from other DOTS client(s). This optional attribute
+                has the following structure: <list style="hanging">
+                    <t hangText="conflict-status:">Indicates the status of a
+                    conflicting mitigation request. The following values are
+                    defined:<list style="format %d:">
+                        <t>DOTS server has detected conflicting mitigation
+                        requests from different DOTS clients. This mitigation
+                        request is currently inactive until the conflicts are
+                        resolved. Another mitigation request is active.</t>
 
-                      <t>DOTS server has detected conflicting mitigation
-                      requests from different DOTS clients. This mitigation
-                      request is currently active.</t>
+                        <t>DOTS server has detected conflicting mitigation
+                        requests from different DOTS clients. This mitigation
+                        request is currently active.</t>
 
-                      <t>DOTS server has detected conflicting mitigation
-                      requests from different DOTS clients. All conflicting
-                      mitigation requests are inactive.</t>
-                    </list></t>
+                        <t>DOTS server has detected conflicting mitigation
+                        requests from different DOTS clients. All conflicting
+                        mitigation requests are inactive.</t>
+                      </list></t>
 
-                  <t hangText="conflict-cause:">Indicates the cause of the
-                  conflict. The following values are defined:<list
-                      style="format %d:">
-                      <t>Overlapping targets. 'conflict-scope' provides more
-                      details about the conflicting target clauses.</t>
+                    <t hangText="conflict-cause:">Indicates the cause of the
+                    conflict. The following values are defined:<list
+                        style="format %d:">
+                        <t>Overlapping targets. 'conflict-scope' provides more
+                        details about the conflicting target clauses.</t>
 
-                      <t>Conflicts with an existing accept-list. This code is
-                      returned when the DDoS mitigation detects source
-                      addresses/prefixes in the accept-listed ACLs are
-                      attacking the target.</t>
+                        <t>Conflicts with an existing accept-list. This code
+                        is returned when the DDoS mitigation detects source
+                        addresses/prefixes in the accept-listed ACLs are
+                        attacking the target.</t>
 
-                      <t>CUID Collision. This code is returned when a DOTS
-                      client uses a 'cuid' that is already used by another
-                      DOTS client. This code is an indication that the request
-                      has been rejected and a new request with a new 'cuid' is
-                      to be re-sent by the DOTS client (see the example shown
-                      in <xref target="newcuid"></xref>). Note that
-                      'conflict-status', 'conflict-scope', and 'retry-timer'
-                      MUST NOT be returned in the error response.</t>
-                    </list></t>
+                        <t>CUID Collision. This code is returned when a DOTS
+                        client uses a 'cuid' that is already used by another
+                        DOTS client. This code is an indication that the
+                        request has been rejected and a new request with a new
+                        'cuid' is to be re-sent by the DOTS client (see the
+                        example shown in <xref target="newcuid"></xref>). Note
+                        that 'conflict-status', 'conflict-scope', and
+                        'retry-timer' MUST NOT be returned in the error
+                        response.</t>
+                      </list></t>
 
-                  <t hangText="conflict-scope:">Characterizes the exact
-                  conflict scope. It may include a list of IP addresses, a
-                  list of prefixes, a list of port numbers, a list of target
-                  protocols, a list of FQDNs, a list of URIs, a list of
-                  aliases, or references to conflicting ACLs (by an
-                  'acl-name', typically <xref target="RFC8783"></xref>).</t>
+                    <t hangText="conflict-scope:">Characterizes the exact
+                    conflict scope. It may include a list of IP addresses, a
+                    list of prefixes, a list of port numbers, a list of target
+                    protocols, a list of FQDNs, a list of URIs, a list of
+                    aliases, or references to conflicting ACLs (by an
+                    'acl-name', typically <xref target="RFC8783"></xref>).</t>
 
-                  <t hangText="retry-timer:">Indicates, in seconds, the time
-                  after which the DOTS client may reissue the same request.
-                  The DOTS server returns 'retry-timer' only to DOTS client(s)
-                  for which a mitigation request is deactivated. Any
-                  retransmission of the same mitigation request before the
-                  expiry of this timer is likely to be rejected by the DOTS
-                  server for the same reasons.<vspace blankLines="1" />The
-                  'retry-timer' SHOULD be equal to the lifetime of the active
-                  mitigation request resulting in the deactivation of the
-                  conflicting mitigation request. <vspace blankLines="1" />If
-                  the DOTS server decides to maintain a state for the
-                  deactivated mitigation request, the DOTS server updates the
-                  lifetime of the deactivated mitigation request to
-                  'retry-timer + 45 seconds' (that is, this mitigation request
-                  remains deactivated for the entire duration of 'retry-timer
-                  + 45 seconds') so that the DOTS client can refresh the
-                  deactivated mitigation request after 'retry-timer' seconds,
-                  but before the expiry of the lifetime, and check if the
-                  conflict is resolved.</t>
-                </list></t>
-            </list></t>
+                    <t hangText="retry-timer:">Indicates, in seconds, the time
+                    after which the DOTS client may reissue the same request.
+                    The DOTS server returns 'retry-timer' only to DOTS
+                    client(s) for which a mitigation request is deactivated.
+                    Any retransmission of the same mitigation request before
+                    the expiry of this timer is likely to be rejected by the
+                    DOTS server for the same reasons.<vspace
+                    blankLines="1" />The 'retry-timer' SHOULD be equal to the
+                    lifetime of the active mitigation request resulting in the
+                    deactivation of the conflicting mitigation request.
+                    <vspace blankLines="1" />If the DOTS server decides to
+                    maintain a state for the deactivated mitigation request,
+                    the DOTS server updates the lifetime of the deactivated
+                    mitigation request to 'retry-timer + 45 seconds' (that is,
+                    this mitigation request remains deactivated for the entire
+                    duration of 'retry-timer + 45 seconds') so that the DOTS
+                    client can refresh the deactivated mitigation request
+                    after 'retry-timer' seconds, but before the expiry of the
+                    lifetime, and check if the conflict is resolved.</t>
+                  </list></t>
+              </list></t>
 
-          <t hangText="conflict-information:"><figure align="center"
-              anchor="newcuid" title="Example of Generating a New 'cuid'">
-              <artwork><![CDATA[  Header: PUT (Code=0.03)
+            <t hangText="conflict-information:"><figure align="center"
+                anchor="newcuid" title="Example of Generating a New 'cuid'">
+                <artwork><![CDATA[  Header: PUT (Code=0.03)
   Uri-Path: ".well-known"
   Uri-Path: "dots"
   Uri-Path: "mitigate"
@@ -1338,26 +1359,27 @@
   Uri-Path: "mid=12"
 
   (3) Request with a new 'cuid']]></artwork>
-            </figure></t>
+              </figure></t>
 
-          <t hangText="conflict-information:">As an active attack evolves,
-          DOTS clients can adjust the scope of requested mitigation as
-          necessary, by refining the scope of resources requiring mitigation.
-          This can be achieved by sending a PUT request with a new 'mid' value
-          that will override the existing one with overlapping mitigation
-          scopes.</t>
+            <t hangText="conflict-information:">As an active attack evolves,
+            DOTS clients can adjust the scope of requested mitigation as
+            necessary, by refining the scope of resources requiring
+            mitigation. This can be achieved by sending a PUT request with a
+            new 'mid' value that will override the existing one with
+            overlapping mitigation scopes.</t>
 
-          <t hangText="conflict-information:">For a mitigation request to
-          continue beyond the initial negotiated lifetime, the DOTS client has
-          to refresh the current mitigation request by sending a new PUT
-          request. This PUT request MUST use the same 'mid' value, and it MUST
-          repeat all the other parameters as sent in the original mitigation
-          request apart from a possible change to the 'lifetime' parameter
-          value. In such a case, the DOTS server MAY update the mitigation
-          request, and a 2.04 (Changed) response is returned to indicate a
-          successful update of the mitigation request. If this is not the
-          case, the DOTS server MUST reject the request with a 4.00 (Bad
-          Request).</t>
+            <t hangText="conflict-information:">For a mitigation request to
+            continue beyond the initial negotiated lifetime, the DOTS client
+            has to refresh the current mitigation request by sending a new PUT
+            request. This PUT request MUST use the same 'mid' value, and it
+            MUST repeat all the other parameters as sent in the original
+            mitigation request apart from a possible change to the 'lifetime'
+            parameter value. In such a case, the DOTS server MAY update the
+            mitigation request, and a 2.04 (Changed) response is returned to
+            indicate a successful update of the mitigation request. If this is
+            not the case, the DOTS server MUST reject the request with a 4.00
+            (Bad Request).</t>
+          </section>
         </section>
 
         <section anchor="get"
@@ -1613,13 +1635,13 @@
 
           <t></t>
 
-          <section title="DOTS Servers Sending Mitigation Status">
+          <section anchor="obs" title="DOTS Servers Sending Mitigation Status">
             <t>The Observe Option defined in <xref target="RFC7641"></xref>
             extends the CoAP core protocol with a mechanism for a CoAP client
             to "observe" a resource on a CoAP server: the client retrieves a
             representation of the resource and requests this representation be
             updated by the server as long as the client is interested in the
-            resource. DOTS implementations MUST use the Observe Option for
+            resource. DOTS implementations MUST support the Observe Option for
             both 'mitigate' and 'config' (<xref
             target="uri-path"></xref>).</t>
 
@@ -1746,14 +1768,14 @@
 
             <t>If the DOTS server has been able to mitigate the attack and the
             attack has stopped, the DOTS server indicates as such in the
-            status. In such case, the DOTS client recalls the mitigation
+            status. In such case, the DOTS client withdraws the mitigation
             request by issuing a DELETE request for this mitigation request
             (<xref target="del"></xref>).</t>
 
             <t>A DOTS client SHOULD react to the status of the attack per the
             information sent by the DOTS server rather than performing its own
             detection that the attack has been mitigated. This ensures that
-            the DOTS client does not recall a mitigation request prematurely
+            the DOTS client does not withdraw a mitigation request prematurely
             because it is possible that the DOTS client does not sense the
             DDoS attack on its resources, but the DOTS server could be
             actively mitigating the attack because the attack is not
@@ -1768,11 +1790,31 @@
           to convey the mitigation efficacy update to the DOTS server. This
           PUT request is treated as a refresh of the current mitigation.</t>
 
+          <t>The 'attack-status' parameter is a mandatory attribute when
+          performing an efficacy update. The various possible values contained
+          in the 'attack-status' parameter are described in Table 4.</t>
+
+          <t><figure>
+              <artwork align="center"><![CDATA[+-----------+-------------------------------------+
+| Parameter | Description                         |
+|     Value |                                     |
++===========+=====================================+
+|         1 | The DOTS client determines that it  |
+|           | is still under attack.              |
++-----------+-------------------------------------+
+|         2 | The DOTS client determines that the |
+|           | attack is successfully mitigated    |
+|           | (e.g., attack traffic is not seen). |
++-----------+-------------------------------------+
+
+    Table 4: Values of 'attack-status' Parameter]]></artwork>
+            </figure></t>
+
           <t>The PUT request used for the efficacy update MUST include all the
           parameters used in the PUT request to carry the DOTS mitigation
           request (<xref target="post"></xref>) unchanged apart from the
           'lifetime' parameter value. If this is not the case, the DOTS server
-          MUST reject the request with a 4.00 (Bad Request).</t>
+          MUST reject the request with a 4.00 (Bad Request). </t>
 
           <t>The If-Match Option (Section 5.10.8.1 of <xref
           target="RFC7252"></xref>) with an empty value is used to make the
@@ -1833,23 +1875,7 @@
 
           <t></t>
 
-          <t>The 'attack-status' parameter is a mandatory attribute when
-          performing an efficacy update. The various possible values contained
-          in the 'attack-status' parameter are described in Table 4.<figure>
-              <artwork align="center"><![CDATA[+-----------+-------------------------------------+
-| Parameter | Description                         |
-|     Value |                                     |
-+===========+=====================================+
-|         1 | The DOTS client determines that it  |
-|           | is still under attack.              |
-+-----------+-------------------------------------+
-|         2 | The DOTS client determines that the |
-|           | attack is successfully mitigated    |
-|           | (e.g., attack traffic is not seen). |
-+-----------+-------------------------------------+
-
-    Table 4: Values of 'attack-status' Parameter]]></artwork>
-            </figure></t>
+          <t></t>
 
           <t>The DOTS server indicates the result of processing a PUT request
           using CoAP Response Codes. The Response Code 2.04 (Changed) is
@@ -1888,10 +1914,10 @@
           Request).</t>
 
           <t>Once the request is validated, the DOTS server immediately
-          acknowledges a DOTS client's request to withdraw the DOTS signal
-          using 2.02 (Deleted) Response Code with no response payload. A 2.02
-          (Deleted) Response Code is returned even if the 'mid' parameter
-          value conveyed in the DELETE request does not exist in its
+          acknowledges a DOTS client's request to withdraw the DOTS mitigation
+          request using 2.02 (Deleted) Response Code with no response payload.
+          A 2.02 (Deleted) Response Code is returned even if the 'mid'
+          parameter value conveyed in the DELETE request does not exist in its
           configuration data before the request.</t>
 
           <t>If the DOTS server finds the 'mid' parameter value conveyed in
@@ -1949,10 +1975,10 @@
             DOTS agent in sending to a peer DOTS agent that does not
             respond.</t>
 
-            <t>Acceptable signal loss ratio: Maximum retransmissions,
-            retransmission timeout value, and other message transmission
-            parameters for Confirmable messages over the DOTS signal
-            channel.</t>
+            <t>Acceptable signal loss ratio: Maximum retransmissions
+            ('max-retransmit'), retransmission timeout value ('ack-timeout'),
+            and other message transmission parameters for Confirmable messages
+            over the DOTS signal channel.</t>
           </list></t>
 
         <t>When the DOTS signal channel is established over a reliable
@@ -2480,9 +2506,9 @@
               values acceptable to the DOTS server.</t>
             </list></t>
 
-          <t>A DOTS client may issue a GET message with a 'sid' Uri-Path
-          parameter to retrieve the negotiated configuration. The response
-          does not need to include 'sid' in its message body.</t>
+          <t>A DOTS client may issue a GET message for 'config' with a 'sid'
+          Uri-Path parameter to retrieve the negotiated configuration. The
+          response does not need to include 'sid' in its message body.</t>
         </section>
 
         <section title="Configuration Freshness and Notifications">
@@ -2559,7 +2585,7 @@
 
         <t>If a DOTS server wants to redirect a DOTS client to an alternative
         DOTS server for a signal session, then the Response Code 5.03 (Service
-        Unavailable) will be returned in the response to the DOTS client.</t>
+        Unavailable) will be returned to the DOTS client.</t>
 
         <t>The DOTS server can return the error Response Code 5.03 in response
         to a request from the DOTS client or convey the error Response Code
@@ -2711,10 +2737,11 @@
         to detect or confirm connectivity issues and react accordingly. For
         example, if a DOTS client receives a 2.04 response for its heartbeat
         messages but no server-initiated heartbeat messages, the DOTS client
-        sets 'peer-hb-status' to 'false'. The DOTS server then will need to
-        try another strategy for sending the heartbeats (e.g., adjust the
-        heartbeat interval or send a server-initiated heartbeat immediately
-        after receiving a client-initiated heartbeat message).</t>
+        sets 'peer-hb-status' to 'false' in its next heartbeat message. Upon
+        receipt of this message, the DOTS server then will need to try another
+        strategy for sending the heartbeats (e.g., adjust the heartbeat
+        interval or send a server-initiated heartbeat immediately after
+        receiving a client-initiated heartbeat message).</t>
 
         <t><figure anchor="hbrep" title="Response to a DOTS Heartbeat Request">
             <artwork><![CDATA[     Header: (Code=2.04)
@@ -5399,7 +5426,8 @@ NEW:
       <t>Thanks to Valery Smyslov for the comments, guidance, and support.</t>
 
       <t>Thanks to Ebben Aries for the yangdoctors review, Dan Romascanu for
-      the opsdir review, and Michael Tuexen for the tsv-art review.</t>
+      the opsdir review, Michael Tuexen for the tsv-art review, and Dale
+      Worley for the genart review.</t>
 
       <t>Thanks to Benjamin Kaduk for the AD review.</t>
 
