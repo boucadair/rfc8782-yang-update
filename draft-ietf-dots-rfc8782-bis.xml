@@ -179,16 +179,16 @@
 
       <t>In typical deployments, the DOTS client belongs to a different
       administrative domain than the DOTS server. For example, the DOTS client
-      is embedded in a firewall protecting services owned and operated by a
+      is embedded in a firewall protected services owned and operated by a
       customer, while the DOTS server is owned and operated by a different
       administrative entity (service provider, typically) providing DDoS
       mitigation services. The latter might or might not provide connectivity
       services to the network hosting the DOTS client.</t>
 
-      <t>The DOTS server may (not) be co-located with the DOTS mitigator. In
-      typical deployments, the DOTS server belongs to the same administrative
-      domain as the mitigator. The DOTS client can communicate directly with a
-      DOTS server or indirectly via a DOTS gateway.</t>
+      <t>The DOTS server may or may not not be co-located with the DOTS
+      mitigator. In typical deployments, the DOTS server belongs to the same
+      administrative domain as the mitigator. The DOTS client can communicate
+      directly with a DOTS server or indirectly via a DOTS gateway.</t>
 
       <t>An example of a network diagram that illustrates a deployment of DOTS
       agents is shown in <xref target="fig1"></xref>. In this example, a DOTS
@@ -266,10 +266,10 @@
       to build the DOTS signaling mechanism.</t>
 
       <t>DOTS clients and servers behave as CoAP endpoints. By default, a DOTS
-      client (or server) behaves as a CoAP client (or server). Nevertheless, a
-      DOTS client (or server) behaves as a CoAP server (or client) for
-      specific operations such as DOTS heartbeat operations (<xref
-      target="hb"></xref>).</t>
+      client behaves as a CoAP client and a DOTS server behaves as CoAP
+      server. Nevertheless, a DOTS client (or server) behaves as a CoAP server
+      (or client) for specific operations such as DOTS heartbeat operations
+      (<xref target="hb"></xref>).</t>
 
       <t>The DOTS signal channel is layered on existing standards (see <xref
       target="fig_dots"></xref>).</t>
@@ -345,10 +345,10 @@
       rely on the signal channel session loss to trigger mitigation for
       preconfigured mitigation requests (if any).</t>
 
-      <t>DOTS signaling can happen use DTLS over UDP and TLS over TCP.
-      Likewise, DOTS requests may be sent using IPv4 or IPv6 transfer
-      capabilities. A Happy Eyeballs procedure for the DOTS signal channel is
-      specified in <xref target="HE"></xref>.</t>
+      <t>DOTS signaling can use DTLS over UDP and TLS over TCP. Likewise, DOTS
+      requests may be sent using IPv4 or IPv6 transfer capabilities. A Happy
+      Eyeballs procedure for the DOTS signal channel is specified in <xref
+      target="HE"></xref>.</t>
 
       <t>A DOTS client is entitled to access only the resources it creates. In
       particular, a DOTS client cannot retrieve data related to mitigation
@@ -448,7 +448,7 @@
         target="I-D.ietf-dots-telemetry"></xref>).</t>
 
         <t>Future DOTS extensions that request a CBOR value in the range
-        "128-255" must support means similar to the aforementioned DOTS
+        "128-255" MUST support means similar to the aforementioned DOTS
         telemetry ones.</t>
       </section>
     </section>
@@ -647,7 +647,7 @@
         <xref format="counter" target="as"></xref>.</t>
 
         <section anchor="post" title="Request Mitigation">
-          <section title="Buidling Mitigation Requests">
+          <section title="Building Mitigation Requests">
             <t>When a DOTS client requires mitigation for some reason, the
             DOTS client uses the CoAP PUT method to send a mitigation request
             to its DOTS server(s) (Figures <xref format="counter"
@@ -819,11 +819,11 @@
                 blankLines="1" />This is an optional attribute.</t>
 
                 <t hangText="target-protocol:">A list of protocols involved in
-                an attack. Values are taken from the IANA protocol registry
-                <xref target="IANA-Proto"></xref>. <vspace blankLines="1" />If
-                'target-protocol' is not specified, then the request applies
-                to any protocol. <vspace blankLines="1" />This is an optional
-                attribute.</t>
+                an attack. Values are integers in the range of 0 to 255. See
+                <xref target="IANA-Proto"></xref> for common values. <vspace
+                blankLines="1" />If 'target-protocol' is not specified, then
+                the request applies to any protocol. <vspace
+                blankLines="1" />This is an optional attribute.</t>
 
                 <t hangText="target-fqdn:">A list of Fully Qualified Domain
                 Names (FQDNs) identifying resources under attack <xref
@@ -1940,8 +1940,7 @@
           minutes).</t>
 
           <t>Once the active-but-terminating period elapses, the DOTS server
-          MUST treat the mitigation as terminated, as the DOTS client is no
-          longer responsible for the mitigation.</t>
+          MUST treat the mitigation as terminated.</t>
 
           <t>If a mitigation is triggered due to a signal channel loss, the
           DOTS server relies upon normal triggers to stop that mitigation
@@ -2587,14 +2586,11 @@
         <t>Redirected DOTS signaling is discussed in detail in Section 3.2.2
         of <xref target="RFC8811"></xref>.</t>
 
-        <t>If a DOTS server wants to redirect a DOTS client to an alternative
-        DOTS server for a signal session, then the Response Code 5.03 (Service
-        Unavailable) will be returned to the DOTS client.</t>
-
-        <t>The DOTS server can return the error Response Code 5.03 in response
-        to a request from the DOTS client or convey the error Response Code
-        5.03 in a unidirectional notification response from the DOTS
-        server.</t>
+        <t>To redirect a DOTS client to an alternative DOTS server, the DOTS
+        server can return the error Response Code 5.03 (Service Unavailable)
+        in response to a request from the DOTS client or convey the error
+        Response Code 5.03 in a unidirectional notification response to the
+        client.</t>
 
         <t>The DOTS server in the error response conveys the alternate DOTS
         server's FQDN, and the alternate DOTS server's IP address(es) values
@@ -2645,7 +2641,7 @@
 
         <t>Requests issued by misbehaving DOTS clients that do not honor the
         TTL conveyed in the Max-Age Option or react to explicit redirect
-        messages can be rejected by DOTS servers.</t>
+        messages MAY be rejected by DOTS servers.</t>
 
         <t><xref target="Figure21"></xref> shows a 5.03 response example to
         convey the DOTS alternate server 'alt-server.example' together with
@@ -4229,11 +4225,12 @@ Note that:
       <t>The DOTS server should support certificate-based client
       authentication. The DOTS client should respond to the DOTS server's TLS
       CertificateRequest message with the PKIX certificate held by the DOTS
-      client. DOTS client certificate validation must be performed per
-      [RFC5280], and the DOTS client certificate must conform to the [RFC5280]
-      certificate profile. If a DOTS client does not support TLS client
-      certificate authentication, it must support client authentication based
-      on pre-shared key or raw public key.</t>
+      client. DOTS client certificate validation must be performed per <xref
+      target="RFC5280"></xref>, and the DOTS client certificate must conform
+      to the <xref target="RFC5280"></xref> certificate profile. If a DOTS
+      client does not support TLS client certificate authentication, it must
+      support client authentication based on pre-shared key or raw public
+      key.</t>
 
       <t><figure anchor="Figure12"
           title="Example of Authentication and Authorization of DOTS Agents">
@@ -4263,10 +4260,10 @@ Note that:
         </figure></t>
 
       <t>In the example depicted in <xref target="Figure12"></xref>, the DOTS
-      gateway and DOTS clients within the 'example.com' domain mutually
-      authenticate. After the DOTS gateway validates the identity of a DOTS
-      client, it communicates with the AAA server in the 'example.com' domain
-      to determine if the DOTS client is authorized to request DDoS
+      gateway and DOTS clients within the 'example.com' domain proceed with
+      mutual authentication. After the DOTS gateway validates the identity of
+      a DOTS client, it communicates with the AAA server in the 'example.com'
+      domain to determine if the DOTS client is authorized to request DDoS
       mitigation. If the DOTS client is not authorized, a 4.01 (Unauthorized)
       is returned in the response to the DOTS client. In this example, the
       DOTS gateway only allows the application server and DDoS attack detector
@@ -4601,135 +4598,9 @@ NEW:
           </section>
 
           <section anchor="initial" title="Update Subregistry Content">
-            <t>IANA is requested to update these entries from the "DOTS Signal
-            Channel CBOR Key Values" registry with the RFC number to be
-            assigned to this document:</t>
-
-            <t><figure>
-                <artwork><![CDATA[   +---------------------+------------+-----+----------+---------------+
-   | Parameter Name      | CBOR Key   |CBOR | Change   | Specification |
-   |                     | Value      |Major|Controller| Document(s)   |
-   |                     |            |Type |          |               |
-   +=====================+============+=====+==========+===============+
-   | Reserved            | 0          |     |          | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | ietf-dots-signal-   | 1          | 5   | IESG     | [RFCXXXX]     |
-   | channel:mitigation- |            |     |          |               |
-   | scope               |            |     |          |               |
-   +---------------------+------------+-----+----------+---------------+
-   | scope               | 2          | 4   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | cdid                | 3          | 3   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | cuid                | 4          | 3   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | mid                 | 5          | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | target-prefix       | 6          | 4   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | target-port-range   | 7          | 4   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | lower-port          | 8          | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | upper-port          | 9          | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | target-protocol     | 10         | 4   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | target-fqdn         | 11         | 4   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | target-uri          | 12         | 4   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | alias-name          | 13         | 4   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | lifetime            | 14         | 0/1 | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | mitigation-start    | 15         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | status              | 16         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   |conflict-information | 17         | 5   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | conflict-status     | 18         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | conflict-cause      | 19         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | retry-timer         | 20         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | conflict-scope      | 21         | 5   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | acl-list            | 22         | 4   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | acl-name            | 23         | 3   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | acl-type            | 24         | 3   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | bytes-dropped       | 25         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | bps-dropped         | 26         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | pkts-dropped        | 27         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | pps-dropped         | 28         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | attack-status       | 29         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   |ietf-dots-signal-    | 30         | 5   | IESG     | [RFCXXXX]     |
-   |channel:signal-config|            |     |          |               |
-   +---------------------+------------+-----+----------+---------------+
-   | sid                 | 31         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | mitigating-config   | 32         | 5   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | heartbeat-interval  | 33         | 5   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | min-value           | 34         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | max-value           | 35         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | current-value       | 36         | 0   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | missing-hb-allowed  | 37         | 5   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | max-retransmit      | 38         | 5   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | ack-timeout         | 39         | 5   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | ack-random-factor   | 40         | 5   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | min-value-decimal   | 41         |6tag4| IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | max-value-decimal   | 42         |6tag4| IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   |current-value-decimal| 43         |6tag4| IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | idle-config         | 44         | 5   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | trigger-mitigation  | 45         | 7   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | ietf-dots-signal-   | 46         | 5   | IESG     | [RFCXXXX]     |
-   | channel:redirected- |            |     |          |               |
-   | signal              |            |     |          |               |
-   +---------------------+------------+-----+----------+---------------+
-   | alt-server          | 47         | 3   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | alt-server-record   | 48         | 4   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | ietf-dots-signal-   | 49         | 5   | IESG     | [RFCXXXX]     |
-   | channel:heartbeat   |            |     |          |               |
-   +---------------------+------------+-----+----------+---------------+
-   | probing-rate        | 50         | 5   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | peer-hb-status      | 51         | 7   | IESG     | [RFCXXXX]     |
-   +---------------------+------------+-----+----------+---------------+
-   | Unassigned          | 52-49151   |     |          |               |
-   +---------------------+------------+-----+----------+---------------+
-   |Reserved for Private |49152-65535 |     |          | [RFCXXXX]     |
-   | Use                 |            |     |          |               |
-   +---------------------+------------+-----+----------+---------------+
-
-        Table 6: Initial DOTS Signal Channel CBOR Key Values Registry
-]]></artwork>
-              </figure></t>
+            <t>IANA is requested to update entries in the "0-51" range from
+            the "DOTS Signal Channel CBOR Key Values" registry with the RFC
+            number to be assigned to this document.</t>
           </section>
         </section>
 
@@ -4795,7 +4666,7 @@ NEW:
     | 9-2147483647 | Unassigned    |                      |           |
     +--------------+---------------+----------------------+-----------+
 
-             Table 8: Initial DOTS Signal Channel Status Codes]]></artwork>
+             Table 7: Initial DOTS Signal Channel Status Codes]]></artwork>
             </figure></t>
 
           <t>New codes can be assigned via Standards Action <xref
@@ -4858,7 +4729,7 @@ NEW:
    | 4-2147483647 | Unassigned        |                    |           |
    +--------------+-------------------+--------------------+-----------+
 
-         Table 9: Initial DOTS Signal Channel Conflict Status Codes]]></artwork>
+         Table 8: Initial DOTS Signal Channel Conflict Status Codes]]></artwork>
             </figure></t>
 
           <t>New codes can be assigned via Standards Action <xref
@@ -4908,7 +4779,7 @@ NEW:
     | 4-2147483647 | Unassigned          |                |           |
     +--------------+---------------------+----------------+-----------+
 
-         Table 10: Initial DOTS Signal Channel Conflict Cause Codes]]></artwork>
+         Table 9: Initial DOTS Signal Channel Conflict Cause Codes]]></artwork>
             </figure></t>
 
           <t>New codes can be assigned via Standards Action <xref
@@ -4944,7 +4815,7 @@ NEW:
    | 3-2147483647 | Unassigned           |                 |           |
    +--------------+----------------------+-----------------+-----------+
 
-         Table 11: Initial DOTS Signal Channel Attack Status Codes]]></artwork>
+         Table 10: Initial DOTS Signal Channel Attack Status Codes]]></artwork>
             </figure></t>
 
           <t>New codes can be assigned via Standards Action <xref
@@ -5051,10 +4922,10 @@ NEW:
 
       <t>If the 'cuid' is guessable, a misbehaving DOTS client from within the
       client's domain can use the 'cuid' of another DOTS client of the domain
-      to delete or alter active mitigations. For this attack vector to happen,
-      the misbehaving client needs to pass the security validation checks by
-      the DOTS server, and eventually the checks of a client-domain DOTS
-      gateway.</t>
+      to delete or alter active mitigations. For this attack to succeed, the
+      misbehaving client's messages need to pass the security validation
+      checks by the DOTS server and, if the communication involves a
+      client-domain DOTS gateway, the security checks of that gateway.</t>
 
       <t>A similar attack can be achieved by a compromised DOTS client that
       can sniff the TLS 1.2 handshake, use the client certificate to identify
@@ -5094,11 +4965,11 @@ NEW:
       so.</t>
 
       <t>DOTS servers MUST verify that requesting DOTS clients are entitled to
-      trigger actions on a given IP prefix. That is, only actions on IP
-      resources that belong to the DOTS client's domain MUST be authorized by
-      a DOTS server. The exact mechanism for the DOTS servers to validate that
-      the target prefixes are within the scope of the DOTS client domain is
-      deployment specific.</t>
+      trigger actions on a given IP prefix. A DOTS server MUST NOT authorize
+      actions due to a DOTS client request unless those actions are limited to
+      that DOTS client's domain IP resources. The exact mechanism for the DOTS
+      servers to validate that the target prefixes are within the scope of the
+      DOTS client domain is deployment specific.</t>
 
       <t>The presence of DOTS gateways may lead to infinite forwarding loops,
       which is undesirable. To prevent and detect such loops, this document
@@ -5423,15 +5294,77 @@ NEW:
       <t></t>
     </section>
 
+    <section title="Summary of Protocol Recommended or Default Values">
+      <t></t>
+
+      <texttable>
+        <ttcol>Parameter</ttcol>
+
+        <ttcol>Recommended or Default Value</ttcol>
+
+        <c>Port number</c>
+
+        <c>4646 (tcp/udp)</c>
+
+        <c>lifetime</c>
+
+        <c>3600 seconds</c>
+
+        <c>active-but-terminating</c>
+
+        <c>120 seconds</c>
+
+        <c>maximum active-but-terminating</c>
+
+        <c>300 seconds</c>
+
+        <c>heartbeat-interval</c>
+
+        <c>30 seconds</c>
+
+        <c>minimum 'heartbeat-interval'</c>
+
+        <c>15 seconds</c>
+
+        <c>maximum 'heartbeat-interval'</c>
+
+        <c>240 seconds</c>
+
+        <c>missing-hb-allowed</c>
+
+        <c>15</c>
+
+        <c>max-retransmit</c>
+
+        <c>3</c>
+
+        <c>ack-timeout</c>
+
+        <c>2 seconds</c>
+
+        <c>ack-random-factor</c>
+
+        <c>1.5</c>
+
+        <c>probing-rate</c>
+
+        <c>5 bytes/second</c>
+
+        <c>trigger-mitigation</c>
+
+        <c>true</c>
+      </texttable>
+    </section>
+
     <section anchor="ack" title="Acknowledgements">
-      <t>Many thanks to Martin Bj&ouml;rklund for the suggestion to use
+      <t>+Many thanks to Martin Bj&ouml;rklund for the suggestion to use
       RFC8791.</t>
 
       <t>Thanks to Valery Smyslov for the comments, guidance, and support.</t>
 
       <t>Thanks to Ebben Aries for the yangdoctors review, Dan Romascanu for
-      the opsdir review, Michael Tuexen for the tsv-art review, and Dale
-      Worley for the genart review.</t>
+      the opsdir review, Michael Tuexen for the tsv-art review, Dale Worley
+      for the genart review, and Donald Eastlake for the secdir review</t>
 
       <t>Thanks to Benjamin Kaduk for the AD review.</t>
 

@@ -85,7 +85,7 @@ Table of Contents
      4.3.  Happy Eyeballs for DOTS Signal Channel  . . . . . . . . .  10
      4.4.  DOTS Mitigation Methods . . . . . . . . . . . . . . . . .  13
        4.4.1.  Request Mitigation  . . . . . . . . . . . . . . . . .  13
-         4.4.1.1.  Buidling Mitigation Requests  . . . . . . . . . .  13
+         4.4.1.1.  Building Mitigation Requests  . . . . . . . . . .  13
          4.4.1.2.  Server-domain DOTS Gateways . . . . . . . . . . .  21
          4.4.1.3.  Processing Mitigation Requests  . . . . . . . . .  23
        4.4.2.  Retrieve Information Related to a Mitigation  . . . .  29
@@ -200,7 +200,7 @@ Internet-Draft        DOTS Signal Channel Protocol            March 2021
 
    In typical deployments, the DOTS client belongs to a different
    administrative domain than the DOTS server.  For example, the DOTS
-   client is embedded in a firewall protecting services owned and
+   client is embedded in a firewall protected services owned and
    operated by a customer, while the DOTS server is owned and operated
    by a different administrative entity (service provider, typically)
    providing DDoS mitigation services.  The latter might or might not
@@ -394,7 +394,7 @@ Boucadair, et al.      Expires September 24, 2021               [Page 7]
 Internet-Draft        DOTS Signal Channel Protocol            March 2021
 
 
-   DOTS signaling can happen use DTLS over UDP and TLS over TCP.
+   DOTS signaling can use DTLS over UDP and TLS over TCP.
    Likewise, DOTS requests may be sent using IPv4 or IPv6 transfer
    capabilities.  A Happy Eyeballs procedure for the DOTS signal channel
    is specified in Section 4.3.
@@ -714,7 +714,7 @@ Internet-Draft        DOTS Signal Channel Protocol            March 2021
 
 4.4.1.  Request Mitigation
 
-4.4.1.1.  Buidling Mitigation Requests
+4.4.1.1.  Building Mitigation Requests
 
    When a DOTS client requires mitigation for some reason, the DOTS
    client uses the CoAP PUT method to send a mitigation request to its
