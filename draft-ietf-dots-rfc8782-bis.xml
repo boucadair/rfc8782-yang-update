@@ -1119,9 +1119,10 @@
             mitigation request contains the 'alias-name' and other parameters
             identifying the target resources (such as 'target-prefix',
             'target-port-range', 'target-fqdn', or 'target-uri'), the DOTS
-            server appends the parameter values in 'alias-name' with the
-            corresponding parameter values in 'target-prefix',
-            'target-port-range', 'target-fqdn', or 'target-uri'.</t>
+            server appends the parameter values associated with the
+            'alias-name' with the corresponding parameter values in
+            'target-prefix', 'target-port-range', 'target-fqdn', or
+            'target-uri'.</t>
 
             <t>The DOTS server indicates the result of processing the PUT
             request using CoAP Response Codes. CoAP 2.xx codes are success.
@@ -1186,8 +1187,8 @@
             rejects the request by returning 4.09 (Conflict) to the DOTS
             client. The response MUST include enough information for a DOTS
             client to recognize the source of the conflict as described below
-            in the 'conflict-information' subtree with only the relevant nodes
-            listed:</t>
+            in the 'conflict-information' subtree (<xref
+            target="tree"></xref>) with only the relevant nodes listed:</t>
 
             <t hangText="status:"><list style="hanging">
                 <t hangText="conflict-information:">Indicates that a
@@ -1195,7 +1196,7 @@
                 request. This attribute has the following structure: <list
                     style="hanging">
                     <t hangText="conflict-cause:">Indicates the cause of the
-                    conflict. The following values are defined:<list
+                    conflict. The following value MUST be returned:<list
                         style="format %d:">
                         <t>Overlapping targets. 'conflict-scope' provides more
                         details about the conflicting target clauses.</t>
@@ -1203,9 +1204,10 @@
 
                     <t hangText="conflict-scope:">Characterizes the exact
                     conflict scope. It may include a list of IP addresses, a
-                    list of prefixes, a list of port numbers, a list of target
-                    protocols, a list of FQDNs, a list of URIs, a list of
-                    aliases, or a 'mid'.</t>
+                    list of prefixes, a list of target protocols, a list of
+                    FQDNs, a list of URIs, a list of aliases, or a 'mid'. A
+                    list of port numbers may also be included if there is a
+                    common IP address, IP prefix, FQDN, URI, or alias.</t>
                   </list></t>
               </list></t>
 
@@ -1298,10 +1300,11 @@
 
                     <t hangText="conflict-scope:">Characterizes the exact
                     conflict scope. It may include a list of IP addresses, a
-                    list of prefixes, a list of port numbers, a list of target
-                    protocols, a list of FQDNs, a list of URIs, a list of
-                    aliases, or references to conflicting ACLs (by an
-                    'acl-name', typically <xref target="RFC8783"></xref>).</t>
+                    list of target protocols, a list of FQDNs, a list of URIs,
+                    a list of aliases, or references to conflicting ACLs (by
+                    an 'acl-name', typically <xref target="RFC8783"></xref>).
+                    A list of port numbers may also be included if there is a
+                    common IP address, IP prefix, FQDN, URI, or alias.</t>
 
                     <t hangText="retry-timer:">Indicates, in seconds, the time
                     after which the DOTS client may reissue the same request.
@@ -1814,7 +1817,7 @@
           parameters used in the PUT request to carry the DOTS mitigation
           request (<xref target="post"></xref>) unchanged apart from the
           'lifetime' parameter value. If this is not the case, the DOTS server
-          MUST reject the request with a 4.00 (Bad Request). </t>
+          MUST reject the request with a 4.00 (Bad Request).</t>
 
           <t>The If-Match Option (Section 5.10.8.1 of <xref
           target="RFC7252"></xref>) with an empty value is used to make the
@@ -2413,7 +2416,7 @@
           'ack-random-factor', if present, do not need to be provided for both
           'mitigating-config', and 'idle-config' in a PUT request. A request
           does not need to include both 'mitigating-config' and 'idle-config'
-          attributes. </t>
+          attributes.</t>
 
           <t>The PUT request with a higher numeric 'sid' value overrides the
           DOTS signal channel session configuration data installed by a PUT
@@ -2517,10 +2520,10 @@
         <section title="Configuration Freshness and Notifications">
           <t>Max-Age Option (Section 5.10.5 of <xref target="RFC7252"></xref>)
           SHOULD be returned by a DOTS server to associate a validity time
-          with a configuration it sends. This feature allows the update of the
-          configuration data if a change occurs at the DOTS server side. For
-          example, the new configuration may instruct a DOTS client to cease
-          heartbeats or reduce heartbeat frequency.</t>
+          with a configuration it sends. This feature forces the client to
+          retrieve the updated configuration data if a change occurs at the
+          DOTS server side. For example, the new configuration may instruct a
+          DOTS client to cease heartbeats or reduce heartbeat frequency.</t>
 
           <t>It is NOT RECOMMENDED to return a Max-Age Option set to 0.</t>
 
@@ -2743,7 +2746,8 @@
         interval or send a server-initiated heartbeat immediately after
         receiving a client-initiated heartbeat message).</t>
 
-        <t><figure anchor="hbrep" title="Response to a DOTS Heartbeat Request">
+        <t><figure anchor="hbrep"
+            title="Response to a DOTS Heartbeat Request (with an Empty Body)">
             <artwork><![CDATA[     Header: (Code=2.04)
 
 ]]></artwork>
@@ -5268,6 +5272,9 @@ NEW:
           signal messages that include a long list of comprehension-optional
           attributes, e.g., DOTS telemetry messages <xref
           target="I-D.ietf-dots-telemetry"></xref>.</t>
+
+          <t>Add <xref target="def"></xref> to list recommended/default values
+          of key DOTS signal channel parameters.</t>
         </list></t>
 
       <t></t>
@@ -5294,13 +5301,14 @@ NEW:
       <t></t>
     </section>
 
-    <section title="Summary of Protocol Recommended or Default Values">
+    <section anchor="def"
+             title="Summary of Protocol Recommended/Default Values">
       <t></t>
 
       <texttable>
         <ttcol>Parameter</ttcol>
 
-        <ttcol>Recommended or Default Value</ttcol>
+        <ttcol>Recommended/Default Value</ttcol>
 
         <c>Port number</c>
 
