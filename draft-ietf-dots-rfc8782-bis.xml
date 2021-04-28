@@ -796,15 +796,15 @@
                 <t hangText="target-prefix:">A list of prefixes identifying
                 resources under attack. Prefixes are represented using
                 Classless Inter-Domain Routing (CIDR) notation <xref
-                target="RFC4632"></xref>. <vspace blankLines="1" />As a
-                reminder, the prefix length must be less than or equal to 32
-                for IPv4 and 128 for IPv6.<vspace blankLines="1" />The prefix
-                list MUST NOT include broadcast, loopback, or multicast
-                addresses. These addresses are considered to be invalid
-                values. In addition, the DOTS server MUST validate that target
-                prefixes are within the scope of the DOTS client domain. Other
-                validation checks may be supported by DOTS servers.<vspace
-                blankLines="1" />This is an optional attribute.</t>
+                target="RFC4632"></xref>. <vspace blankLines="1" />The prefix
+                length must be less than or equal to 32 for IPv4 and 128 for
+                IPv6.<vspace blankLines="1" />The prefix list MUST NOT include
+                broadcast, loopback, or multicast addresses. These addresses
+                are considered to be invalid values. In addition, the DOTS
+                server MUST validate that target prefixes are within the scope
+                of the DOTS client domain. Other validation checks may be
+                supported by DOTS servers.<vspace blankLines="1" />This is an
+                optional attribute.</t>
 
                 <t hangText="target-port-range:">A list of port numbers bound
                 to resources under attack. <vspace blankLines="1" />A port
@@ -1986,9 +1986,9 @@
         <t>When the DOTS signal channel is established over a reliable
         transport (e.g., TCP), there is no need for the reliability mechanisms
         provided by CoAP over UDP since the underlying TCP connection provides
-        retransmissions and deduplication <xref target="RFC8323"></xref>. As a
-        reminder, CoAP over reliable transports does not support Confirmable
-        or Non-confirmable message types. As such, the transmission-related
+        retransmissions and deduplication <xref target="RFC8323"></xref>. CoAP
+        over reliable transports does not support Confirmable or
+        Non-confirmable message types. As such, the transmission-related
         parameters ('missing-hb-allowed' and acceptable signal loss ratio) are
         negotiated only for DOTS over unreliable transports.</t>
 
@@ -2754,8 +2754,8 @@
           </figure></t>
 
         <t>DOTS servers MAY trigger their heartbeat requests immediately after
-        receiving heartbeat probes from peer DOTS clients. As a reminder, it
-        is the responsibility of DOTS clients to ensure that on-path
+        receiving heartbeat probes from peer DOTS clients. It is the
+        responsibility of DOTS clients to ensure that on-path
         translators/firewalls are maintaining a binding so that the same
         external IP address and/or port number is retained for the DOTS signal
         channel session.</t>
@@ -3029,7 +3029,7 @@ module iana-dots-signal-channel {
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
      to the license terms contained in, the Simplified BSD License
-     set forth in Section 4 of the IETF Trust's Legal Provisions
+     set forth in Section 4.c of the IETF Trust's Legal Provisions
      Relating to IETF Documents
      (http://trustee.ietf.org/license-info).
 
@@ -3267,7 +3267,7 @@ module ietf-dots-signal-channel {
      Redistribution and use in source and binary forms, with or
      without modification, is permitted pursuant to, and subject
      to the license terms contained in, the Simplified BSD License
-     set forth in Section 4 of the IETF Trust's Legal Provisions
+     set forth in Section 4.c of the IETF Trust's Legal Provisions
      Relating to IETF Documents
      (http://trustee.ietf.org/license-info).
 
@@ -4179,9 +4179,9 @@ Note that:
       <section anchor="mtu" title="DTLS MTU and Fragmentation">
         <t>To avoid DOTS signal message fragmentation and the subsequent
         decreased probability of message delivery, DOTS agents MUST ensure
-        that the DTLS record fits within a single datagram. As a reminder,
-        DTLS handles fragmentation and reassembly only for handshake messages
-        and not for the application data (Section 4.1.1 of <xref
+        that the DTLS record fits within a single datagram. DTLS handles
+        fragmentation and reassembly only for handshake messages and not for
+        the application data (Section 4.1.1 of <xref
         target="RFC6347"></xref>). If the path MTU (PMTU) cannot be
         discovered, DOTS agents MUST assume a PMTU of 1280 bytes, as IPv6
         requires that every link in the Internet have an MTU of 1280 octets or
@@ -4602,9 +4602,10 @@ NEW:
           </section>
 
           <section anchor="initial" title="Update Subregistry Content">
-            <t>IANA is requested to update entries in the "0-51" range from
-            the "DOTS Signal Channel CBOR Key Values" registry with the RFC
-            number to be assigned to this document.</t>
+            <t>IANA is requested to update entries in the "0-51" and
+            "49152-65535" ranges from the "DOTS Signal Channel CBOR Key
+            Values" registry with the RFC number to be assigned to this
+            document.</t>
           </section>
         </section>
 
@@ -4941,7 +4942,7 @@ NEW:
       most of the TLS handshake is encrypted and the client certificate is not
       visible to eavesdroppers.</t>
 
-      <t>A compromised DOTS client can collude with a DDoS attacker to send
+      <t>A compromised DOTS client can collude with a DDoS attacker to send a
       mitigation request for a target resource, get the mitigation efficacy
       from the DOTS server, and convey the mitigation efficacy to the DDoS
       attacker to possibly change the DDoS attack strategy. Obviously,
