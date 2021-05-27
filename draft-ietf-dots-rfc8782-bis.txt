@@ -105,7 +105,7 @@ Table of Contents
      5.2.  IANA DOTS Signal Channel YANG Module  . . . . . . . . . .  63
      5.3.  IETF DOTS Signal Channel YANG Module  . . . . . . . . . .  67
    6.  YANG/JSON Mapping Parameters to CBOR  . . . . . . . . . . . .  80
-   7.  (D)TLS Protocol Profile and Performance Considerations  . . .  83
+   7.  (D)TLS Protocol Profile and Performance Considerations  . . .  84
 
 
 
@@ -115,7 +115,7 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
 
 
      7.1.  (D)TLS Protocol Profile . . . . . . . . . . . . . . . . .  84
-     7.2.  (D)TLS 1.3 Considerations . . . . . . . . . . . . . . . .  85
+     7.2.  (D)TLS 1.3 Considerations . . . . . . . . . . . . . . . .  86
      7.3.  DTLS MTU and Fragmentation  . . . . . . . . . . . . . . .  87
    8.  Mutual Authentication of DOTS Agents & Authorization of DOTS
        Clients . . . . . . . . . . . . . . . . . . . . . . . . . . .  88
@@ -3113,23 +3113,23 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    When the DOTS client receives a 5.03 response with an alternate
    server included, it considers the current request to have failed, but
    it SHOULD try resending the request to the alternate DOTS server.
-   Note that state synchronization (e.g., signal session configuration,
-   aliases) is assumed to be in place between the original and alternate
-   DOTS servers; such synchronization means are out of scope.
-
    During a DDoS attack, the DNS server may be the target of another
    DDoS attack, the alternate DOTS server's IP addresses conveyed in the
    5.03 response help the DOTS client skip the DNS lookup of the
    alternate DOTS server, at the cost of trusting the first DOTS server
    to provide accurate information.  The DOTS client can then try to
-   establish a UDP or a TCP session with the alternate DOTS server.  The
-   DOTS client MAY implement a method to construct IPv4-embedded IPv6
-   addresses [RFC6052]; this is required to handle the scenario where an
-   IPv6-only DOTS client communicates with an IPv4-only alternate DOTS
-   server.
+   establish a UDP or a TCP session with the alternate DOTS server
+   (Section 4.3).  Note that state synchronization (e.g., signal session
+   configuration, aliases) is assumed to be in place between the
+   original and alternate DOTS servers; such synchronization means are
+   out of scope.  If session configuration refresh is needed while
+   redirection is in place, the DOTS client follows the procedure
+   defined in Section 4.5.3.  Under some conditions (e.g., infinite
+   configuration lifetime, infinite redirection TTL), the DOTS client
+   MAY send in 'idle' time a PUT request to install DOTS signal channel
+   session configuration on the alternate server (Section 4.5.2).  Such
+   request MUST NOT be sent when a DDoS attack is active.
 
-   If the DOTS client has been redirected to a DOTS server with which it
-   has already communicated within the last five (5) minutes, it MUST
 
 
 
@@ -3138,6 +3138,13 @@ Boucadair, et al.       Expires November 28, 2021              [Page 56]
 Internet-Draft        DOTS Signal Channel Protocol              May 2021
 
 
+   The DOTS client MAY implement a method to construct IPv4-embedded
+   IPv6 addresses [RFC6052]; this is required to handle the scenario
+   where an IPv6-only DOTS client communicates with an IPv4-only
+   alternate DOTS server.
+
+   If the DOTS client has been redirected to a DOTS server with which it
+   has already communicated within the last five (5) minutes, it MUST
    ignore the redirection and try to contact other DOTS servers listed
    in the local configuration or discovered using dynamic means such as
    DHCP or SRV procedures [RFC8973].  It is RECOMMENDED that DOTS
@@ -3173,6 +3180,20 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    relayed by a DOTS gateway.  The PUT request used for DOTS heartbeat
    MUST NOT have a 'cuid', 'cdid', or 'mid' Uri-Path.
 
+
+
+
+
+
+
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 57]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
         Header: PUT (Code=0.03)
         Uri-Path: ".well-known"
         Uri-Path: "dots"
@@ -3186,13 +3207,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
         }
 
            Figure 27: PUT to Check Peer DOTS Agent Is Responding
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 57]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
 
    The mandatory 'peer-hb-status' attribute is set to 'true' (or
    'false') to indicate that a DOTS agent is (or is not) receiving
@@ -3226,6 +3240,16 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    DOTS client MUST then try to reestablish the DOTS signal channel
    session, preferably by resuming the (D)TLS session.
 
+
+
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 58]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
       |  Note: If a new DOTS signal channel session cannot be
       |  established, the DOTS client SHOULD NOT retry to establish the
       |  DOTS signal channel session more frequently than every 300
@@ -3241,14 +3265,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    client.  In this scenario, DOTS clients MUST behave differently to
    handle message transmission and DOTS signal channel session
    liveliness during link saturation:
-
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 58]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
 
       The DOTS client MUST NOT consider the DOTS signal channel session
       terminated even after a maximum 'missing-hb-allowed' threshold is
@@ -3282,6 +3298,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    on using the current DOTS signal channel session so that the DOTS
    client can send mitigation requests over the current DOTS signal
    channel session.  In this case, the DOTS server can identify that the
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 59]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
    DOTS client is under attack and that the inbound link to the DOTS
    client (domain) is saturated.  Furthermore, if the DOTS server does
    not receive a mitigation request from the DOTS client, it implies
@@ -3298,14 +3322,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
 
    In DOTS over TCP, the sender of a DOTS heartbeat message has to allow
    up to 'heartbeat-interval' seconds when waiting for a heartbeat
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 59]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
    reply.  When a failure is detected by a DOTS client, it proceeds with
    the session recovery, following the same approach as the one used for
    unreliable transports.
@@ -3338,6 +3354,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
       structure dots-signal:
         +-- (message-type)?
            +--:(mitigation-scope)
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 60]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
            |  +-- scope* []
            |     +-- target-prefix*                inet:ip-prefix
            |     +-- target-port-range* [lower-port]
@@ -3354,14 +3378,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
            |        |  +-- mid?                    uint32
            |        |  +-- mitigation-start?       uint64
            |        |  +-- status?
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 60]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
            |        |  |       iana-dots-signal:status
            |        |  +-- conflict-information
            |        |  |  +-- conflict-status?
@@ -3394,6 +3410,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
            +--:(signal-config)
            |  +-- mitigating-config
            |  |  +-- heartbeat-interval
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 61]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
            |  |  |  +-- (direction)?
            |  |  |  |  +--:(server-to-client-only)
            |  |  |  |     +-- max-value?   uint16
@@ -3410,14 +3434,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
            |  |  |  |  +--:(server-to-client-only)
            |  |  |  |     +-- max-value?   uint16
            |  |  |  |     +-- min-value?   uint16
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 61]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
            |  |  |  +-- current-value?     uint16
            |  |  +-- max-retransmit
            |  |  |  +-- (direction)?
@@ -3450,6 +3466,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
            |     |  |     +-- max-value?   uint16
            |     |  |     +-- min-value?   uint16
            |     |  +-- current-value?     uint16
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 62]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
            |     +-- probing-rate
            |     |  +-- (direction)?
            |     |  |  +--:(server-to-client-only)
@@ -3466,14 +3490,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
            |     |  +-- (direction)?
            |     |  |  +--:(server-to-client-only)
            |     |  |     +-- max-value-decimal?   decimal64
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 62]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
            |     |  |     +-- min-value-decimal?   decimal64
            |     |  +-- current-value-decimal?     decimal64
            |     +-- ack-random-factor
@@ -3506,6 +3522,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
      contact
        "Internet Assigned Numbers Authority
 
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 63]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
         Postal: ICANN
              12025 Waterfront Drive, Suite 300
              Los Angeles, CA  90094-2536
@@ -3522,14 +3546,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
         Redistribution and use in source and binary forms, with or
         without modification, is permitted pursuant to, and subject
         to the license terms contained in, the Simplified BSD License
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 63]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
         set forth in Section 4.c of the IETF Trust's Legal Provisions
         Relating to IETF Documents
         (http://trustee.ietf.org/license-info).
@@ -3562,6 +3578,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
               the network path to reroute the inbound traffic
               to DOTS mitigator).";
          }
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 64]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
          enum attack-successfully-mitigated {
            value 2;
            description
@@ -3578,14 +3602,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
          enum attack-exceeded-capability {
            value 4;
            description
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 64]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
              "Attack has exceeded the mitigation provider
               capability.";
          }
@@ -3618,6 +3634,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
          "Enumeration for status reported by the DOTS server.";
      }
 
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 65]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
      typedef conflict-status {
        type enumeration {
          enum request-inactive-other-active {
@@ -3634,14 +3658,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
            description
              "DOTS Server has detected conflicting mitigation
               requests from different DOTS clients.
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 65]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
               This mitigation request is currently active.";
          }
          enum all-requests-inactive {
@@ -3674,6 +3690,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
               listed in the accept-list ACLs are actually
               attacking the target.";
          }
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 66]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
          enum cuid-collision {
            value 3;
            description
@@ -3690,14 +3714,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
          enum under-attack {
            value 1;
            description
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 66]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
              "The DOTS client determines that it is still under
               attack.";
          }
@@ -3730,6 +3746,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
 
    import ietf-inet-types {
      prefix inet;
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 67]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
      reference
        "Section 4 of RFC 6991";
    }
@@ -3746,14 +3770,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    }
    import iana-dots-signal-channel {
      prefix iana-dots-signal;
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 67]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
      reference
        "RFC XXXX: Distributed Denial-of-Service Open Threat Signaling
                   (DOTS) Signal Channel Specification";
@@ -3786,6 +3802,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
                <mailto:amortensen@arbor.net>
 
       Author:  Nik Teague
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 68]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
                <mailto:nteague@ironmountain.co.uk>";
    description
      "This module contains YANG definition for the signaling
@@ -3802,14 +3826,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
       (http://trustee.ietf.org/license-info).
 
       This version of this YANG module is part of RFC XXXX; see
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 68]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
       the RFC itself for full legal notices.";
 
    revision 2021-03-02 {
@@ -3842,6 +3858,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
          type string;
          description
            "An alias name that points to a resource.";
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 69]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
        }
        leaf lifetime {
          type union {
@@ -3857,14 +3881,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
 
             A lifetime of '0' in a mitigation request is an
             invalid value.
-
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 69]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
 
             A lifetime of negative one (-1) indicates indefinite
             lifetime for the mitigation request.
@@ -3898,6 +3914,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
                "Mitigation request identifier.
 
                 This identifier must be unique for each mitigation
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 70]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
                 request bound to the DOTS client.";
            }
            leaf mitigation-start {
@@ -3914,14 +3938,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
              type iana-dots-signal:status;
              description
                "Indicates the status of a mitigation request.
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 70]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
                 It must be included in responses only.
 
                 This is a mandatory attribute if a mitigation
@@ -3954,6 +3970,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
                uses data-channel:target {
                  when "/dots-signal/scope/conflict-information/"
                     + "conflict-cause = 'overlapping-targets'";
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 71]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
                }
                leaf-list alias-name {
                  when "../../conflict-cause = 'overlapping-targets'";
@@ -3970,14 +3994,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
                     channel.  These ACLs are uniquely defined by
                     cuid and acl-name.";
                  leaf acl-name {
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 71]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
                    type leafref {
                      path "/data-channel:dots-data"
                         + "/data-channel:dots-client/data-channel:acls"
@@ -4010,6 +4026,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
            leaf bytes-dropped {
              type yang:zero-based-counter64;
              units "bytes";
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 72]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
              description
                "The total dropped byte count for the mitigation
                 request since the attack mitigation was triggered.
@@ -4026,14 +4050,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
                 into five-minute buckets and then averaging these
                 buckets over the time since the mitigation was
                 triggered).";
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 72]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
            }
            leaf pkts-dropped {
              type yang:zero-based-counter64;
@@ -4066,6 +4082,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
                 DOTS client.
 
                 Ths is is a mandatory attribute when a client
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 73]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
                 performs an efficacy update.";
            }
          }
@@ -4082,14 +4106,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
           after mutual authentication is successfully
           completed in order to keep the DOTS signal channel
           open.";
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 73]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
        choice direction {
          description
            "Indicates the communication direction in which the
@@ -4122,6 +4138,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
             '0' means that heartbeat mechanism is deactivated.";
        }
      }
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 74]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
      container missing-hb-allowed {
        description
          "Maximum number of missing heartbeats allowed.";
@@ -4138,14 +4162,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
              description
                "Maximum acceptable missing-hb-allowed value.";
            }
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 74]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
            leaf min-value {
              type uint16;
              description
@@ -4178,6 +4194,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
              description
                "Maximum acceptable probing-rate value.";
            }
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 75]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
            leaf min-value {
              type uint16;
              units "byte/second";
@@ -4194,14 +4218,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
            "Current probing-rate value.";
        }
      }
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 75]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
      container max-retransmit {
        description
          "Maximum number of retransmissions of a Confirmable
@@ -4234,6 +4250,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
        }
      }
      container ack-timeout {
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 76]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
        description
          "Initial retransmission timeout value.";
        choice direction {
@@ -4250,14 +4274,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
              }
              units "seconds";
              description
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 76]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
                "Maximum ack-timeout value.";
            }
            leaf min-value-decimal {
@@ -4290,6 +4306,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
             data nodes can be included.";
          case server-to-client-only {
            description
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 77]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
              "These data nodes appear only in a mitigation message
               sent from the server to the client.";
            leaf max-value-decimal {
@@ -4306,14 +4330,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
              description
                "Minimum acceptable ack-random-factor value.";
            }
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 77]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
          }
        }
        leaf current-value-decimal {
@@ -4346,6 +4362,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
 
    grouping redirected-signal {
      description
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 78]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
        "Grouping for the redirected signaling.";
      choice direction {
        description
@@ -4362,14 +4386,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
              "FQDN of an alternate server.";
          }
          leaf-list alt-server-record {
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 78]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
            type inet:ip-address;
            description
              "List of records for the alternate server.";
@@ -4402,6 +4418,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
            "Configuration message.";
          uses signal-config;
        }
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 79]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
        case redirected-signal {
          description
            "Redirected signaling.";
@@ -4418,14 +4442,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
               from its peer.  The value is set to 'true' if the
               DOTS agent is receiving heartbeat messages
               from its peer.";
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 79]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
          }
        }
      }
@@ -4458,6 +4474,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    | Parameter Name      | YANG Type    | CBOR | CBOR Major  | JSON   |
    |                     |              | Key  | Type &      | Type   |
    |                     |              |      | Information |        |
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 80]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
    +=====================+==============+======+=============+========+
    | ietf-dots-signal-   | container    | 1    | 5 map       | Object |
    | channel:mitigation- |              |      |             |        |
@@ -4474,14 +4498,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    | mid                 | uint32       | 5    | 0 unsigned  | Number |
    +---------------------+--------------+------+-------------+--------+
    | target-prefix       | leaf-list    | 6    | 4 array     | Array  |
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 80]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
    |                     +--------------+------+-------------+--------+
    |                     | inet:ip-     |      | 3 text      | String |
    |                     | prefix       |      | string      |        |
@@ -4514,6 +4530,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    |                     |              |      | string      |        |
    +---------------------+--------------+------+-------------+--------+
    | lifetime            | union        | 14   | 0 unsigned  | Number |
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 81]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
    |                     |              |      +-------------+--------+
    |                     |              |      | 1 negative  | Number |
    +---------------------+--------------+------+-------------+--------+
@@ -4530,14 +4554,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    +---------------------+--------------+------+-------------+--------+
    | retry-timer         | uint32       | 20   | 0 unsigned  | String |
    +---------------------+--------------+------+-------------+--------+
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 81]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
    | conflict-scope      | container    | 21   | 5 map       | Object |
    +---------------------+--------------+------+-------------+--------+
    | acl-list            | list         | 22   | 4 array     | Array  |
@@ -4570,6 +4586,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    +---------------------+--------------+------+-------------+--------+
    | mitigating-config   | container    | 32   | 5 map       | Object |
    +---------------------+--------------+------+-------------+--------+
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 82]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
    | heartbeat-interval  | container    | 33   | 5 map       | Object |
    +---------------------+--------------+------+-------------+--------+
    | max-value           | uint16       | 34   | 0 unsigned  | Number |
@@ -4586,14 +4610,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    +---------------------+--------------+------+-------------+--------+
    | ack-random-factor   | container    | 40   | 5 map       | Object |
    +---------------------+--------------+------+-------------+--------+
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 82]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
    | max-value-decimal   | decimal64    | 41   | 6 tag 4     | String |
    |                     |              |      | [-2,        |        |
    |                     |              |      | integer]    |        |
@@ -4626,6 +4642,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    +---------------------+--------------+------+-------------+--------+
    | ietf-dots-signal-   | container    | 49   | 5 map       | Object |
    | channel:heartbeat   |              |      |             |        |
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 83]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
    +---------------------+--------------+------+-------------+--------+
    | probing-rate        | container    | 50   | 5 map       | Object |
    +---------------------+--------------+------+-------------+--------+
@@ -4638,17 +4662,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
                         Their Mappings to JSON and YANG
 
 7.  (D)TLS Protocol Profile and Performance Considerations
-
-
-
-
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 83]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
 
 7.1.  (D)TLS Protocol Profile
 
@@ -4685,6 +4698,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    Enrollment over Secure Transport (EST) [RFC7030] defines a method of
    certificate enrollment by which domains operating DOTS servers may
    provide DOTS clients with all the necessary cryptographic keying
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 84]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
    material, including a private key and a certificate, to authenticate
    themselves.  One deployment option is to have DOTS clients behave as
    EST clients for certificate enrollment from an EST server provisioned
@@ -4698,14 +4719,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    environments where multiple virtual servers are reachable over a
    single IP address.  The DOTS client may or may not know if it is
    interacting with a DOTS server in a virtual server hosting
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 84]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
    environment, so the DOTS client SHOULD include the DOTS server FQDN
    in the SNI extension.
 
@@ -4742,6 +4755,13 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    implementations are encouraged to implement TCP Fast Open [RFC7413]
    to eliminate that RTT.
 
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 85]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
 7.2.  (D)TLS 1.3 Considerations
 
    TLS 1.3 provides useful latency improvements for connection
@@ -4754,13 +4774,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
       mitigation request message after one round trip and the DOTS
       server immediately responds with a DOTS mitigation response.  This
       assumes no packet loss is experienced.
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 85]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
 
    o  0-RTT mode in which the DOTS client can authenticate itself and
       send DOTS mitigation request messages in the first message, thus
@@ -4797,6 +4810,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    servers in the DOTS server domain.  DOTS servers do not rely on
    transport coordinates to identify DOTS peers.  As specified in
    Section 4.4.1, DOTS servers couple the DOTS signal channel sessions
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 86]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
    using the DOTS client identity and optionally the 'cdid' parameter
    value.  Furthermore, the 'mid' value is monotonically increased by
    the DOTS client for each mitigation request, thus attackers that
@@ -4808,15 +4829,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    replaying configuration requests with lower numeric 'sid' values will
    be rejected by the DOTS server if it maintains a higher numeric 'sid'
    value for this DOTS client.
-
-
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 86]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
 
    Owing to the aforementioned protections, all DOTS signal channel
    requests are safe to transmit in TLS 1.3 as early data.  Refer to
@@ -4854,6 +4866,14 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    application data (Section 4.1.1 of [RFC6347]).  If the path MTU
    (PMTU) cannot be discovered, DOTS agents MUST assume a PMTU of 1280
    bytes, as IPv6 requires that every link in the Internet have an MTU
+
+
+
+Boucadair, et al.       Expires November 28, 2021              [Page 87]
+
+Internet-Draft        DOTS Signal Channel Protocol              May 2021
+
+
    of 1280 octets or greater as specified in [RFC8200].  If IPv4 support
    on legacy or otherwise unusual networks is a consideration and the
    PMTU is unknown, DOTS implementations MAY assume a PMTU of 576 bytes
@@ -4866,14 +4886,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    overhead of the negotiated DTLS cipher suite + block padding]
    (Section 4.1.1.1 of [RFC6347]).  If the total request size exceeds
    the PMTU, then the DOTS client MUST split the DOTS signal into
-
-
-
-Boucadair, et al.       Expires November 28, 2021              [Page 87]
-
-Internet-Draft        DOTS Signal Channel Protocol              May 2021
-
-
    separate messages; for example, the list of addresses in the 'target-
    prefix' parameter could be split into multiple lists and each list
    conveyed in a new PUT request.
@@ -4906,18 +4918,6 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    [RFC5280] certificate profile.  If a DOTS client does not support TLS
    client certificate authentication, it must support client
    authentication based on pre-shared key or raw public key.
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
