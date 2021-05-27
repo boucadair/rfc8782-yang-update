@@ -3124,12 +3124,12 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    original and alternate DOTS servers; such synchronization means are
    out of scope.  If session configuration refresh is needed while
    redirection is in place, the DOTS client follows the procedure
-   defined in Section 4.5.3.  Under some conditions (e.g., infinite
-   configuration lifetime, infinite redirection TTL), the DOTS client
-   MAY send in 'idle' time a PUT request to install DOTS signal channel
-   session configuration on the alternate server (Section 4.5.2).  Such
-   request MUST NOT be sent when a DDoS attack is active.
-
+   defined in Section 4.5.3.  In 'idle' time and under some conditions
+   (e.g., infinite configuration lifetime, infinite redirection TTL, and
+   failure to refresh the configuration), the DOTS client follows the
+   procedure defined in Section 4.5.2 to negotiate the DOTS signal
+   channel session configuration with the alternate server.  The DOTS
+   client MAY implement a method to construct IPv4-embedded IPv6
 
 
 
@@ -3138,10 +3138,9 @@ Boucadair, et al.       Expires November 28, 2021              [Page 56]
 Internet-Draft        DOTS Signal Channel Protocol              May 2021
 
 
-   The DOTS client MAY implement a method to construct IPv4-embedded
-   IPv6 addresses [RFC6052]; this is required to handle the scenario
-   where an IPv6-only DOTS client communicates with an IPv4-only
-   alternate DOTS server.
+   addresses [RFC6052]; this is required to handle the scenario where an
+   IPv6-only DOTS client communicates with an IPv4-only alternate DOTS
+   server.
 
    If the DOTS client has been redirected to a DOTS server with which it
    has already communicated within the last five (5) minutes, it MUST
@@ -3179,6 +3178,7 @@ Internet-Draft        DOTS Signal Channel Protocol              May 2021
    immediate peer DOTS agent.  As such, this PUT request MUST NOT be
    relayed by a DOTS gateway.  The PUT request used for DOTS heartbeat
    MUST NOT have a 'cuid', 'cdid', or 'mid' Uri-Path.
+
 
 
 
