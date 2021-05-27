@@ -1300,11 +1300,12 @@
 
                     <t hangText="conflict-scope:">Characterizes the exact
                     conflict scope. It may include a list of IP addresses, a
-                    list of target protocols, a list of FQDNs, a list of URIs,
-                    a list of aliases, or references to conflicting ACLs (by
-                    an 'acl-name', typically <xref target="RFC8783"></xref>).
-                    A list of port numbers may also be included if there is a
-                    common IP address, IP prefix, FQDN, URI, or alias.</t>
+                    list of prefixes, a list of target protocols, a list of
+                    FQDNs, a list of URIs, a list of aliases, or references to
+                    conflicting ACLs (by an 'acl-name', typically <xref
+                    target="RFC8783"></xref>). A list of port numbers may also
+                    be included if there is a common IP address, IP prefix,
+                    FQDN, URI, or alias.</t>
 
                     <t hangText="retry-timer:">Indicates, in seconds, the time
                     after which the DOTS client may reissue the same request.
@@ -2665,17 +2666,21 @@
 
         <t>When the DOTS client receives a 5.03 response with an alternate
         server included, it considers the current request to have failed, but
-        it SHOULD try resending the request to the alternate DOTS server.
-        During a DDoS attack, the DNS server may be the target of another DDoS
-        attack, the alternate DOTS server's IP addresses conveyed in the 5.03
-        response help the DOTS client skip the DNS lookup of the alternate
-        DOTS server, at the cost of trusting the first DOTS server to provide
-        accurate information. The DOTS client can then try to establish a UDP
-        or a TCP session with the alternate DOTS server. The DOTS client MAY
-        implement a method to construct IPv4-embedded IPv6 addresses <xref
-        target="RFC6052"></xref>; this is required to handle the scenario
-        where an IPv6-only DOTS client communicates with an IPv4-only
-        alternate DOTS server.</t>
+        it SHOULD try resending the request to the alternate DOTS server. Note
+        that state synchronization (e.g., signal session configuration,
+        aliases) is assumed to be in place between the original and alternate
+        DOTS servers; such synchronization means are out of scope. </t>
+
+        <t>During a DDoS attack, the DNS server may be the target of another
+        DDoS attack, the alternate DOTS server's IP addresses conveyed in the
+        5.03 response help the DOTS client skip the DNS lookup of the
+        alternate DOTS server, at the cost of trusting the first DOTS server
+        to provide accurate information. The DOTS client can then try to
+        establish a UDP or a TCP session with the alternate DOTS server. The
+        DOTS client MAY implement a method to construct IPv4-embedded IPv6
+        addresses <xref target="RFC6052"></xref>; this is required to handle
+        the scenario where an IPv6-only DOTS client communicates with an
+        IPv4-only alternate DOTS server.</t>
 
         <t>If the DOTS client has been redirected to a DOTS server with which
         it has already communicated within the last five (5) minutes, it MUST
@@ -4178,10 +4183,10 @@ Note that:
 
       <section anchor="mtu" title="DTLS MTU and Fragmentation">
         <t>To avoid DOTS signal message fragmentation and the subsequent
-        decreased probability of message delivery, DOTS agents MUST ensure
-        that the DTLS record fits within a single datagram. DTLS handles
-        fragmentation and reassembly only for handshake messages and not for
-        the application data (Section 4.1.1 of <xref
+        decreased probability of message delivery, the DLTS records need to
+        fit within a single datagram <xref target="RFC6347"></xref>. DTLS
+        handles fragmentation and reassembly only for handshake messages and
+        not for the application data (Section 4.1.1 of <xref
         target="RFC6347"></xref>). If the path MTU (PMTU) cannot be
         discovered, DOTS agents MUST assume a PMTU of 1280 bytes, as IPv6
         requires that every link in the Internet have an MTU of 1280 octets or
@@ -5366,14 +5371,14 @@ NEW:
     </section>
 
     <section anchor="ack" title="Acknowledgements">
-      <t>+Many thanks to Martin Bj&ouml;rklund for the suggestion to use
+      <t>Many thanks to Martin Bj&ouml;rklund for the suggestion to use
       RFC8791.</t>
 
       <t>Thanks to Valery Smyslov for the comments, guidance, and support.</t>
 
       <t>Thanks to Ebben Aries for the yangdoctors review, Dan Romascanu for
       the opsdir review, Michael Tuexen for the tsv-art review, Dale Worley
-      for the genart review, and Donald Eastlake for the secdir review</t>
+      for the genart review, and Donald Eastlake for the secdir review.</t>
 
       <t>Thanks to Benjamin Kaduk for the AD review.</t>
 
