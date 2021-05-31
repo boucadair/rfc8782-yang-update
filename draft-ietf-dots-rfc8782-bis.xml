@@ -185,8 +185,8 @@
       mitigation services. The latter might or might not provide connectivity
       services to the network hosting the DOTS client.</t>
 
-      <t>The DOTS server may or may not not be co-located with the DOTS
-      mitigator. In typical deployments, the DOTS server belongs to the same
+      <t>The DOTS server may or may not be co-located with the DOTS mitigator.
+      In typical deployments, the DOTS server belongs to the same
       administrative domain as the mitigator. The DOTS client can communicate
       directly with a DOTS server or indirectly via a DOTS gateway.</t>
 
@@ -224,7 +224,7 @@
       target="RFC8811"></xref>. The requirements for DOTS signal channel
       protocol are documented in <xref target="RFC8612"></xref>. This document
       satisfies all the use cases discussed in <xref
-      target="I-D.ietf-dots-use-cases"></xref>.</t>
+      target="RFC8903"></xref>.</t>
 
       <t>This document focuses on the DOTS signal channel. This is a companion
       document of the DOTS data channel specification <xref
@@ -2689,7 +2689,7 @@
         alternate server. The DOTS client MAY implement a method to construct
         IPv4-embedded IPv6 addresses <xref target="RFC6052"></xref>; this is
         required to handle the scenario where an IPv6-only DOTS client
-        communicates with an IPv4-only alternate DOTS server. </t>
+        communicates with an IPv4-only alternate DOTS server.</t>
 
         <t>If the DOTS client has been redirected to a DOTS server with which
         it has already communicated within the last five (5) minutes, it MUST
@@ -3509,7 +3509,7 @@ module ietf-dots-signal-channel {
               "Indicates the status of an attack as seen by the
                DOTS client.
 
-               Ths is is a mandatory attribute when a client
+               This is a mandatory attribute when a client
                performs an efficacy update.";
           }
         }
@@ -4388,7 +4388,7 @@ Note that:
         numbers/&gt;.</t>
 
         <t>IANA is requested to update these entries with the RFC number to be
-        assigned to this docuement:</t>
+        assigned to this document:</t>
 
         <t><figure>
             <artwork><![CDATA[      Service Name:  dots-signal
@@ -4416,7 +4416,7 @@ Note that:
       </section>
 
       <section anchor="uri" title="Well-Known 'dots' URI">
-        <t>IANA is requested to update the the 'dots' well-known URI (Table 6)
+        <t>IANA is requested to update the 'dots' well-known URI (Table 6)
         entry in the Well- Known URIs registry <xref target="URI"></xref> as
         follows:</t>
 
@@ -5098,7 +5098,7 @@ NEW:
       <?rfc include='reference.RFC.7951'?>
 
       <reference anchor="IANA-MediaTypes"
-                 target="http://www.iana.org/assignments/media-types">
+                 target="https://www.iana.org/assignments/media-types">
         <front>
           <title>Media Types</title>
 
@@ -5111,7 +5111,7 @@ NEW:
       </reference>
 
       <reference anchor="IANA-CoAP-Content-Formats"
-                 target="http://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats">
+                 target="https://www.iana.org/assignments/core-parameters/core-parameters.xhtml#content-formats">
         <front>
           <title>CoAP Content-Formats</title>
 
@@ -5124,7 +5124,7 @@ NEW:
       </reference>
 
       <reference anchor="IANA-CBOR-Tags"
-                 target="http://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">
+                 target="https://www.iana.org/assignments/cbor-tags/cbor-tags.xhtml">
         <front>
           <title>Concise Binary Object Representation (CBOR) Tags</title>
 
@@ -5190,7 +5190,7 @@ NEW:
 
       <?rfc include="reference.RFC.8612"?>
 
-      <?rfc include="reference.I-D.ietf-dots-use-cases"?>
+      <?rfc include="reference.RFC.8903"?>
 
       <?rfc include="reference.RFC.8811"?>
 
@@ -5205,7 +5205,7 @@ NEW:
       <?rfc include='reference.RFC.8489'?>
 
       <reference anchor="IANA-Proto"
-                 target="http://www.iana.org/assignments/protocol-numbers">
+                 target="https://www.iana.org/assignments/protocol-numbers">
         <front>
           <title>Protocol Numbers</title>
 
@@ -5391,6 +5391,8 @@ NEW:
       for the genart review, and Donald Eastlake for the secdir review.</t>
 
       <t>Thanks to Benjamin Kaduk for the AD review.</t>
+
+      <t>Thanks to Lars Eggert for the IESG review. </t>
 
       <section title="Acknowledgements from RFC8782">
         <t>Thanks to Christian Jacquenet, Roland Dobbins, Roman Danyliw,
