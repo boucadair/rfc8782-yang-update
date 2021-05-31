@@ -431,17 +431,17 @@
         <xref target="changes"></xref>. These modifications are made with the
         constraint to avoid changes to the mapping table defined in Table 5 of
         <xref target="RFC8782"></xref> (see also <xref
-        target="mapping"></xref>). For both legacy and implementations that
-        follow the present specification, a DOTS signal channel attribute will
-        thus have the same CBOR key value and CBOR major type. The only
-        upgrade that is required to <xref target="RFC8782"></xref>
-        implementations is to handle the CBOR key value range "128-255" as
-        comprehension-optional instead of comprehension-required. Note that
-        this range is anticipated to be used by the DOTS telemetry <xref
-        target="I-D.ietf-dots-telemetry"></xref> in which the following means
-        are used to prevent message processing failure of a DOTS signal
-        channel message enriched with telemetry data: (1) DOTS agents use
-        dedicated (new) path suffixes (Section 5 of <xref
+        target="mapping"></xref>). For both legacy <xref
+        target="RFC8782"></xref> and implementations that follow the present
+        specification, a DOTS signal channel attribute will thus have the same
+        CBOR key value and CBOR major type. The only upgrade that is required
+        to <xref target="RFC8782"></xref> implementations is to handle the
+        CBOR key value range "128-255" as comprehension-optional instead of
+        comprehension-required. Note that this range is anticipated to be used
+        by the DOTS telemetry <xref target="I-D.ietf-dots-telemetry"></xref>
+        in which the following means are used to prevent message processing
+        failure of a DOTS signal channel message enriched with telemetry data:
+        (1) DOTS agents use dedicated (new) path suffixes (Section 5 of <xref
         target="I-D.ietf-dots-telemetry"></xref>) and (2) a DOTS server won't
         include telemetry attributes in its responses unless it is explicitly
         told to do so by a DOTS client (Section 6.1.2 of <xref
@@ -3470,8 +3470,9 @@ module ietf-dots-signal-channel {
           }
           leaf bps-dropped {
             type yang:gauge64;
+            units "bytes per second";
             description
-              "The average number of dropped bits per second for
+              "The average number of dropped bytes per second for
                the mitigation request since the attack
                mitigation was triggered.  This should be over
                five-minute intervals (that is, measuring bytes
@@ -3489,6 +3490,7 @@ module ietf-dots-signal-channel {
           }
           leaf pps-dropped {
             type yang:gauge64;
+            units "packets per second";
             description
               "The average number of dropped packets per second
                for the mitigation request since the attack
@@ -5392,7 +5394,8 @@ NEW:
 
       <t>Thanks to Benjamin Kaduk for the AD review.</t>
 
-      <t>Thanks to Lars Eggert for the IESG review. </t>
+      <t>Thanks to Lars Eggert and &Eacute;ric Vyncke for the IESG review.
+      </t>
 
       <section title="Acknowledgements from RFC8782">
         <t>Thanks to Christian Jacquenet, Roland Dobbins, Roman Danyliw,
