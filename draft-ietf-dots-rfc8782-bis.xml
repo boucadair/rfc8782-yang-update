@@ -1336,14 +1336,17 @@
 
             <t hangText="conflict-information:"><figure align="center"
                 anchor="newcuid" title="Example of Generating a New 'cuid'">
-                <artwork><![CDATA[  Header: PUT (Code=0.03)
+                <artwork><![CDATA[  (1) Request with a conflicting 'cuid'
+
+  Header: PUT (Code=0.03)
   Uri-Path: ".well-known"
   Uri-Path: "dots"
   Uri-Path: "mitigate"
   Uri-Path: "cuid=dz6pHjaADkaFTbjr0JGBpw"
   Uri-Path: "mid=12"
 
-  (1) Request with a conflicting 'cuid'
+  (2) Message body of the 4.09 (Conflict) response
+      from the DOTS server
 
   {
     "ietf-dots-signal-channel:mitigation-scope": {
@@ -1357,8 +1360,7 @@
      }
   }
 
-  (2) Message body of the 4.09 (Conflict) response
-    from the DOTS server
+  (3) Request with a new 'cuid'
 
   Header: PUT (Code=0.03)
   Uri-Path: ".well-known"
@@ -1367,15 +1369,12 @@
   Uri-Path: "cuid=f30d281ce6b64fc5a0b91e"                  
   Uri-Path: "mid=12"
 
-  (3) Request with a new 'cuid']]></artwork>
-              </figure></t>
-
-            <t hangText="conflict-information:">As an active attack evolves,
-            DOTS clients can adjust the scope of requested mitigation as
-            necessary, by refining the scope of resources requiring
-            mitigation. This can be achieved by sending a PUT request with a
-            new 'mid' value that will override the existing one with
-            overlapping mitigation scopes.</t>
+]]></artwork>
+              </figure>As an active attack evolves, DOTS clients can adjust
+            the scope of requested mitigation as necessary, by refining the
+            scope of resources requiring mitigation. This can be achieved by
+            sending a PUT request with a new 'mid' value that will override
+            the existing one with overlapping mitigation scopes.</t>
 
             <t hangText="conflict-information:">For a mitigation request to
             continue beyond the initial negotiated lifetime, the DOTS client
@@ -3294,7 +3293,10 @@ module ietf-dots-signal-channel {
 
   revision 2021-03-02 {
     description
-      "Updated revision to comply with RFC8791.";
+      "Updated revision to comply with RFC8791. 
+
+       This version is not backward compatible with the version 
+       published in RFC 8782.";
     reference
       "RFC XXXX: Distributed Denial-of-Service Open Threat
                  Signaling (DOTS) Signal Channel Specification";
@@ -3792,8 +3794,8 @@ module ietf-dots-signal-channel {
        a redirected, or a heartbeat signal message.";
     choice message-type {
       description
-        "Can be a mitigation, a configuration, or a redirect
-         message.";
+        "Can be a mitigation, a configuration, a redirect, or
+         a heartbeat message.";
       case mitigation-scope {
         description
           "Mitigation scope of a mitigation message.";
@@ -5400,8 +5402,8 @@ NEW:
 
       <t>Thanks to Benjamin Kaduk for the AD review.</t>
 
-      <t>Thanks to Martin Duke, Lars Eggert, and &Eacute;ric Vyncke for the
-      IESG review.</t>
+      <t>Thanks to Martin Duke, Lars Eggert, &Eacute;ric Vyncke, and Robert
+      Wilton for the IESG review.</t>
 
       <section title="Acknowledgements from RFC8782">
         <t>Thanks to Christian Jacquenet, Roland Dobbins, Roman Danyliw,
