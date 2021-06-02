@@ -887,11 +887,12 @@
                 blankLines="1" />The DOTS server MUST always indicate the
                 actual lifetime in the response and the remaining lifetime in
                 status messages sent to the DOTS client. <vspace
-                blankLines="1" />Upon the expiry of the negotiated lifetime,
-                and if the request is not refreshed by the DOTS client, the
-                mitigation request is removed by the DOTS server. The request
-                can be refreshed by sending the same request again. <vspace
-                blankLines="1" />This is a mandatory attribute.</t>
+                blankLines="1" />Upon the expiry of the negotiated lifetime
+                (i.e., the remaining lifetime reaches '0'), and if the request
+                is not refreshed by the DOTS client, the mitigation request is
+                removed by the DOTS server. The request can be refreshed by
+                sending the same request again. <vspace blankLines="1" />This
+                is a mandatory attribute.</t>
 
                 <t hangText="trigger-mitigation:">If the parameter value is
                 set to 'false', DDoS mitigation will not be triggered for the
@@ -1339,7 +1340,7 @@
   Uri-Path: ".well-known"
   Uri-Path: "dots"
   Uri-Path: "mitigate"
-  Uri-Path: "cuid=7eeaf349529eb55ed50113"
+  Uri-Path: "cuid=dz6pHjaADkaFTbjr0JGBpw"
   Uri-Path: "mid=12"
 
   (1) Request with a conflicting 'cuid'
@@ -1383,7 +1384,8 @@
             MUST repeat all the other parameters as sent in the original
             mitigation request apart from a possible change to the 'lifetime'
             parameter value. In such a case, the DOTS server MAY update the
-            mitigation request, and a 2.04 (Changed) response is returned to
+            mitigation request by setting the remaining lifetime to the newly
+            negotiated lifetime, and a 2.04 (Changed) response is returned to
             indicate a successful update of the mitigation request. If this is
             not the case, the DOTS server MUST reject the request with a 4.00
             (Bad Request).</t>
@@ -5295,6 +5297,8 @@ NEW:
 
           <t>Add <xref target="def"></xref> to list recommended/default values
           of key DOTS signal channel parameters.</t>
+
+          <t>Add subsections to Section 4.4.1 for better readability.</t>
         </list></t>
 
       <t></t>
