@@ -200,10 +200,12 @@
           <artwork align="left"><![CDATA[   Network
    Resource         CPE Router        Access Network     __________
  +-----------+   +--------------+    +-------------+    /          \
- |           |___|              |____|             |___ | Internet |
- |DOTS Client|   | DOTS Gateway |    | DOTS Server |    |          |
+ |           |   |              |    |             |    | Internet |
+ |DOTS Client+---+ DOTS Gateway +----+ DOTS Server +----+          |
  |           |   |              |    |             |    |          |
- +-----------+   +--------------+    +-------------+    \__________/]]></artwork>
+ +-----------+   +--------------+    +-------------+    \__________/     
+
+]]></artwork>
         </figure></t>
 
       <t>DOTS servers can also be reachable over the Internet, as depicted in
@@ -213,9 +215,9 @@
           <artwork align="center"><![CDATA[  Network                                           DDoS Mitigation
   Resource         CPE Router        __________         Service
 +-----------+   +--------------+    /          \    +-------------+
-|           |___|              |____|          |___ |             |
-|DOTS Client|   | DOTS Gateway |    | Internet |    | DOTS Server |
-|           |   |              |    |          |    |             |
+|           |   |              |   |           |    |             |
+|DOTS Client+---+ DOTS Gateway +---+ Internet  +----+ DOTS Server |
+|           |   |              |   |           |    |             |
 +-----------+   +--------------+    \__________/    +-------------+
 ]]></artwork>
         </figure></t>
