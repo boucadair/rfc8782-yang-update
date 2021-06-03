@@ -227,13 +227,12 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
 
 
       Network
-      Resource         CPE Router        Access Network     __________
-    +-----------+   +--------------+    +-------------+    /          \
-    |           |   |              |    |             |    | Internet |
-    |DOTS Client+---+ DOTS Gateway +----+ DOTS Server +----+          |
-    |           |   |              |    |             |    |          |
-    +-----------+   +--------------+    +-------------+    \__________/
-
+      Resource          CPE Router      Access Network      __________
+   +-------------+   +--------------+   +-------------+    /          \
+   |             |   |              |   |             |    | Internet |
+   | DOTS Client +---+ DOTS Gateway +---+ DOTS Server +----+          |
+   |             |   |              |   |             |    |          |
+   +-------------+   +--------------+   +-------------+    \__________/
 
                    Figure 1: Sample DOTS Deployment (1)
 
@@ -241,12 +240,12 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
    Figure 2.
 
       Network                                           DDoS Mitigation
-      Resource         CPE Router        __________         Service
-    +-----------+   +--------------+    /          \    +-------------+
-    |           |   |              |   |           |    |             |
-    |DOTS Client+---+ DOTS Gateway +---+ Internet  +----+ DOTS Server |
-    |           |   |              |   |           |    |             |
-    +-----------+   +--------------+    \__________/    +-------------+
+      Resource          CPE Router        __________        Service
+   +-------------+   +--------------+    /          \   +-------------+
+   |             |   |              |   |           |   |             |
+   | DOTS Client +---+ DOTS Gateway +---+ Internet  +---+ DOTS Server |
+   |             |   |              |   |           |   |             |
+   +-------------+   +--------------+    \__________/   +-------------+
 
                    Figure 2: Sample DOTS Deployment (2)
 
@@ -273,7 +272,8 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
 
    (D)TLS is used for statements that apply to both Transport Layer
    Security [RFC5246] [RFC8446] and Datagram Transport Layer Security
-
+   [RFC6347].  Specific terms are used for any statement that applies to
+   either protocol alone.
 
 
 
@@ -281,9 +281,6 @@ Boucadair, et al.       Expires December 5, 2021                [Page 5]
 
 Internet-Draft        DOTS Signal Channel Protocol             June 2021
 
-
-   [RFC6347].  Specific terms are used for any statement that applies to
-   either protocol alone.
 
    The reader should be familiar with the terms defined in [RFC8612] and
    [RFC7252].
@@ -330,6 +327,9 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
    to use a specific port number, such as by explicit configuration or
    dynamic discovery [RFC8973].  Absent such mutual agreement, the DOTS
    signal channel MUST run over port number 4646 as defined in
+   Section 10.1, for both UDP and TCP (that is, the DOTS server listens
+   on port number 4646).  In order to use a distinct port number (as
+
 
 
 
@@ -338,8 +338,6 @@ Boucadair, et al.       Expires December 5, 2021                [Page 6]
 Internet-Draft        DOTS Signal Channel Protocol             June 2021
 
 
-   Section 10.1, for both UDP and TCP (that is, the DOTS server listens
-   on port number 4646).  In order to use a distinct port number (as
    opposed to 4646), DOTS clients and servers SHOULD support a
    configurable parameter to supply the port number to use.
 
@@ -385,6 +383,8 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
    mitigation feedback details.  Mitigation remains active until the
    DOTS client explicitly terminates mitigation or the mitigation
    lifetime expires.  Also, the DOTS server may rely on the signal
+   channel session loss to trigger mitigation for preconfigured
+   mitigation requests (if any).
 
 
 
@@ -393,9 +393,6 @@ Boucadair, et al.       Expires December 5, 2021                [Page 7]
 
 Internet-Draft        DOTS Signal Channel Protocol             June 2021
 
-
-   channel session loss to trigger mitigation for preconfigured
-   mitigation requests (if any).
 
    DOTS signaling can use DTLS over UDP and TLS over TCP.  Likewise,
    DOTS requests may be sent using IPv4 or IPv6 transfer capabilities.
@@ -441,7 +438,10 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
    (Section 5.5.2 of [RFC7252]).  The diagnostic payload may contain
    additional information to aid troubleshooting.
 
-
+   In deployments where multiple DOTS clients are enabled in a single
+   network and administrative domain (called, DOTS client domain), the
+   DOTS server may detect conflicting mitigation requests from these
+   clients.  This document does not aim to specify a comprehensive list
 
 
 
@@ -450,10 +450,6 @@ Boucadair, et al.       Expires December 5, 2021                [Page 8]
 Internet-Draft        DOTS Signal Channel Protocol             June 2021
 
 
-   In deployments where multiple DOTS clients are enabled in a single
-   network and administrative domain (called, DOTS client domain), the
-   DOTS server may detect conflicting mitigation requests from these
-   clients.  This document does not aim to specify a comprehensive list
    of conditions under which a DOTS server will characterize two
    mitigation requests from distinct DOTS clients as conflicting, nor
    does it recommend a DOTS server behavior for processing conflicting
@@ -498,6 +494,10 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
    required.  Note that this range is anticipated to be used by the DOTS
    telemetry [I-D.ietf-dots-telemetry] in which the following means are
    used to prevent message processing failure of a DOTS signal channel
+   message enriched with telemetry data: (1) DOTS agents use dedicated
+   (new) path suffixes (Section 5 of [I-D.ietf-dots-telemetry]) and (2)
+   a DOTS server won't include telemetry attributes in its responses
+
 
 
 
@@ -506,9 +506,6 @@ Boucadair, et al.       Expires December 5, 2021                [Page 9]
 Internet-Draft        DOTS Signal Channel Protocol             June 2021
 
 
-   message enriched with telemetry data: (1) DOTS agents use dedicated
-   (new) path suffixes (Section 5 of [I-D.ietf-dots-telemetry]) and (2)
-   a DOTS server won't include telemetry attributes in its responses
    unless it is explicitly told to do so by a DOTS client (Section 6.1.2
    of [I-D.ietf-dots-telemetry]).
 
@@ -553,6 +550,9 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
          +-----------------------+----------------+-------------+
 
                 Table 1: Operations and Corresponding URIs
+
+
+
 
 
 
@@ -955,7 +955,7 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
 
 
       prefix'.  These validation checks are reiterated by the DOTS
-      client each time a name is passed to the underlying name
+      server each time a name is passed to the underlying name
       resolution library (e.g., upon expiry of DNS TTL).
 
       The use of FQDNs may be suboptimal because:

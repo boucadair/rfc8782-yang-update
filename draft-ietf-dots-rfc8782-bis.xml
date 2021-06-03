@@ -198,13 +198,12 @@
 
       <t><figure align="left" anchor="fig1" title="Sample DOTS Deployment (1)">
           <artwork align="left"><![CDATA[   Network
-   Resource         CPE Router        Access Network     __________
- +-----------+   +--------------+    +-------------+    /          \
- |           |   |              |    |             |    | Internet |
- |DOTS Client+---+ DOTS Gateway +----+ DOTS Server +----+          |
- |           |   |              |    |             |    |          |
- +-----------+   +--------------+    +-------------+    \__________/     
-
+   Resource          CPE Router      Access Network      __________
++-------------+   +--------------+   +-------------+    /          \
+|             |   |              |   |             |    | Internet |
+| DOTS Client +---+ DOTS Gateway +---+ DOTS Server +----+          |
+|             |   |              |   |             |    |          |
++-------------+   +--------------+   +-------------+    \__________/ 
 ]]></artwork>
         </figure></t>
 
@@ -212,13 +211,13 @@
       <xref target="fig_blah"></xref>.</t>
 
       <t><figure anchor="fig_blah" title="Sample DOTS Deployment (2)">
-          <artwork align="center"><![CDATA[  Network                                           DDoS Mitigation
-  Resource         CPE Router        __________         Service
-+-----------+   +--------------+    /          \    +-------------+
-|           |   |              |   |           |    |             |
-|DOTS Client+---+ DOTS Gateway +---+ Internet  +----+ DOTS Server |
-|           |   |              |   |           |    |             |
-+-----------+   +--------------+    \__________/    +-------------+
+          <artwork align="center"><![CDATA[   Network                                           DDoS Mitigation
+   Resource          CPE Router        __________        Service
++-------------+   +--------------+    /          \   +-------------+
+|             |   |              |   |           |   |             |
+| DOTS Client +---+ DOTS Gateway +---+ Internet  +---+ DOTS Server |
+|             |   |              |   |           |   |             |
++-------------+   +--------------+    \__________/   +-------------+
 ]]></artwork>
         </figure></t>
 
@@ -847,7 +846,7 @@
                 name is resolved into one or multiple IP addresses, DOTS
                 servers MUST apply the same validation checks as those for
                 'target-prefix'. These validation checks are reiterated by the
-                DOTS client each time a name is passed to the underlying name
+                DOTS server each time a name is passed to the underlying name
                 resolution library (e.g., upon expiry of DNS TTL).<vspace
                 blankLines="1" />The use of FQDNs may be suboptimal
                 because:<list style="symbols">
