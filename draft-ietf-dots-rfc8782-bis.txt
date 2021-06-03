@@ -966,8 +966,6 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
       *  It does not guarantee that the DOTS server will resolve a name
          to the same IP addresses that the DOTS client does.
 
-      xxxv
-
       This is an optional attribute.
 
    target-uri:  A list of URIs [RFC3986] identifying resources under
@@ -1002,6 +1000,8 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
       lifetime, for policy reasons; the granted lifetime value is
       returned in the response.  DOTS clients MUST be prepared to not be
       granted mitigations with indefinite lifetimes.
+
+
 
 
 

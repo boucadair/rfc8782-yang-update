@@ -856,8 +856,8 @@
                     <t>It does not guarantee that the DOTS server will resolve
                     a name to the same IP addresses that the DOTS client
                     does.</t>
-                  </list><vspace blankLines="1" />xxxv<vspace
-                blankLines="1" />This is an optional attribute.</t>
+                  </list><vspace blankLines="1" />This is an optional
+                attribute.</t>
 
                 <t hangText="target-uri:">A list of URIs <xref
                 target="RFC3986"></xref> identifying resources under attack.
