@@ -13,7 +13,7 @@ Expires: December 5, 2021                                     T. Reddy.K
 
    Distributed Denial-of-Service Open Threat Signaling (DOTS) Signal
                          Channel Specification
-                     draft-ietf-dots-rfc8782-bis-06
+                     draft-ietf-dots-rfc8782-bis-08
 
 Abstract
 
@@ -239,13 +239,13 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
    DOTS servers can also be reachable over the Internet, as depicted in
    Figure 2.
 
-      Network                                           DDoS Mitigation
-      Resource          CPE Router        __________        Service
-   +-------------+   +--------------+    /          \   +-------------+
-   |             |   |              |   |           |   |             |
-   | DOTS Client +---+ DOTS Gateway +---+ Internet  +---+ DOTS Server |
-   |             |   |              |   |           |   |             |
-   +-------------+   +--------------+    \__________/   +-------------+
+       Network                                          DDoS Mitigation
+       Resource          CPE Router        _________        Service
+    +-------------+   +--------------+    /         \   +-------------+
+    |             |   |              |   |          |   |             |
+    | DOTS Client +---+ DOTS Gateway +---+ Internet +---+ DOTS Server |
+    |             |   |              |   |          |   |             |
+    +-------------+   +--------------+    \_________/   +-------------+
 
                    Figure 2: Sample DOTS Deployment (2)
 
@@ -954,9 +954,9 @@ Boucadair, et al.       Expires December 5, 2021               [Page 17]
 Internet-Draft        DOTS Signal Channel Protocol             June 2021
 
 
-      prefix'.  These validation checks are reiterated by the DOTS
-      server each time a name is passed to the underlying name
-      resolution library (e.g., upon expiry of DNS TTL).
+      prefix'.  These validation checks are reiterated by DOTS servers
+      each time a name is passed to an underlying name resolution
+      library (e.g., upon expiry of DNS TTL).
 
       The use of FQDNs may be suboptimal because:
 
@@ -1337,7 +1337,7 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
 
    The DOTS server indicates the result of processing the PUT request
    using CoAP Response Codes.  CoAP 2.xx codes are success.  CoAP 4.xx
-   codes are some sort of invalid requests (client errors).  COAP 5.xx
+   codes are some sort of invalid requests (client errors).  CoAP 5.xx
 
 
 
@@ -1983,7 +1983,7 @@ Internet-Draft        DOTS Signal Channel Protocol             June 2021
    used is typically application dependent and may be determined by the
    server for each notification individually.  For the DOTS server
    application, the message type MUST always be set to Non-confirmable
-   even if the underlying COAP library elects a notification to be sent
+   even if the underlying CoAP library elects a notification to be sent
    in a Confirmable message.  This overrides the behavior defined in
    Section 4.5 of [RFC7641] to send a Confirmable message instead of a
    Non-confirmable message at least every 24 hours for the following

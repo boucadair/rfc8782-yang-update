@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-dots-rfc8782-bis-06" ipr="trust200902"
+<rfc category="std" docName="draft-ietf-dots-rfc8782-bis-08" ipr="trust200902"
      obsoletes="8782">
   <front>
     <title abbrev="DOTS Signal Channel Protocol">Distributed Denial-of-Service
@@ -211,13 +211,13 @@
       <xref target="fig_blah"></xref>.</t>
 
       <t><figure anchor="fig_blah" title="Sample DOTS Deployment (2)">
-          <artwork align="center"><![CDATA[   Network                                           DDoS Mitigation
-   Resource          CPE Router        __________        Service
-+-------------+   +--------------+    /          \   +-------------+
-|             |   |              |   |           |   |             |
-| DOTS Client +---+ DOTS Gateway +---+ Internet  +---+ DOTS Server |
-|             |   |              |   |           |   |             |
-+-------------+   +--------------+    \__________/   +-------------+
+          <artwork align="center"><![CDATA[   Network                                          DDoS Mitigation
+   Resource          CPE Router        _________        Service
++-------------+   +--------------+    /         \   +-------------+
+|             |   |              |   |          |   |             |
+| DOTS Client +---+ DOTS Gateway +---+ Internet +---+ DOTS Server |
+|             |   |              |   |          |   |             |
++-------------+   +--------------+    \_________/   +-------------+
 ]]></artwork>
         </figure></t>
 
@@ -845,8 +845,8 @@
                 implementation and deployment specific. Nevertheless, once the
                 name is resolved into one or multiple IP addresses, DOTS
                 servers MUST apply the same validation checks as those for
-                'target-prefix'. These validation checks are reiterated by the
-                DOTS server each time a name is passed to the underlying name
+                'target-prefix'. These validation checks are reiterated by
+                DOTS servers each time a name is passed to an underlying name
                 resolution library (e.g., upon expiry of DNS TTL).<vspace
                 blankLines="1" />The use of FQDNs may be suboptimal
                 because:<list style="symbols">
@@ -1138,7 +1138,7 @@
             <t>The DOTS server indicates the result of processing the PUT
             request using CoAP Response Codes. CoAP 2.xx codes are success.
             CoAP 4.xx codes are some sort of invalid requests (client errors).
-            COAP 5.xx codes are returned if the DOTS server is in an error
+            CoAP 5.xx codes are returned if the DOTS server is in an error
             state or is currently unavailable to provide mitigation in
             response to the mitigation request from the DOTS client.</t>
 
@@ -1672,7 +1672,7 @@
             typically application dependent and may be determined by the
             server for each notification individually. For the DOTS server
             application, the message type MUST always be set to
-            Non-confirmable even if the underlying COAP library elects a
+            Non-confirmable even if the underlying CoAP library elects a
             notification to be sent in a Confirmable message. This overrides
             the behavior defined in Section 4.5 of <xref
             target="RFC7641"></xref> to send a Confirmable message instead of
