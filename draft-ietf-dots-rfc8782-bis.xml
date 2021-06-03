@@ -431,17 +431,19 @@
         <xref target="changes"></xref>. These modifications are made with the
         constraint to avoid changes to the mapping table defined in Table 5 of
         <xref target="RFC8782"></xref> (see also <xref
-        target="mapping"></xref>). For both legacy <xref
-        target="RFC8782"></xref> and implementations that follow the present
-        specification, a DOTS signal channel attribute will thus have the same
-        CBOR key value and CBOR major type. The only upgrade that is required
-        to <xref target="RFC8782"></xref> implementations is to handle the
-        CBOR key value range "128-255" as comprehension-optional instead of
-        comprehension-required. Note that this range is anticipated to be used
-        by the DOTS telemetry <xref target="I-D.ietf-dots-telemetry"></xref>
-        in which the following means are used to prevent message processing
-        failure of a DOTS signal channel message enriched with telemetry data:
-        (1) DOTS agents use dedicated (new) path suffixes (Section 5 of <xref
+        target="mapping"></xref> of the present document). </t>
+
+        <t>For both legacy <xref target="RFC8782"></xref> and implementations
+        that follow the present specification, a DOTS signal channel attribute
+        will thus have the same CBOR key value and CBOR major type. The only
+        upgrade that is required to <xref target="RFC8782"></xref>
+        implementations is to handle the CBOR key value range "128-255" as
+        comprehension-optional instead of comprehension-required. Note that
+        this range is anticipated to be used by the DOTS telemetry <xref
+        target="I-D.ietf-dots-telemetry"></xref> in which the following means
+        are used to prevent message processing failure of a DOTS signal
+        channel message enriched with telemetry data: (1) DOTS agents use
+        dedicated (new) path suffixes (Section 5 of <xref
         target="I-D.ietf-dots-telemetry"></xref>) and (2) a DOTS server won't
         include telemetry attributes in its responses unless it is explicitly
         told to do so by a DOTS client (Section 6.1.2 of <xref
@@ -842,8 +844,11 @@
                 implementation and deployment specific. Nevertheless, once the
                 name is resolved into one or multiple IP addresses, DOTS
                 servers MUST apply the same validation checks as those for
-                'target-prefix'.<vspace blankLines="1" />The use of FQDNs may
-                be suboptimal because:<list style="symbols">
+                'target-prefix'. These validation checks are reiterated by the
+                DOTS client each time a name is passed to the underlying name
+                resolution library (e.g., upon expiry of DNS TTL).<vspace
+                blankLines="1" />The use of FQDNs may be suboptimal
+                because:<list style="symbols">
                     <t>It induces both an extra load and increased delays on
                     the DOTS server to handle and manage DNS resolution
                     requests.</t>
@@ -851,8 +856,8 @@
                     <t>It does not guarantee that the DOTS server will resolve
                     a name to the same IP addresses that the DOTS client
                     does.</t>
-                  </list><vspace blankLines="1" />This is an optional
-                attribute.</t>
+                  </list><vspace blankLines="1" />xxxv<vspace
+                blankLines="1" />This is an optional attribute.</t>
 
                 <t hangText="target-uri:">A list of URIs <xref
                 target="RFC3986"></xref> identifying resources under attack.
@@ -5402,8 +5407,8 @@ NEW:
 
       <t>Thanks to Benjamin Kaduk for the AD review.</t>
 
-      <t>Thanks to Martin Duke, Lars Eggert, &Eacute;ric Vyncke, and Robert
-      Wilton for the IESG review.</t>
+      <t>Thanks to Martin Duke, Lars Eggert, Erik Kline, Murray Kucherawy,
+      &Eacute;ric Vyncke, and Robert Wilton for the IESG review.</t>
 
       <section title="Acknowledgements from RFC8782">
         <t>Thanks to Christian Jacquenet, Roland Dobbins, Roman Danyliw,
